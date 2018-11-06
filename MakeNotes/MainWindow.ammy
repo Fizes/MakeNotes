@@ -1,0 +1,7 @@
+﻿using MakeNotes
+
+Window "MakeNotes.MainWindow" {
+    Title: "Make Notes"
+    Height: 480
+    Width: 640
+}

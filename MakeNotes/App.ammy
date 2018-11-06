@@ -1,0 +1,5 @@
+﻿using MakeNotes
+
+Application "MakeNotes.App" {
+    StartupUri: "MainWindow.g.xaml"
+}

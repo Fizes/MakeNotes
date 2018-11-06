@@ -1,0 +1,1 @@
+<Window x:Class="MakeNotes.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:AmmySidekick;assembly=AmmySidekick" Title="Make Notes" Height="480" Width="640" ns0:Ammy.Register="/MakeNotes;component/MainWindow.g.xaml"/>
