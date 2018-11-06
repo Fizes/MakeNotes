@@ -104,6 +104,20 @@
       <DependentUpon>MainWindow.ammy</DependentUpon>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MakeNotes.Common\MakeNotes.Common.csproj">
+      <Project>{0a3e1b0c-10e5-4f93-b0c7-dde6573a9673}</Project>
+      <Name>MakeNotes.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MakeNotes.Framework\MakeNotes.Framework.csproj">
+      <Project>{0570eda6-568b-4223-b0b6-8039f4626ca4}</Project>
+      <Name>MakeNotes.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\MakeNotes.Notebook\MakeNotes.Notebook.csproj">
+      <Project>{91c6e9cf-03bb-4848-b296-5c38a6de40ae}</Project>
+      <Name>MakeNotes.Notebook</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Ammy.1.2.94\build\Ammy.targets" Condition="Exists('..\packages\Ammy.1.2.94\build\Ammy.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
