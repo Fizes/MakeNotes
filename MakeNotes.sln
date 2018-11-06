@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeNotes", "MakeNotes\MakeNotes.csproj", "{224B2EFB-5515-4727-B337-6D40DD31030F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{224B2EFB-5515-4727-B337-6D40DD31030F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{224B2EFB-5515-4727-B337-6D40DD31030F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{224B2EFB-5515-4727-B337-6D40DD31030F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{224B2EFB-5515-4727-B337-6D40DD31030F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AB8F9CA4-6126-40EA-9BD2-196897D9E50F}
+	EndGlobalSection
+EndGlobal
