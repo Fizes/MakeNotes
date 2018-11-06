@@ -1,7 +1,22 @@
 ﻿using MakeNotes
+using MaterialDesignThemes.Wpf
 
 Window "MakeNotes.MainWindow" {
     Title: "Make Notes"
     Height: 480
     Width: 640
+    Background: resource dyn "MaterialDesignPaper"
+    TextElement.Foreground: resource dyn "MaterialDesignBody"
+    TextElement.FontWeight: "Medium"
+    TextElement.FontSize: 14
+    FontFamily: "pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+
+    Card {
+        Padding: 32
+        Margin: 16
+        TextBlock {
+            Style: resource dyn "MaterialDesignTitleTextBlock"
+            Text: "Title"
+        }
+    }
 }

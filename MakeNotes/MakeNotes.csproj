@@ -98,6 +98,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="App.g.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <DependentUpon>App.ammy</DependentUpon>
+    </Page>
     <Page Include="MainWindow.g.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
