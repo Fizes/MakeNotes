@@ -29,7 +29,7 @@ ResourceDictionary {
             }
         }
     }
-    
+
     Style Key="Navbar" {
         TargetType: Grid
         #Setter("DockPanel.Dock", "Top")

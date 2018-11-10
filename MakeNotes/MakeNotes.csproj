@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>MakeNotes</RootNamespace>
     <AssemblyName>MakeNotes</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -16,6 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -101,7 +102,9 @@
     <None Include="Styles.ammy" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Include="App.g.xaml">
@@ -126,7 +129,7 @@
       <Name>MakeNotes.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\MakeNotes.Framework\MakeNotes.Framework.csproj">
-      <Project>{0570eda6-568b-4223-b0b6-8039f4626ca4}</Project>
+      <Project>{3ba89279-3052-4091-8d04-f12b56cbfca2}</Project>
       <Name>MakeNotes.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\MakeNotes.Notebook\MakeNotes.Notebook.csproj">
