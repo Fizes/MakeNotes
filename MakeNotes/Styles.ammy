@@ -1,0 +1,63 @@
+﻿using Dragablz
+using MakeNotes
+using MaterialDesignThemes.Wpf
+
+ResourceDictionary {
+    // TabablzControl background
+    SolidColorBrush Key="PrimaryHueMidBrush" { Color: "SteelBlue" }
+    // TabablzControl underline
+    SolidColorBrush Key="SecondaryAccentBrush" { Color: "GhostWhite" }
+    
+    SolidColorBrush Key="NavbarBackgroundBrush" { Color: bind Color from $resource PrimaryHueMidBrush }
+    
+    Style Key="MainWindow" {
+        TargetType: Window
+        #Setter("MinWidth", "640")
+        #Setter("MinHeight", "480")
+        #Setter("Background", resource dyn "MaterialDesignPaper")
+        #Setter("TextElement.Foreground", resource "MaterialDesignBody")
+        #Setter("TextElement.FontWeight", "Medium")
+        #Setter("TextElement.FontSize", "14")
+        #Setter("FontFamily", "pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto")
+        #Setter("WindowStyle", "None")
+        #Setter("ResizeMode", "CanResizeWithGrip")
+        Setter {
+            Property: "WindowChrome.WindowChrome"
+            Value: WindowChrome {
+                CaptionHeight: 22
+                ResizeBorderThickness: 5
+            }
+        }
+    }
+    
+    Style Key="Navbar" {
+        TargetType: Grid
+        #Setter("DockPanel.Dock", "Top")
+        #Setter("Background", resource "NavbarBackgroundBrush")
+    }
+    
+    Style Key="NavbarTitle" {
+        TargetType: TextBlock
+        #Setter("HorizontalAlignment", "Center")
+        #Setter("VerticalAlignment", "Center")
+        #Setter("Margin", "0,24,0,6")
+        #Setter("FontSize", "22")
+    }
+    
+    Style Key="NavbarHeader" {
+        TargetType: TabablzControl
+        BasedOn: resource "MaterialDesignTabablzControlStyle"
+        #Setter("Margin", "0,-0.5,0,0.5")
+        #Setter("FontSize", "16")
+        #Setter("FixedHeaderCount", "999")
+    }
+    
+    Style Key="NavbarPopupBox" {
+        TargetType: PopupBox
+        #Setter("HorizontalAlignment", "Right")
+        #Setter("VerticalAlignment", "Center")
+        #Setter("PlacementMode", "BottomAndAlignRightEdges")
+        #Setter("Margin", "24,24,24,6")
+        #Setter("StaysOpen", "false")
+    }
+}

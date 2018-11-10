@@ -1,13 +1,13 @@
-﻿using MakeNotes
-
-Application "MakeNotes.App" {
+﻿Application "MakeNotes.App" {
     StartupUri: "MainWindow.g.xaml"
     Resources: ResourceDictionary {
-        MergedDictionaries: [
-            ResourceDictionary { Source: "pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" }
-            ResourceDictionary { Source: "pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" }
-            ResourceDictionary { Source: "pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" }
-            ResourceDictionary { Source: "pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" }
-        ]
+        #MergeDictionary("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml")
+        #MergeDictionary("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml")
+        #MergeDictionary("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.LightBlue.xaml")
+        #MergeDictionary("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml")
+        // Include the Dragablz Material Design style
+        #MergeDictionary("pack://application:,,,/Dragablz;component/Themes/MaterialDesign.xaml")
+        // Custom styles
+        #MergeDictionary("/Styles.g.xaml")
     }
 }

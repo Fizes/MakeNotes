@@ -1,22 +1,50 @@
-﻿using MakeNotes
+﻿using Dragablz
+using Dragablz.Dockablz
+using MakeNotes
 using MaterialDesignThemes.Wpf
 
-Window "MakeNotes.MainWindow" {
-    Title: "Make Notes"
-    Height: 480
-    Width: 640
-    Background: resource dyn "MaterialDesignPaper"
-    TextElement.Foreground: resource dyn "MaterialDesignBody"
-    TextElement.FontWeight: "Medium"
-    TextElement.FontSize: 14
-    FontFamily: "pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+$title = "Make Notes"
 
-    Card {
-        Padding: 32
-        Margin: 16
-        TextBlock {
-            Style: resource dyn "MaterialDesignTitleTextBlock"
-            Text: "Title"
+Window "MakeNotes.MainWindow" {
+    Style: resource "MainWindow"
+    Title: $title
+    Height: 680
+    Width: 960
+
+    DockPanel {
+        TextElement.Foreground: resource "SecondaryAccentBrush"
+
+        Grid "Navbar" {
+            Style: resource "Navbar"
+
+            TextBlock {
+                Style: resource "NavbarTitle"
+                Text: $title
+            }
+
+            PopupBox {
+                Style: resource "NavbarPopupBox"
+                StackPanel {
+                    Button { Content: "Options" }
+                    Separator {}
+                    Button { Content: "Exit" }
+                }
+            }
         }
+
+        TabablzControl {
+            Style: resource "NavbarHeader"
+
+            TabItem {
+                Header: "One"
+            }
+            TabItem {
+                Header: "Two"
+            }
+            TabItem {
+                Header: "Three"
+            }
+        }
+
     }
 }
