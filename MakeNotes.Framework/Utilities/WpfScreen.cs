@@ -4,8 +4,11 @@ using System.Windows;
 using System.Windows.Interop;
 using static MakeNotes.Framework.Wind32.Win32Api;
 
-namespace MakeNotes.Framework
+namespace MakeNotes.Framework.Utilities
 {
+    /// <summary>
+    /// Utility class containing WPF-specific methods associated with a display monitor.
+    /// </summary>
     public static class WpfScreen
     {
         private static void WmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam)
@@ -51,6 +54,12 @@ namespace MakeNotes.Framework
             return IntPtr.Zero;
         }
 
+        /// <summary>
+        /// Attaches a handler that is called when the window is moved to properly set the window's max height and width
+        /// depending on current screen to prevent covering the taskbar by the window when it is maximized.
+        /// Used in scenario when WindowStyle is set to None and the window covers the taskbar when is maximized.
+        /// </summary>
+        /// <param name="window">WPF window instance.</param>
         public static void AttachWindowResizingHandler(Window window)
         {
             IntPtr mWindowHandle = new WindowInteropHelper(window).Handle;

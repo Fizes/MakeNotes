@@ -8,6 +8,6 @@
         // Include the Dragablz Material Design style
         #MergeDictionary("pack://application:,,,/Dragablz;component/Themes/MaterialDesign.xaml")
         // Custom styles
-        #MergeDictionary("/Styles.g.xaml")
+        #MergeDictionary("/Resources/Generic.g.xaml")
     }
 }

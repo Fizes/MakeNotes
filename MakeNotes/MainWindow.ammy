@@ -33,7 +33,7 @@ Window "MakeNotes.MainWindow" {
         }
 
         TabablzControl {
-            Style: resource "NavbarHeader"
+            Style: resource "NavbarTabControl"
 
             TabItem {
                 Header: "One"

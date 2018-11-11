@@ -1,5 +1,5 @@
 ﻿using System;
-using MakeNotes.Framework;
+using MakeNotes.Framework.Utilities;
 
 namespace MakeNotes
 {

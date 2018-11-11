@@ -10,7 +10,7 @@
         </StackPanel>
       </ns0:PopupBox>
     </Grid>
-    <ns1:TabablzControl Style="{StaticResource NavbarHeader}">
+    <ns1:TabablzControl Style="{StaticResource NavbarTabControl}">
       <TabItem Header="One"/>
       <TabItem Header="Two"/>
       <TabItem Header="Three"/>

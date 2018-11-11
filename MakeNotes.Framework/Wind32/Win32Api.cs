@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace MakeNotes.Framework.Wind32
 {
+    /// <summary>
+    /// Contains methods of Win32 Api.
+    /// </summary>
     internal static class Win32Api
     {
         [DllImport(Win32Assemblies.User32)]

@@ -14,7 +14,7 @@ ResourceDictionary {
         TargetType: Window
         #Setter("MinWidth", "640")
         #Setter("MinHeight", "480")
-        #Setter("Background", resource dyn "MaterialDesignPaper")
+        #Setter("Background", resource "MaterialDesignPaper")
         #Setter("TextElement.Foreground", resource "MaterialDesignBody")
         #Setter("TextElement.FontWeight", "Medium")
         #Setter("TextElement.FontSize", "14")
@@ -44,7 +44,7 @@ ResourceDictionary {
         #Setter("FontSize", "22")
     }
     
-    Style Key="NavbarHeader" {
+    Style Key="NavbarTabControl" {
         TargetType: TabablzControl
         BasedOn: resource "MaterialDesignTabablzControlStyle"
         #Setter("Margin", "0,-0.5,0,0.5")
