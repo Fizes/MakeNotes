@@ -6,13 +6,14 @@ using MaterialDesignThemes.Wpf
 $title = "Make Notes"
 
 Window "MakeNotes.MainWindow" {
-    Style: resource "MainWindow"
+    Style: resource dyn "MainWindow"
     Title: $title
     Height: 680
     Width: 960
+    WindowStartupLocation: CenterScreen
 
     DockPanel {
-        TextElement.Foreground: resource "SecondaryAccentBrush"
+        TextElement.Foreground: resource "NavbarForegroundBrush"
 
         Grid "Navbar" {
             Style: resource "Navbar"
@@ -45,6 +46,5 @@ Window "MakeNotes.MainWindow" {
                 Header: "Three"
             }
         }
-
     }
 }

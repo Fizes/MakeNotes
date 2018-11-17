@@ -1,5 +1,5 @@
-<Window x:Class="MakeNotes.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:Dragablz;assembly=Dragablz" xmlns:ns2="clr-namespace:AmmySidekick;assembly=AmmySidekick" Style="{StaticResource MainWindow}" Title="Make Notes" Height="680" Width="960" ns2:Ammy.Register="/MakeNotes;component/MainWindow.g.xaml">
-  <DockPanel TextElement.Foreground="{StaticResource SecondaryAccentBrush}">
+<Window x:Class="MakeNotes.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:Dragablz;assembly=Dragablz" xmlns:ns2="clr-namespace:AmmySidekick;assembly=AmmySidekick" Style="{DynamicResource MainWindow}" Title="Make Notes" Height="680" Width="960" WindowStartupLocation="CenterScreen" ns2:Ammy.Register="/MakeNotes;component/MainWindow.g.xaml">
+  <DockPanel TextElement.Foreground="{StaticResource NavbarForegroundBrush}">
     <Grid x:Name="Navbar" Style="{StaticResource Navbar}">
       <TextBlock Style="{StaticResource NavbarTitle}" Text="Make Notes"/>
       <ns0:PopupBox Style="{StaticResource NavbarPopupBox}">

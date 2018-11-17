@@ -3,12 +3,15 @@ using MakeNotes
 using MaterialDesignThemes.Wpf
 
 ResourceDictionary {
+    SolidColorBrush Key="WindowBackground" { Color: bind Color from $resource BlueGrey900 }
     // TabablzControl background
-    SolidColorBrush Key="PrimaryHueMidBrush" { Color: "SteelBlue" }
+    SolidColorBrush Key="PrimaryHueMidBrush" { Color: bind Color from $resource BlueGrey800 }
     // TabablzControl underline
-    SolidColorBrush Key="SecondaryAccentBrush" { Color: "GhostWhite" }
+    SolidColorBrush Key="SecondaryAccentBrush" { Color: "#40C4FF" }
     
     SolidColorBrush Key="NavbarBackgroundBrush" { Color: bind Color from $resource PrimaryHueMidBrush }
+    
+    SolidColorBrush Key="NavbarForegroundBrush" { Color: "GhostWhite" }
     
     Style Key="MainWindow" {
         TargetType: Window
@@ -16,16 +19,18 @@ ResourceDictionary {
         #Setter("MinHeight", "480")
         #Setter("Background", resource "MaterialDesignPaper")
         #Setter("TextElement.Foreground", resource "MaterialDesignBody")
-        #Setter("TextElement.FontWeight", "Medium")
         #Setter("TextElement.FontSize", "14")
         #Setter("FontFamily", "pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto")
-        #Setter("WindowStyle", "None")
+        #Setter("UseLayoutRounding", true)
         #Setter("ResizeMode", "CanResizeWithGrip")
+        #Setter("Template", resource dyn "WindowTemplate")
         Setter {
             Property: "WindowChrome.WindowChrome"
             Value: WindowChrome {
-                CaptionHeight: 22
-                ResizeBorderThickness: 5
+                CornerRadius: 0
+                GlassFrameThickness: 1
+                UseAeroCaptionButtons: false
+                NonClientFrameEdges: None
             }
         }
     }
@@ -40,8 +45,8 @@ ResourceDictionary {
         TargetType: TextBlock
         #Setter("HorizontalAlignment", "Center")
         #Setter("VerticalAlignment", "Center")
-        #Setter("Margin", "0,24,0,6")
-        #Setter("FontSize", "22")
+        #Setter("Margin", "0,12,0,6")
+        #Setter("FontSize", "20")
     }
     
     Style Key="NavbarTabControl" {
@@ -49,7 +54,6 @@ ResourceDictionary {
         BasedOn: resource "MaterialDesignTabablzControlStyle"
         #Setter("Margin", "0,-0.5,0,0.5")
         #Setter("FontSize", "16")
-        #Setter("FixedHeaderCount", "999")
     }
     
     Style Key="NavbarPopupBox" {
@@ -57,7 +61,7 @@ ResourceDictionary {
         #Setter("HorizontalAlignment", "Right")
         #Setter("VerticalAlignment", "Center")
         #Setter("PlacementMode", "BottomAndAlignRightEdges")
-        #Setter("Margin", "24,24,24,6")
+        #Setter("Margin", "12,12,12,6")
         #Setter("StaysOpen", "false")
     }
 }

@@ -1,0 +1,258 @@
+﻿mixin SystemButtonSize () for Grid {
+  Width: 13
+  Height: 12
+}
+
+mixin SystemButtonPath (data, width, height, strokeThickness) for Path {
+  Data: $data
+  Width: $width
+  Height: $height
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  Stroke: bind Foreground from $ancestor<Button>(1)
+  StrokeThickness: $strokeThickness
+}
+
+$systemButtonHeight = "24"
+$systemButtonWidth = "32"
+$closeButtonWidth = "32"
+
+ResourceDictionary {
+  SolidColorBrush Key="SystemButtonBackgroundOnMoseOver" { Color: bind Color from $resource BlueGrey700 }
+  SolidColorBrush Key="SystemButtonForegroundOnMoseOver" { Color: bind Color from $resource BlueGrey100 }
+  SolidColorBrush Key="SystemButtonBackgroundIsPressed" { Color: bind Color from $resource BlueGrey500 }
+  SolidColorBrush Key="SystemButtonForegroundIsPressed" { Color: bind Color from $resource BlueGrey100 }
+
+  SolidColorBrush Key="ButtonText" { Color: "#A8ADAF" }
+  SolidColorBrush Key="ButtonTextDisabled" { Color: "#515151" }
+
+  SolidColorBrush Key="CloseButtonBackground" { Color: "Transparent" }
+  SolidColorBrush Key="CloseButtonBackgroundOnMoseOver" { Color: bind Color from $resource SystemButtonBackgroundOnMoseOver }
+  SolidColorBrush Key="CloseButtonForegroundOnMoseOver" { Color: bind Color from $resource SystemButtonForegroundOnMoseOver }
+  SolidColorBrush Key="CloseButtonBackgroundIsPressed" { Color: "#e51400" }
+  SolidColorBrush Key="CloseButtonForegroundIsPressed" { Color:  bind Color from $resource SystemButtonForegroundIsPressed }
+
+  SolidColorBrush Key="ResizeGripColor" { Color: "#333333" }
+  
+  Style Key="SystemButtonBase" {
+    TargetType: ButtonBase
+    #Setter("Background", "Transparent")
+    #Setter("BorderThickness", 0)
+    #Setter("HorizontalContentAlignment", "Center")
+    #Setter("VerticalContentAlignment", "Center")
+    #Setter("Padding", 1)
+    Setter {
+      Property: "Template"
+      Value: ControlTemplate {
+        TargetType: ButtonBase
+        Border {
+          Name: "Chrome"
+          Background: "{TemplateBinding Background}"
+          BorderThickness: "{TemplateBinding BorderThickness}"
+          BorderBrush: "{TemplateBinding BorderBrush}"
+          SnapsToDevicePixels: true
+          ContentPresenter {
+            Margin: "{TemplateBinding Padding}"
+            VerticalAlignment: "{TemplateBinding VerticalContentAlignment}"
+            HorizontalAlignment: "{TemplateBinding HorizontalContentAlignment}"
+            SnapsToDevicePixels: "{TemplateBinding SnapsToDevicePixels}"
+            RecognizesAccessKey: true
+          }
+        }
+      }
+    }
+  }
+
+  Style Key="SystemButton" {
+    TargetType: ButtonBase
+    BasedOn: resource "SystemButtonBase"
+    #Setter("Width", $systemButtonWidth)
+    #Setter("Height", $systemButtonHeight)
+    #Setter("Foreground", resource dyn "ButtonText")
+    Triggers: [
+      Trigger {
+        Property: "IsMouseOver"
+        Value: true
+        #Setter("Background", resource dyn "SystemButtonBackgroundOnMoseOver")
+        #Setter("Foreground", resource dyn "SystemButtonForegroundOnMoseOver")
+      }
+      Trigger {
+        Property: "IsPressed"
+        Value: true
+        #Setter("Background", resource dyn "SystemButtonBackgroundIsPressed")
+        #Setter("Foreground", resource dyn "SystemButtonForegroundIsPressed")
+      }
+      Trigger {
+        Property: "IsEnabled"
+        Value: false
+        #Setter("Foreground", resource dyn "ButtonTextDisabled")
+      }
+    ]
+  }
+
+  Style Key="SystemCloseButton" {
+    TargetType: "ButtonBase"
+    BasedOn: resource "SystemButton"
+    #Setter("Width", $closeButtonWidth)
+    #Setter("Background", resource dyn "CloseButtonBackground")
+    Triggers: [
+      Trigger {
+        Property: "IsMouseOver"
+        Value: true
+        #Setter("Background", resource dyn "CloseButtonBackgroundOnMoseOver")
+        #Setter("Foreground", resource dyn "CloseButtonForegroundOnMoseOver")
+      }
+      Trigger {
+        Property: "IsPressed"
+        Value: true
+        #Setter("Background", resource dyn "CloseButtonBackgroundIsPressed")
+        #Setter("Foreground", resource dyn "CloseButtonForegroundIsPressed")
+      }
+      Trigger {
+        Property: "IsEnabled"
+        Value: false
+        #Setter("Foreground", resource dyn "ButtonTextDisabled")
+      }
+    ]
+  }
+
+  ControlTemplate Key="WindowTemplate" {
+    TargetType: Window
+
+    Border "WindowBorder" {
+      BorderBrush: resource "WindowBackground"
+      BorderThickness: 1
+      Margin: bind from SystemParameters.WindowNonClientFrameThickness
+
+      Border {
+        Background: "{TemplateBinding Background}"
+        BorderBrush: "{TemplateBinding BorderBrush}"
+        BorderThickness: 0
+
+        AdornerDecorator {
+          Grid "LayoutRoot" {
+            #ThreeRows("Auto", "Auto", "*")
+            
+            Grid {
+              Grid.Row: 0
+              Background: resource "WindowBackground"
+              #FourColumns("*", "Auto", "Auto", "Auto")
+            
+              StackPanel {
+                Grid.Column: 3
+                Orientation: Horizontal
+                VerticalAlignment: Top
+                WindowChrome.IsHitTestVisibleInChrome: true
+                
+                Button {
+                  Command: bind from SystemCommands.MinimizeWindowCommand
+                  ToolTip: "Minimize"
+                  Style: resource "SystemButton"
+                  Content: Grid {
+                    #SystemButtonSize()
+                    RenderTransform: "1,0,0,1,0,1"
+                    Path {
+                      #SystemButtonPath("M0,6 L8,6 Z", 8, 7, 2)
+                    }
+                  }
+                }
+                
+                Grid {
+                  Margin: "1,0,1,0"
+                  Button "Restore" {
+                    Command: bind from SystemCommands.RestoreWindowCommand
+                    ToolTip: "Restore"
+                    Style: resource "SystemButton"
+                    Visibility: Collapsed
+                    Content: Grid {
+                      #SystemButtonSize()
+                      UseLayoutRounding: true
+                      RenderTransform: "1,0,0,1,.5,.5"
+                      Path {
+                        #SystemButtonPath("M2,0 L8,0 L8,6 M0,3 L6,3 M0,2 L6,2 L6,8 L0,8 Z", 8, 8, 1)
+                      }
+                    }
+                  }
+              
+                  Button "Maximize" {
+                    Command: bind from SystemCommands.MaximizeWindowCommand
+                    ToolTip: "Maximize"
+                    Style: resource "SystemButton"
+                    Content: Grid {
+                      #SystemButtonSize()
+                      Path {
+                        #SystemButtonPath("M0,1 L9,1 L9,8 L0,8 Z", 9, 8, 2)
+                      }
+                    }
+                  }
+                }
+              
+                Button {
+                  Command: bind from SystemCommands.CloseWindowCommand
+                  ToolTip: "Close"
+                  Style: resource "SystemCloseButton"
+                  Content: Grid {
+                    #SystemButtonSize()
+                    RenderTransform: "1,0,0,1,0,1"
+                    Path {
+                      #SystemButtonPath("M0,0 L8,7 M8,0 L0,7 Z", 8, 7, 1.5)
+                    }
+                  }
+                }
+              }
+            }
+
+            ContentPresenter { Grid.Row: 1 }
+
+            Grid "ResizeGrip" {
+              Grid.Row: 2
+              Background: Transparent
+              Visibility: Collapsed
+              HorizontalAlignment: Right
+              VerticalAlignment: Bottom
+              WindowChrome.ResizeGripDirection: BottomRight
+              Path {
+                Width: 12
+                Height: 12
+                Margin: 1
+                Stroke: resource dyn "ResizeGripColor"
+                StrokeThickness: 1
+                Stretch: None
+                Data: "F1 M1,10 L3,10 M5,10 L7,10 M9,10 L11,10 M2,9 L2,11 M6,9 L6,11 M10,9 L10,11 M5,6 L7,6 M9,6 L11,6 M6,5 L6,7 M10,5 L10,7 M9,2 L11,2 M10,1 L10,3"
+              }
+            }
+          }
+        }
+      }
+    }
+
+    Triggers: [
+      Trigger {
+        Property: "WindowState"
+        Value: "Maximized"
+        #Setter("Visibility", "Collapsed", "Maximize")
+        #Setter("Visibility", "Visible", "Restore")
+        #Setter("Margin", 7, "LayoutRoot")
+      }
+      Trigger {
+        Property: "WindowState"
+        Value: "Normal"
+        #Setter("Visibility", "Visible", "Maximize")
+        #Setter("Visibility", "Collapsed", "Restore")
+      }
+      MultiTrigger {
+        Conditions: [
+          Condition {
+            Property: "ResizeMode"
+            Value: "CanResizeWithGrip"
+          }
+          Condition {
+            Property: "WindowState"
+            Value: "Normal"
+          }
+        ]
+        #Setter("Visibility", "Visible", "ResizeGrip")
+      }
+    ]
+  }
+}

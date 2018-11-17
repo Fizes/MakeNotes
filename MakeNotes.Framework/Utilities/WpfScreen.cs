@@ -2,7 +2,8 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
-using static MakeNotes.Framework.Wind32.Win32Api;
+using MakeNotes.Framework.Win32;
+using static MakeNotes.Framework.Win32.NativeMethods;
 
 namespace MakeNotes.Framework.Utilities
 {

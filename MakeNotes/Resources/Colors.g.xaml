@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <SolidColorBrush x:Key="BlueGrey50" Color="#ECEFF1"/>
+  <SolidColorBrush x:Key="BlueGrey100" Color="#CFD8DC"/>
+  <SolidColorBrush x:Key="BlueGrey200" Color="#B0BEC5"/>
+  <SolidColorBrush x:Key="BlueGrey300" Color="#90A4AE"/>
+  <SolidColorBrush x:Key="BlueGrey400" Color="#78909C"/>
+  <SolidColorBrush x:Key="BlueGrey500" Color="#607D8B"/>
+  <SolidColorBrush x:Key="BlueGrey600" Color="#546E7A"/>
+  <SolidColorBrush x:Key="BlueGrey700" Color="#455A64"/>
+  <SolidColorBrush x:Key="BlueGrey800" Color="#37474F"/>
+  <SolidColorBrush x:Key="BlueGrey900" Color="#263238"/>
+</ResourceDictionary>

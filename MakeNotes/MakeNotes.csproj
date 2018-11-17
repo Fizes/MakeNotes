@@ -140,6 +140,7 @@
     <None Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Colors.ammy" />
     <None Include="Resources\lib.ammy" />
     <None Include="MainWindow.ammy" />
     <None Include="packages.config">
@@ -150,6 +151,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Resources\Generic.ammy" />
+    <None Include="Resources\WindowStyle.ammy" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -162,6 +164,11 @@
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <DependentUpon>App.ammy</DependentUpon>
     </Page>
+    <Page Include="Resources\Colors.g.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Colors.ammy</DependentUpon>
+    </Page>
     <Page Include="Resources\Generic.g.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
@@ -171,6 +178,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>MainWindow.ammy</DependentUpon>
+    </Page>
+    <Page Include="Resources\WindowStyle.g.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <DependentUpon>WindowStyle.ammy</DependentUpon>
     </Page>
   </ItemGroup>
   <ItemGroup>

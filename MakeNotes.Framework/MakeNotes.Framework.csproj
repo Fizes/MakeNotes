@@ -44,9 +44,10 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\EnvironmentUtility.cs" />
-    <Compile Include="Wind32\Win32Api.cs" />
-    <Compile Include="Wind32\Win32Assemblies.cs" />
+    <Compile Include="Win32\NativeMethods.cs" />
+    <Compile Include="Win32\Win32AssemblyNames.cs" />
     <Compile Include="Utilities\WpfScreen.cs" />
+    <Compile Include="Win32\Win32Types.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,12 @@
+﻿ResourceDictionary {
+    SolidColorBrush Key="BlueGrey50"  { Color: "#ECEFF1" }
+    SolidColorBrush Key="BlueGrey100" { Color: "#CFD8DC" }
+    SolidColorBrush Key="BlueGrey200" { Color: "#B0BEC5" }
+    SolidColorBrush Key="BlueGrey300" { Color: "#90A4AE" }
+    SolidColorBrush Key="BlueGrey400" { Color: "#78909C" }
+    SolidColorBrush Key="BlueGrey500" { Color: "#607D8B" }
+    SolidColorBrush Key="BlueGrey600" { Color: "#546E7A" }
+    SolidColorBrush Key="BlueGrey700" { Color: "#455A64" }
+    SolidColorBrush Key="BlueGrey800" { Color: "#37474F" }
+    SolidColorBrush Key="BlueGrey900" { Color: "#263238" }
+}

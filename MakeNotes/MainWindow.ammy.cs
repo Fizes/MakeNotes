@@ -1,5 +1,5 @@
-﻿using System;
-using MakeNotes.Framework.Utilities;
+﻿using System.Windows;
+using System.Windows.Input;
 
 namespace MakeNotes
 {
@@ -7,14 +7,42 @@ namespace MakeNotes
     {
         public MainWindow()
         {
-            InitializeComponent();
+            CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand, OnCloseWindow));
+            CommandBindings.Add(new CommandBinding(SystemCommands.MaximizeWindowCommand, OnMaximizeWindow, OnCanResizeWindow));
+            CommandBindings.Add(new CommandBinding(SystemCommands.MinimizeWindowCommand, OnMinimizeWindow, OnCanMinimizeWindow));
+            CommandBindings.Add(new CommandBinding(SystemCommands.RestoreWindowCommand, OnRestoreWindow, OnCanResizeWindow));
 
-            SourceInitialized += Window_SourceInitialized;
+            InitializeComponent();
         }
-        
-        private void Window_SourceInitialized(object sender, EventArgs e)
+
+        private void OnCloseWindow(object target, ExecutedRoutedEventArgs e)
         {
-            WpfScreen.AttachWindowResizingHandler(this);
+            SystemCommands.CloseWindow(this);
+        }
+
+        private void OnMaximizeWindow(object target, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.MaximizeWindow(this);
+        }
+
+        private void OnMinimizeWindow(object target, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.MinimizeWindow(this);
+        }
+
+        private void OnRestoreWindow(object target, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.RestoreWindow(this);
+        }
+
+        private void OnCanResizeWindow(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ResizeMode == ResizeMode.CanResize || ResizeMode == ResizeMode.CanResizeWithGrip;
+        }
+
+        private void OnCanMinimizeWindow(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ResizeMode != ResizeMode.NoResize;
         }
     }
 }

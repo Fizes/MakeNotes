@@ -236,3 +236,9 @@ mixin Fade_OnBinding(binding, bindingValue) for Style {
 mixin MergeDictionary (source) for ResourceDictionary {
   combine MergedDictionaries: ResourceDictionary { Source: $source }
 }
+
+alias SolidColorBrush(key, color) {
+  SolidColorBrush Key=$key {
+    Color: $color
+  }
+}

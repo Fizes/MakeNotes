@@ -7,7 +7,11 @@
         #MergeDictionary("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml")
         // Include the Dragablz Material Design style
         #MergeDictionary("pack://application:,,,/Dragablz;component/Themes/MaterialDesign.xaml")
+        // Colors
+        #MergeDictionary("/Resources/Colors.g.xaml")
         // Custom styles
         #MergeDictionary("/Resources/Generic.g.xaml")
+        // Custom window style
+        #MergeDictionary("/Resources/WindowStyle.g.xaml")
     }
 }
