@@ -12,7 +12,7 @@ Window "MakeNotes.MainWindow" {
     Width: 960
     WindowStartupLocation: CenterScreen
 
-    DockPanel {
+    StackPanel {
         TextElement.Foreground: resource "NavbarForegroundBrush"
 
         Grid "Navbar" {
@@ -35,6 +35,12 @@ Window "MakeNotes.MainWindow" {
 
         TabablzControl {
             Style: resource "NavbarTabControl"
+
+            HeaderSuffixContent: Button {
+                ShadowAssist.ShadowDepth: Depth0
+                Style: resource "NavbarAddTabButton"
+                Command: TabablzControl.AddItemCommand
+            }
 
             TabItem {
                 Header: "One"

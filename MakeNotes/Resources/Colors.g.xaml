@@ -9,4 +9,21 @@
   <SolidColorBrush x:Key="BlueGrey700" Color="#455A64"/>
   <SolidColorBrush x:Key="BlueGrey800" Color="#37474F"/>
   <SolidColorBrush x:Key="BlueGrey900" Color="#263238"/>
+  <SolidColorBrush x:Key="WindowBackground">
+    <SolidColorBrush.Color>
+      <Binding Path="Color" Source="{StaticResource BlueGrey900}"/>
+    </SolidColorBrush.Color>
+  </SolidColorBrush>
+  <SolidColorBrush x:Key="PrimaryHueMidBrush">
+    <SolidColorBrush.Color>
+      <Binding Path="Color" Source="{StaticResource BlueGrey800}"/>
+    </SolidColorBrush.Color>
+  </SolidColorBrush>
+  <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#40C4FF"/>
+  <SolidColorBrush x:Key="NavbarBackgroundBrush">
+    <SolidColorBrush.Color>
+      <Binding Path="Color" Source="{StaticResource PrimaryHueMidBrush}"/>
+    </SolidColorBrush.Color>
+  </SolidColorBrush>
+  <SolidColorBrush x:Key="NavbarForegroundBrush" Color="GhostWhite"/>
 </ResourceDictionary>

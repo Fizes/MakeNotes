@@ -2,24 +2,17 @@
 using MakeNotes
 using MaterialDesignThemes.Wpf
 
+$navbarAddTabButtonSize = "24"
+$navbarAddTabIconSize = "20"
+
 ResourceDictionary {
-    SolidColorBrush Key="WindowBackground" { Color: bind Color from $resource BlueGrey900 }
-    // TabablzControl background
-    SolidColorBrush Key="PrimaryHueMidBrush" { Color: bind Color from $resource BlueGrey800 }
-    // TabablzControl underline
-    SolidColorBrush Key="SecondaryAccentBrush" { Color: "#40C4FF" }
-    
-    SolidColorBrush Key="NavbarBackgroundBrush" { Color: bind Color from $resource PrimaryHueMidBrush }
-    
-    SolidColorBrush Key="NavbarForegroundBrush" { Color: "GhostWhite" }
-    
     Style Key="MainWindow" {
         TargetType: Window
-        #Setter("MinWidth", "640")
-        #Setter("MinHeight", "480")
+        #Setter("MinWidth", 640)
+        #Setter("MinHeight", 480)
         #Setter("Background", resource "MaterialDesignPaper")
         #Setter("TextElement.Foreground", resource "MaterialDesignBody")
-        #Setter("TextElement.FontSize", "14")
+        #Setter("TextElement.FontSize", 14)
         #Setter("FontFamily", "pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto")
         #Setter("UseLayoutRounding", true)
         #Setter("ResizeMode", "CanResizeWithGrip")
@@ -37,7 +30,6 @@ ResourceDictionary {
 
     Style Key="Navbar" {
         TargetType: Grid
-        #Setter("DockPanel.Dock", "Top")
         #Setter("Background", resource "NavbarBackgroundBrush")
     }
     
@@ -46,14 +38,14 @@ ResourceDictionary {
         #Setter("HorizontalAlignment", "Center")
         #Setter("VerticalAlignment", "Center")
         #Setter("Margin", "0,12,0,6")
-        #Setter("FontSize", "20")
+        #Setter("FontSize", 20)
     }
     
     Style Key="NavbarTabControl" {
         TargetType: TabablzControl
         BasedOn: resource "MaterialDesignTabablzControlStyle"
         #Setter("Margin", "0,-0.5,0,0.5")
-        #Setter("FontSize", "16")
+        #Setter("FontSize", 16)
     }
     
     Style Key="NavbarPopupBox" {
@@ -62,6 +54,32 @@ ResourceDictionary {
         #Setter("VerticalAlignment", "Center")
         #Setter("PlacementMode", "BottomAndAlignRightEdges")
         #Setter("Margin", "12,12,12,6")
-        #Setter("StaysOpen", "false")
+        #Setter("StaysOpen", false)
+    }
+
+    Style Key="NavbarAddTabButton" {
+        TargetType: Button
+        BasedOn: resource "MaterialDesignFloatingActionMiniButton"
+        #Setter("Background", "Transparent")
+        #Setter("BorderBrush", "Transparent")
+        #Setter("Height", $navbarAddTabButtonSize)
+        #Setter("Width", $navbarAddTabButtonSize)
+        #Setter("Margin", "4,0")
+        #Setter("HorizontalAlignment", "Left")
+        Setter {
+            Property: "Content"
+            Value: PackIcon {
+                Kind: "Plus"
+                Width: $navbarAddTabIconSize
+                Height: $navbarAddTabIconSize
+            }
+        }
+        Triggers: [
+            Trigger {
+                Property: "IsMouseOver"
+                Value: true
+                #Setter("Background", resource dyn "BlueGrey600")
+            }
+        ]
     }
 }

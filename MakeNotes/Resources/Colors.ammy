@@ -1,4 +1,5 @@
 ﻿ResourceDictionary {
+    // BlueGrey
     SolidColorBrush Key="BlueGrey50"  { Color: "#ECEFF1" }
     SolidColorBrush Key="BlueGrey100" { Color: "#CFD8DC" }
     SolidColorBrush Key="BlueGrey200" { Color: "#B0BEC5" }
@@ -9,4 +10,14 @@
     SolidColorBrush Key="BlueGrey700" { Color: "#455A64" }
     SolidColorBrush Key="BlueGrey800" { Color: "#37474F" }
     SolidColorBrush Key="BlueGrey900" { Color: "#263238" }
+
+    SolidColorBrush Key="WindowBackground" { Color: bind Color from $resource BlueGrey900 }
+    // Primary background
+    SolidColorBrush Key="PrimaryHueMidBrush" { Color: bind Color from $resource BlueGrey800 }
+    // TabablzControl underline
+    SolidColorBrush Key="SecondaryAccentBrush" { Color: "#40C4FF" }
+    
+    SolidColorBrush Key="NavbarBackgroundBrush" { Color: bind Color from $resource PrimaryHueMidBrush }
+    
+    SolidColorBrush Key="NavbarForegroundBrush" { Color: "GhostWhite" }
 }
