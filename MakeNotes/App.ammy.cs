@@ -4,13 +4,17 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
 using AmmySidekick;
+using Autofac;
 using MakeNotes.Framework.Utilities;
+using MakeNotes.Infrastructure;
 using Microsoft.Extensions.Configuration;
 
 namespace MakeNotes
 {
     public partial class App : Application
     {
+        private static IContainer _container;
+
         [STAThread]
         public static void Main()
         {
@@ -23,6 +27,8 @@ namespace MakeNotes
         {
             App app = new App();
             app.InitializeComponent();
+            app.MainWindow = _container.Resolve<MainWindow>();
+            app.Exit += (s, e) => _container?.Dispose();
 
             RuntimeUpdateHandler.Register(app, $"/{Ammy.GetAssemblyName(app)};component/App.g.xaml");
 
@@ -39,6 +45,8 @@ namespace MakeNotes
 
             var locale = configuration.GetValue<string>("AppLocale");
             SetLocale(locale);
+
+            _container = AutofacConfig.Configure();
         }
 
         private static void SetLocale(string locale)

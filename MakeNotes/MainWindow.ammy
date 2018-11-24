@@ -43,13 +43,7 @@ Window "MakeNotes.MainWindow" {
             }
 
             TabItem {
-                Header: "One"
-            }
-            TabItem {
-                Header: "Two"
-            }
-            TabItem {
-                Header: "Three"
+                Header: "Unnamed"
             }
         }
     }

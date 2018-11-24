@@ -14,9 +14,7 @@
       <ns1:TabablzControl.HeaderSuffixContent>
         <Button ns0:ShadowAssist.ShadowDepth="Depth0" Style="{StaticResource NavbarAddTabButton}" Command="{x:Static ns1:TabablzControl.AddItemCommand}"/>
       </ns1:TabablzControl.HeaderSuffixContent>
-      <TabItem Header="One"/>
-      <TabItem Header="Two"/>
-      <TabItem Header="Three"/>
+      <TabItem Header="Unnamed"/>
     </ns1:TabablzControl>
   </StackPanel>
 </Window>
