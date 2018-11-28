@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Globalization;
+using System.Threading;
 using System.Web;
+using System.Windows;
+using System.Windows.Markup;
 
 namespace MakeNotes.Framework.Utilities
 {
@@ -33,6 +37,25 @@ namespace MakeNotes.Framework.Utilities
             var variables = HttpUtility.ParseQueryString(queryString);
 
             return variables;
+        }
+
+        /// <summary>
+        /// Sets current locale of the application equal to the specified culture.
+        /// </summary>
+        /// <param name="locale">Culture name.</param>
+        public static void SetCurrentLocale(string locale)
+        {
+            if (String.IsNullOrWhiteSpace(locale))
+            {
+                return;
+            }
+
+            var culture = new CultureInfo(locale);
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+
+            var metadata = new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag));
+            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), metadata);
         }
     }
 }

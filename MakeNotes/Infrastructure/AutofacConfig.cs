@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Autofac;
 
 namespace MakeNotes.Infrastructure
@@ -16,7 +17,7 @@ namespace MakeNotes.Infrastructure
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<MainWindow>();
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).PublicOnly();
 
             builder.RegisterAssemblyModules(AppDomain.CurrentDomain.GetAssemblies());
 

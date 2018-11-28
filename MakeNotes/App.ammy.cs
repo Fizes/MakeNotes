@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Globalization;
-using System.Threading;
 using System.Windows;
-using System.Windows.Markup;
 using AmmySidekick;
 using Autofac;
 using MakeNotes.Framework.Utilities;
@@ -23,11 +20,12 @@ namespace MakeNotes
             CreateApp().Run();
         }
 
+        internal static IComponentContext DependencyResolver => _container;
+
         private static App CreateApp()
         {
             App app = new App();
             app.InitializeComponent();
-            app.MainWindow = _container.Resolve<MainWindow>();
             app.Exit += (s, e) => _container?.Dispose();
 
             RuntimeUpdateHandler.Register(app, $"/{Ammy.GetAssemblyName(app)};component/App.g.xaml");
@@ -44,24 +42,9 @@ namespace MakeNotes
                 .Build();
 
             var locale = configuration.GetValue<string>("AppLocale");
-            SetLocale(locale);
+            EnvironmentUtility.SetCurrentLocale(locale);
 
             _container = AutofacConfig.Configure();
-        }
-
-        private static void SetLocale(string locale)
-        {
-            if (String.IsNullOrWhiteSpace(locale))
-            {
-                return;
-            }
-
-            var culture = new CultureInfo(locale);
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
-
-            var metadata = new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag));
-            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), metadata);
         }
     }
 }

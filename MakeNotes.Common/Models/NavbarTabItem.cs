@@ -1,4 +1,4 @@
-﻿namespace MakeNotes.Models
+﻿namespace MakeNotes.Common.Models
 {
     /// <summary>
     /// Represents a tab item inside the navbar.

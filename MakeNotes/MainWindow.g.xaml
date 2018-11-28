@@ -1,20 +1,56 @@
-<Window x:Class="MakeNotes.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:Dragablz;assembly=Dragablz" xmlns:ns2="clr-namespace:AmmySidekick;assembly=AmmySidekick" Style="{DynamicResource MainWindow}" Title="Make Notes" Height="680" Width="960" WindowStartupLocation="CenterScreen" ns2:Ammy.Register="/MakeNotes;component/MainWindow.g.xaml">
-  <StackPanel TextElement.Foreground="{StaticResource NavbarForegroundBrush}">
-    <Grid x:Name="Navbar" Style="{StaticResource Navbar}">
-      <TextBlock Style="{StaticResource NavbarTitle}" Text="Make Notes"/>
-      <ns0:PopupBox Style="{StaticResource NavbarPopupBox}">
-        <StackPanel>
-          <Button Content="Options"/>
-          <Separator/>
-          <Button Content="Exit"/>
+<Window x:Class="MakeNotes.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:Dragablz;assembly=Dragablz" xmlns:ns2="clr-namespace:AmmySidekick;assembly=AmmySidekick" Style="{DynamicResource MainWindow}" Title="Make Notes" Height="680" Width="960" ns2:Ammy.Register="/MakeNotes;component/MainWindow.g.xaml">
+  <ns0:DialogHost>
+    <ns0:DialogHost.IsOpen>
+      <Binding Path="IsAddNewTabDialogOpen"/>
+    </ns0:DialogHost.IsOpen>
+    <ns0:DialogHost.DialogContent>
+      <StackPanel Margin="16">
+        <TextBlock>Add new tab</TextBlock>
+        <TextBox Margin="0,8" HorizontalAlignment="Stretch" ns0:HintAssist.Hint="Name">
+          <TextBox.MaxWidth>
+            <Binding Path="ActualWidth" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Panel}, AncestorLevel=1}"/>
+          </TextBox.MaxWidth>
+          <TextBox.Text>
+            <Binding Path="TabName"/>
+          </TextBox.Text>
+        </TextBox>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+          <Button Style="{StaticResource MaterialDesignFlatButton}" IsDefault="True" Content="ACCEPT">
+            <Button.Command>
+              <Binding Path="AddNewTabCommand"/>
+            </Button.Command>
+            <Button.IsEnabled>
+              <Binding Path="IsAddNewTabDialogOpen"/>
+            </Button.IsEnabled>
+          </Button>
+          <Button Style="{StaticResource MaterialDesignFlatButton}" IsDefault="True" Content="CANCEL">
+            <Button.Command>
+              <Binding Path="CancelAddNewTabCommand"/>
+            </Button.Command>
+            <Button.IsEnabled>
+              <Binding Path="IsAddNewTabDialogOpen"/>
+            </Button.IsEnabled>
+          </Button>
         </StackPanel>
-      </ns0:PopupBox>
-    </Grid>
-    <ns1:TabablzControl Style="{StaticResource NavbarTabControl}">
-      <ns1:TabablzControl.HeaderSuffixContent>
-        <Button ns0:ShadowAssist.ShadowDepth="Depth0" Style="{StaticResource NavbarAddTabButton}" Command="{x:Static ns1:TabablzControl.AddItemCommand}"/>
-      </ns1:TabablzControl.HeaderSuffixContent>
-      <TabItem Header="Unnamed"/>
-    </ns1:TabablzControl>
-  </StackPanel>
+      </StackPanel>
+    </ns0:DialogHost.DialogContent>
+    <StackPanel TextElement.Foreground="{StaticResource NavbarForegroundBrush}">
+      <Grid x:Name="Navbar" Style="{StaticResource Navbar}">
+        <TextBlock Style="{StaticResource NavbarTitle}" Text="Make Notes"/>
+        <ns0:PopupBox Style="{StaticResource NavbarPopupBox}">
+          <StackPanel>
+            <Button Content="Options"/>
+            <Separator/>
+            <Button Content="Exit"/>
+          </StackPanel>
+        </ns0:PopupBox>
+      </Grid>
+      <ns1:TabablzControl Style="{StaticResource NavbarTabControl}">
+        <ns1:TabablzControl.HeaderSuffixContent>
+          <Button ns0:ShadowAssist.ShadowDepth="Depth0" Style="{StaticResource NavbarAddTabButton}" Command="{x:Static ns0:DialogHost.OpenDialogCommand}"/>
+        </ns1:TabablzControl.HeaderSuffixContent>
+        <TabItem Header="Unnamed"/>
+      </ns1:TabablzControl>
+    </StackPanel>
+  </ns0:DialogHost>
 </Window>

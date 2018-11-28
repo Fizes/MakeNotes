@@ -10,40 +10,79 @@ Window "MakeNotes.MainWindow" {
     Title: $title
     Height: 680
     Width: 960
-    WindowStartupLocation: CenterScreen
 
-    StackPanel {
-        TextElement.Foreground: resource "NavbarForegroundBrush"
+    DialogHost {
+        IsOpen: bind IsAddNewTabDialogOpen
 
-        Grid "Navbar" {
-            Style: resource "Navbar"
+        DialogContent: StackPanel {
+            Margin: "16"
 
-            TextBlock {
-                Style: resource "NavbarTitle"
-                Text: $title
+            TextBlock { "Add new tab" }
+
+            TextBox {
+                Margin: "0,8"
+                HorizontalAlignment: Stretch
+                MaxWidth: bind ActualWidth from $ancestor<Panel>(1)
+                HintAssist.Hint: "Name"
+                Text: bind TabName
             }
 
-            PopupBox {
-                Style: resource "NavbarPopupBox"
-                StackPanel {
-                    Button { Content: "Options" }
-                    Separator {}
-                    Button { Content: "Exit" }
+            StackPanel {
+                Orientation: Horizontal
+                HorizontalAlignment: Right
+                Margin: "0,8,0,0"
+
+                Button {
+                    Style: resource "MaterialDesignFlatButton"
+                    IsDefault: true
+                    Command: bind AddNewTabCommand
+                    IsEnabled: bind IsAddNewTabDialogOpen
+                    Content: "ACCEPT"
+                }
+
+                Button {
+                    Style: resource "MaterialDesignFlatButton"
+                    IsDefault: true
+                    Command: bind CancelAddNewTabCommand
+                    IsEnabled: bind IsAddNewTabDialogOpen
+                    Content: "CANCEL"
                 }
             }
         }
 
-        TabablzControl {
-            Style: resource "NavbarTabControl"
+        StackPanel {
+            TextElement.Foreground: resource "NavbarForegroundBrush"
 
-            HeaderSuffixContent: Button {
-                ShadowAssist.ShadowDepth: Depth0
-                Style: resource "NavbarAddTabButton"
-                Command: TabablzControl.AddItemCommand
+            Grid "Navbar" {
+                Style: resource "Navbar"
+
+                TextBlock {
+                    Style: resource "NavbarTitle"
+                    Text: $title
+                }
+
+                PopupBox {
+                    Style: resource "NavbarPopupBox"
+                    StackPanel {
+                        Button { Content: "Options" }
+                        Separator {}
+                        Button { Content: "Exit" }
+                    }
+                }
             }
 
-            TabItem {
-                Header: "Unnamed"
+            TabablzControl {
+                Style: resource "NavbarTabControl"
+
+                HeaderSuffixContent: Button {
+                    ShadowAssist.ShadowDepth: Depth0
+                    Style: resource "NavbarAddTabButton"
+                    Command: DialogHost.OpenDialogCommand
+                }
+
+                TabItem {
+                    Header: "Unnamed"
+                }
             }
         }
     }

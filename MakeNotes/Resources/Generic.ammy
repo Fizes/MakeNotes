@@ -1,4 +1,5 @@
-﻿using Dragablz
+﻿using ControlzEx
+using Dragablz
 using MakeNotes
 using MaterialDesignThemes.Wpf
 
@@ -46,6 +47,10 @@ ResourceDictionary {
         BasedOn: resource "MaterialDesignTabablzControlStyle"
         #Setter("Margin", "0,-0.5,0,0.5")
         #Setter("FontSize", 16)
+        Setter {
+            Property: "Height"
+            Value: bind ActualHeight from $ancestor<Window>(1)
+        }
     }
     
     Style Key="NavbarPopupBox" {
@@ -64,7 +69,7 @@ ResourceDictionary {
         #Setter("BorderBrush", "Transparent")
         #Setter("Height", $navbarAddTabButtonSize)
         #Setter("Width", $navbarAddTabButtonSize)
-        #Setter("Margin", "4")
+        #Setter("Margin", "6")
         #Setter("HorizontalAlignment", "Left")
         Setter {
             Property: "Content"
@@ -78,8 +83,20 @@ ResourceDictionary {
             Trigger {
                 Property: "IsMouseOver"
                 Value: true
-                #Setter("Background", resource dyn "BlueGrey600")
+                #Setter("Background", resource "BlueGrey600")
             }
         ]
+    }
+
+    Style Key="VerticalAdjustedDialogHostPopup" {
+        TargetType: PopupEx
+        BasedOn: resource "MaterialDesignDialogHostPopup"
+        #Setter("VerticalOffset", -100)
+    }
+
+    Style {
+        TargetType: DialogHost
+        BasedOn: resource "{x:Type ns1:DialogHost}"
+        #Setter("PopupStyle", resource "VerticalAdjustedDialogHostPopup")
     }
 }
