@@ -1,22 +1,21 @@
-﻿using System.Windows;
-using Autofac;
-using MakeNotes.Framework.Controls;
+﻿using MakeNotes.Framework.Controls;
+using MakeNotes.Infrastructure;
 
 namespace MakeNotes
 {
     public partial class MainWindow
     {
-        public MainWindow()
+        public MainWindow(WindowSettings windowSettings, MainWindowViewModel viewModel)
         {
             WindowInitializer.AttachSystemCommands(this);
 
             InitializeComponent();
 
-#if DEBUG
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-#endif
+            Width = windowSettings.Width;
+            Height = windowSettings.Height;
+            WindowStartupLocation = windowSettings.StartupLocation;
 
-            DataContext = App.DependencyResolver.Resolve<MainWindowViewModel>();
+            DataContext = viewModel;
         }
     }
 }

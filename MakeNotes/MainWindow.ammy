@@ -1,54 +1,18 @@
 ﻿using Dragablz
 using Dragablz.Dockablz
 using MakeNotes
+using MakeNotes.Common.Models
 using MaterialDesignThemes.Wpf
+using Prism.Regions
 
 $title = "Make Notes"
 
 Window "MakeNotes.MainWindow" {
     Style: resource dyn "MainWindow"
     Title: $title
-    Height: 680
-    Width: 960
 
     DialogHost {
-        IsOpen: bind IsAddNewTabDialogOpen
-
-        DialogContent: StackPanel {
-            Margin: "16"
-
-            TextBlock { "Add new tab" }
-
-            TextBox {
-                Margin: "0,8"
-                HorizontalAlignment: Stretch
-                MaxWidth: bind ActualWidth from $ancestor<Panel>(1)
-                HintAssist.Hint: "Name"
-                Text: bind TabName
-            }
-
-            StackPanel {
-                Orientation: Horizontal
-                HorizontalAlignment: Right
-                Margin: "0,8,0,0"
-
-                Button {
-                    Style: resource "MaterialDesignFlatButton"
-                    IsDefault: true
-                    Command: bind AddNewTabCommand
-                    IsEnabled: bind IsAddNewTabDialogOpen
-                    Content: "ACCEPT"
-                }
-
-                Button {
-                    Style: resource "MaterialDesignFlatButton"
-                    IsDefault: true
-                    Command: bind CancelAddNewTabCommand
-                    IsEnabled: bind IsAddNewTabDialogOpen
-                    Content: "CANCEL"
-                }
-            }
-        }
+        #AddTabDialog()
 
         StackPanel {
             TextElement.Foreground: resource "NavbarForegroundBrush"
@@ -72,16 +36,24 @@ Window "MakeNotes.MainWindow" {
             }
 
             TabablzControl {
+                Resources: [
+                    ResourceDictionary {
+                        DataTemplate {
+                            DataType: NavbarTabItem
+                            ContentControl { RegionManager.RegionName: bind Header }
+                        }
+                    }
+                ]
+
                 Style: resource "NavbarTabControl"
+                ItemsSource: bind Tabs
+                HeaderMemberPath: "Header"
+                SelectedIndex: bind SelectedTabIndex
 
                 HeaderSuffixContent: Button {
                     ShadowAssist.ShadowDepth: Depth0
                     Style: resource "NavbarAddTabButton"
                     Command: DialogHost.OpenDialogCommand
-                }
-
-                TabItem {
-                    Header: "Unnamed"
                 }
             }
         }

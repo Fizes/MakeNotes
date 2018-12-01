@@ -89,6 +89,9 @@
     <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
     </Reference>
+    <Reference Include="Prism.Autofac.Wpf, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Autofac.7.1.0.431\lib\net45\Prism.Autofac.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Prism.Wpf, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.7.1.0.431\lib\net45\Prism.Wpf.dll</HintPath>
     </Reference>
@@ -128,7 +131,9 @@
     <Compile Include="App.ammy.cs">
       <DependentUpon>App.ammy</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\AutofacConfig.cs" />
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Infrastructure\Extensions\ConfigurationExtensions.cs" />
+    <Compile Include="Infrastructure\WindowSettings.cs" />
     <Compile Include="MainWindow.ammy.cs">
       <DependentUpon>MainWindow.ammy</DependentUpon>
     </Compile>
@@ -151,15 +156,15 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.ammy" />
-    <None Include="appsettings.Development.json">
+    <Content Include="appsettings.Development.json">
       <DependentUpon>appsettings.json</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="appsettings.json">
+    </Content>
+    <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Colors.ammy" />
-    <None Include="Resources\lib.ammy" />
+    </Content>
+    <None Include="Themes\Colors.ammy" />
+    <None Include="Themes\Mixins\lib.ammy" />
     <None Include="MainWindow.ammy" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -168,8 +173,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\Generic.ammy" />
-    <None Include="Resources\WindowStyle.ammy" />
+    <None Include="Themes\Generic.ammy" />
+    <None Include="Themes\Mixins\MainWindowMixins.ammy" />
+    <None Include="Themes\WindowStyle.ammy" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -182,12 +188,12 @@
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <DependentUpon>App.ammy</DependentUpon>
     </Page>
-    <Page Include="Resources\Colors.g.xaml">
+    <Page Include="Themes\Colors.g.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>Colors.ammy</DependentUpon>
     </Page>
-    <Page Include="Resources\Generic.g.xaml">
+    <Page Include="Themes\Generic.g.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <DependentUpon>Generic.ammy</DependentUpon>
@@ -197,7 +203,7 @@
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>MainWindow.ammy</DependentUpon>
     </Page>
-    <Page Include="Resources\WindowStyle.g.xaml">
+    <Page Include="Themes\WindowStyle.g.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <DependentUpon>WindowStyle.ammy</DependentUpon>

@@ -71,6 +71,7 @@ ResourceDictionary {
         #Setter("Width", $navbarAddTabButtonSize)
         #Setter("Margin", "6")
         #Setter("HorizontalAlignment", "Left")
+        #Setter("ToolTip", "Add new tab")
         Setter {
             Property: "Content"
             Value: PackIcon {

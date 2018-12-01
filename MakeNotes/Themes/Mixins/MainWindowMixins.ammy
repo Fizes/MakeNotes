@@ -1,0 +1,37 @@
+﻿using MaterialDesignThemes.Wpf
+
+mixin AddTabDialog() for DialogHost {
+    IsOpen: bind IsAddingTabStarted
+
+    DialogContent: StackPanel {
+        Margin: "16"
+
+        TextBlock { Text: "Add new tab" }
+
+        TextBox {
+            HintAssist.Hint: "Name"
+            HorizontalAlignment: Stretch
+            MaxWidth: bind ActualWidth from $ancestor<Panel>(1)
+            Margin: "0,8"
+            Text: bind TabName
+        }
+
+        StackPanel {
+            Orientation: Horizontal
+            HorizontalAlignment: Right
+            Margin: "0,8,0,0"
+
+            Button {
+                Style: resource "MaterialDesignFlatButton"
+                Command: bind AddTabCommand
+                Content: "ACCEPT"
+            }
+
+            Button {
+                Style: resource "MaterialDesignFlatButton"
+                Command: bind CancelAddTabCommand
+                Content: "CANCEL"
+            }
+        }
+    }
+}

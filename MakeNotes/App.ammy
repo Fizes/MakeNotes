@@ -1,5 +1,4 @@
 ﻿Application "MakeNotes.App" {
-    StartupUri: "MainWindow.g.xaml"
     Resources: ResourceDictionary {
         #MergeDictionary("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml")
         #MergeDictionary("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml")
@@ -8,10 +7,10 @@
         // Include the Dragablz Material Design style
         #MergeDictionary("pack://application:,,,/Dragablz;component/Themes/MaterialDesign.xaml")
         // Colors
-        #MergeDictionary("/Resources/Colors.g.xaml")
-        // Custom styles
-        #MergeDictionary("/Resources/Generic.g.xaml")
+        #MergeDictionary("/Themes/Colors.g.xaml")
         // Custom window style
-        #MergeDictionary("/Resources/WindowStyle.g.xaml")
+        #MergeDictionary("/Themes/WindowStyle.g.xaml")
+        // Custom styles
+        #MergeDictionary("/Themes/Generic.g.xaml")
     }
 }

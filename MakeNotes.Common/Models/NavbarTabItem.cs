@@ -5,10 +5,20 @@
     /// </summary>
     public class NavbarTabItem
     {
+        public NavbarTabItem()
+        {
+        }
+
+        public NavbarTabItem(string header, int order)
+        {
+            Header = header;
+            Order = order;
+        }
+        
         /// <summary>
         /// Tab title.
         /// </summary>
-        public string Title { get; set; }
+        public string Header { get; set; }
 
         /// <summary>
         /// Zero-based index of the tab inside the navbar.
