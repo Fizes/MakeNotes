@@ -219,7 +219,7 @@
       <Name>MakeNotes.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\MakeNotes.Notebook\MakeNotes.Notebook.csproj">
-      <Project>{91c6e9cf-03bb-4848-b296-5c38a6de40ae}</Project>
+      <Project>{c6a59c7d-8ae6-4f22-9f03-f274ca53d65c}</Project>
       <Name>MakeNotes.Notebook</Name>
     </ProjectReference>
   </ItemGroup>
