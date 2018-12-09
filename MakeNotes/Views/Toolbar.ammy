@@ -1,0 +1,21 @@
+﻿using MaterialDesignThemes.Wpf
+
+UserControl "MakeNotes.Views.Toolbar" {
+    Grid "Navbar" {
+        Style: resource "Navbar"
+
+        TextBlock {
+            Style: resource "NavbarTitle"
+            Text: MakeNotes.Properties.Resources.ApplicationName
+        }
+        
+        PopupBox {
+            Style: resource "NavbarPopupBox"
+            StackPanel {
+                Button { Content: "Options" }
+                Separator {}
+                Button { Content: "Exit" }
+            }
+        }
+    }
+}

@@ -8,6 +8,7 @@ using MakeNotes.Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
 using Prism.Autofac;
 using Prism.Ioc;
+using Prism.Regions;
 
 namespace MakeNotes
 {
@@ -45,9 +46,14 @@ namespace MakeNotes
 
             builder.RegisterInstance(_configuration.GetConfiguration<WindowSettings>());
         }
-        
+
         protected override void InitializeModules()
         {
+            // NOTE: Method from the base class is not called to avoid NotSupportedException
+
+            var regionManager = Container.Resolve<IRegionManager>();
+            regionManager.RegisterViewWithRegion("ToolbarRegion", typeof(Views.Toolbar));
+            regionManager.RegisterViewWithRegion("NavigationRegion", typeof(Notebook.Views.Navbar));
         }
     }
 }

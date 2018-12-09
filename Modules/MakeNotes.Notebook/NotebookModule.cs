@@ -6,6 +6,7 @@ namespace MakeNotes.Notebook
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterAssemblyTypes(GetType().Assembly).PublicOnly();
         }
     }
 }

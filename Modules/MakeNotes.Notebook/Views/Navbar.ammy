@@ -1,0 +1,28 @@
+﻿using Dragablz
+using MakeNotes.Common.Models
+using MaterialDesignThemes.Wpf
+using Prism.Regions
+
+UserControl "MakeNotes.Notebook.Views.Navbar" {
+    TabablzControl {
+        Resources: [
+            ResourceDictionary {
+                DataTemplate {
+                    DataType: NavbarTabItem
+                    ContentControl { RegionManager.RegionName: bind Header }
+                }
+            }
+        ]
+
+        Style: resource "NavbarTabControl"
+        ItemsSource: bind Tabs
+        HeaderMemberPath: "Header"
+        SelectedIndex: bind SelectedTabIndex
+
+        HeaderSuffixContent: Button {
+            ShadowAssist.ShadowDepth: Depth0
+            Style: resource "NavbarAddTabButton"
+            Command: bind AddTabCommand
+        }
+    }
+}

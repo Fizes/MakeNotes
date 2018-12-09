@@ -1,9 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf
 
-mixin AddTabDialog() for DialogHost {
-    IsOpen: bind IsAddingTabStarted
-
-    DialogContent: StackPanel {
+UserControl "MakeNotes.Notebook.Views.AddTabDialog" {
+    StackPanel {
         Margin: "16"
 
         TextBlock { Text: "Add new tab" }
@@ -23,13 +21,15 @@ mixin AddTabDialog() for DialogHost {
 
             Button {
                 Style: resource "MaterialDesignFlatButton"
-                Command: bind AddTabCommand
+                Command: DialogHost.CloseDialogCommand
+                CommandParameter: true
                 Content: "ACCEPT"
             }
 
             Button {
                 Style: resource "MaterialDesignFlatButton"
-                Command: bind CancelAddTabCommand
+                Command: DialogHost.CloseDialogCommand
+                CommandParameter: false
                 Content: "CANCEL"
             }
         }

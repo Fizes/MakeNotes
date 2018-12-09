@@ -1,66 +1,8 @@
-<Window x:Class="MakeNotes.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:MakeNotes.Common.Models;assembly=MakeNotes.Common" xmlns:ns2="clr-namespace:Prism.Regions;assembly=Prism.Wpf" xmlns:ns3="clr-namespace:Dragablz;assembly=Dragablz" xmlns:ns4="clr-namespace:AmmySidekick;assembly=AmmySidekick" Style="{DynamicResource MainWindow}" Title="Make Notes" ns4:Ammy.Register="/MakeNotes;component/MainWindow.g.xaml">
-  <ns0:DialogHost>
-    <ns0:DialogHost.IsOpen>
-      <Binding Path="IsAddingTabStarted"/>
-    </ns0:DialogHost.IsOpen>
-    <ns0:DialogHost.DialogContent>
-      <StackPanel Margin="16">
-        <TextBlock Text="Add new tab"/>
-        <TextBox ns0:HintAssist.Hint="Name" HorizontalAlignment="Stretch" Margin="0,8">
-          <TextBox.MaxWidth>
-            <Binding Path="ActualWidth" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Panel}, AncestorLevel=1}"/>
-          </TextBox.MaxWidth>
-          <TextBox.Text>
-            <Binding Path="TabName"/>
-          </TextBox.Text>
-        </TextBox>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
-          <Button Style="{StaticResource MaterialDesignFlatButton}" Content="ACCEPT">
-            <Button.Command>
-              <Binding Path="AddTabCommand"/>
-            </Button.Command>
-          </Button>
-          <Button Style="{StaticResource MaterialDesignFlatButton}" Content="CANCEL">
-            <Button.Command>
-              <Binding Path="CancelAddTabCommand"/>
-            </Button.Command>
-          </Button>
-        </StackPanel>
-      </StackPanel>
-    </ns0:DialogHost.DialogContent>
+<Window x:Class="MakeNotes.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MakeNotes.Properties" xmlns:ns1="clr-namespace:Prism.Regions;assembly=Prism.Wpf" xmlns:ns2="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns3="clr-namespace:AmmySidekick;assembly=AmmySidekick" Style="{DynamicResource MainWindow}" Title="{x:Static ns0:Resources.ApplicationName}" ns3:Ammy.Register="/MakeNotes;component/MainWindow.g.xaml">
+  <ns2:DialogHost Identifier="RootDialogArea">
     <StackPanel TextElement.Foreground="{StaticResource NavbarForegroundBrush}">
-      <Grid x:Name="Navbar" Style="{StaticResource Navbar}">
-        <TextBlock Style="{StaticResource NavbarTitle}" Text="Make Notes"/>
-        <ns0:PopupBox Style="{StaticResource NavbarPopupBox}">
-          <StackPanel>
-            <Button Content="Options"/>
-            <Separator/>
-            <Button Content="Exit"/>
-          </StackPanel>
-        </ns0:PopupBox>
-      </Grid>
-      <ns3:TabablzControl Style="{StaticResource NavbarTabControl}" HeaderMemberPath="Header">
-        <ns3:TabablzControl.Resources>
-          <ResourceDictionary>
-            <DataTemplate DataType="{x:Type ns1:NavbarTabItem}">
-              <ContentControl>
-                <ns2:RegionManager.RegionName>
-                  <Binding Path="Header"/>
-                </ns2:RegionManager.RegionName>
-              </ContentControl>
-            </DataTemplate>
-          </ResourceDictionary>
-        </ns3:TabablzControl.Resources>
-        <ns3:TabablzControl.ItemsSource>
-          <Binding Path="Tabs"/>
-        </ns3:TabablzControl.ItemsSource>
-        <ns3:TabablzControl.SelectedIndex>
-          <Binding Path="SelectedTabIndex"/>
-        </ns3:TabablzControl.SelectedIndex>
-        <ns3:TabablzControl.HeaderSuffixContent>
-          <Button ns0:ShadowAssist.ShadowDepth="Depth0" Style="{StaticResource NavbarAddTabButton}" Command="{x:Static ns0:DialogHost.OpenDialogCommand}"/>
-        </ns3:TabablzControl.HeaderSuffixContent>
-      </ns3:TabablzControl>
+      <ContentControl ns1:RegionManager.RegionName="ToolbarRegion"/>
+      <ContentControl ns1:RegionManager.RegionName="NavigationRegion"/>
     </StackPanel>
-  </ns0:DialogHost>
+  </ns2:DialogHost>
 </Window>

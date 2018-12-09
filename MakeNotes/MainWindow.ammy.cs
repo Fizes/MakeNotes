@@ -5,7 +5,7 @@ namespace MakeNotes
 {
     public partial class MainWindow
     {
-        public MainWindow(WindowSettings windowSettings, MainWindowViewModel viewModel)
+        public MainWindow(WindowSettings windowSettings)
         {
             WindowInitializer.AttachSystemCommands(this);
 
@@ -14,8 +14,6 @@ namespace MakeNotes
             Width = windowSettings.Width;
             Height = windowSettings.Height;
             WindowStartupLocation = windowSettings.StartupLocation;
-
-            DataContext = viewModel;
         }
     }
 }

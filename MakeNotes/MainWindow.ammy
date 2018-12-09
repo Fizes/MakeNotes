@@ -1,61 +1,20 @@
-﻿using Dragablz
-using Dragablz.Dockablz
-using MakeNotes
-using MakeNotes.Common.Models
+﻿using MakeNotes
 using MaterialDesignThemes.Wpf
 using Prism.Regions
 
-$title = "Make Notes"
-
 Window "MakeNotes.MainWindow" {
     Style: resource dyn "MainWindow"
-    Title: $title
+    Title: MakeNotes.Properties.Resources.ApplicationName
 
     DialogHost {
-        #AddTabDialog()
+        Identifier: "RootDialogArea"
 
         StackPanel {
             TextElement.Foreground: resource "NavbarForegroundBrush"
 
-            Grid "Navbar" {
-                Style: resource "Navbar"
+            ContentControl { RegionManager.RegionName: "ToolbarRegion" }
 
-                TextBlock {
-                    Style: resource "NavbarTitle"
-                    Text: $title
-                }
-
-                PopupBox {
-                    Style: resource "NavbarPopupBox"
-                    StackPanel {
-                        Button { Content: "Options" }
-                        Separator {}
-                        Button { Content: "Exit" }
-                    }
-                }
-            }
-
-            TabablzControl {
-                Resources: [
-                    ResourceDictionary {
-                        DataTemplate {
-                            DataType: NavbarTabItem
-                            ContentControl { RegionManager.RegionName: bind Header }
-                        }
-                    }
-                ]
-
-                Style: resource "NavbarTabControl"
-                ItemsSource: bind Tabs
-                HeaderMemberPath: "Header"
-                SelectedIndex: bind SelectedTabIndex
-
-                HeaderSuffixContent: Button {
-                    ShadowAssist.ShadowDepth: Depth0
-                    Style: resource "NavbarAddTabButton"
-                    Command: DialogHost.OpenDialogCommand
-                }
-            }
+            ContentControl { RegionManager.RegionName: "NavigationRegion" }
         }
     }
 }
