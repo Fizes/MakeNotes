@@ -69,7 +69,7 @@ ResourceDictionary {
         #Setter("BorderBrush", "Transparent")
         #Setter("Height", $navbarAddTabButtonSize)
         #Setter("Width", $navbarAddTabButtonSize)
-        #Setter("Margin", "6")
+        #Setter("Margin", "10,6")
         #Setter("HorizontalAlignment", "Left")
         #Setter("ToolTip", "Add new tab")
         Setter {

@@ -1,8 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows.Input;
 using MakeNotes.Common.Models;
 using MakeNotes.Framework.Controls;
+using MakeNotes.Framework.Models;
 using MakeNotes.Notebook.Collections;
+using MakeNotes.Notebook.Consts;
 using MakeNotes.Notebook.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -37,19 +40,20 @@ namespace MakeNotes.Notebook.ViewModels
 
         private async void AddTab()
         {
-            await DialogManager.Show<AddTabDialog>(viewModel: this, OnAddTab, result => ResetDialogState());
+            await DialogManager.Show<AddTabDialog>(viewModel: this, OnAddTab, OnCloseDialog);
         }
 
         private void OnAddTab()
         {
             var maxItemOrder = Tabs.Max(t => t.Order);
-            var newItem = new NavbarTabItem(TabName, maxItemOrder + 1);
+            var tabName = String.IsNullOrWhiteSpace(TabName) ? DefaultValues.DefaultTabName : TabName;
+            var newItem = new NavbarTabItem(tabName, maxItemOrder + 1);
 
             Tabs.Add(newItem);
             SelectedTabIndex = newItem.Order;
         }
 
-        private void ResetDialogState()
+        private void OnCloseDialog(DialogResult result)
         {
             TabName = null;
         }

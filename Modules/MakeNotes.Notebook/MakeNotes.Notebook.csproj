@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\NavbarTabItemObservableCollection.cs" />
+    <Compile Include="Consts\DefaultValues.cs" />
     <Compile Include="NotebookModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

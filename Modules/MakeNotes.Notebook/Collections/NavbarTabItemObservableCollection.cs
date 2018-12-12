@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using MakeNotes.Common.Models;
+using MakeNotes.Notebook.Consts;
 
 namespace MakeNotes.Notebook.Collections
 {
@@ -17,7 +18,7 @@ namespace MakeNotes.Notebook.Collections
             NotifyCollectionChangedAction.Reset
         };
 
-        private static readonly Func<NavbarTabItem> _createDefaultItemFactory = () => new NavbarTabItem("Unnamed", 0);
+        private static readonly Func<NavbarTabItem> _createDefaultItemFactory = () => new NavbarTabItem(DefaultValues.DefaultTabName, 0);
 
         public NavbarTabItemObservableCollection()
         {
