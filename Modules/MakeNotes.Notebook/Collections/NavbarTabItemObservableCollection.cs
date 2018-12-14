@@ -28,12 +28,17 @@ namespace MakeNotes.Notebook.Collections
         
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            // Keep at least 1 tab if all tabs were removed
+            PreserveAtLeastOneItem(e);
+        }
+
+        private void PreserveAtLeastOneItem(NotifyCollectionChangedEventArgs e)
+        {
+            // Do nothing if it's not a delete action and there are still items in the collection
             if (!_removeItemActions.Contains(e.Action) || Items.Any())
             {
                 return;
             }
-
+            
             Items.Add(_createDefaultItemFactory());
         }
     }

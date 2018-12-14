@@ -40,21 +40,21 @@ namespace MakeNotes.Notebook.ViewModels
 
         private async void AddTab()
         {
-            await DialogManager.Show<AddTabDialog>(viewModel: this, OnAddTab, OnCloseDialog);
+            await DialogManager.Show<AddTabDialog>(viewModel: this, OnCloseDialog);
         }
-
-        private void OnAddTab()
-        {
-            var maxItemOrder = Tabs.Max(t => t.Order);
-            var tabName = String.IsNullOrWhiteSpace(TabName) ? DefaultValues.DefaultTabName : TabName;
-            var newItem = new NavbarTabItem(tabName, maxItemOrder + 1);
-
-            Tabs.Add(newItem);
-            SelectedTabIndex = newItem.Order;
-        }
-
+        
         private void OnCloseDialog(DialogResult result)
         {
+            if (result == DialogResult.Accepted)
+            {
+                var maxItemOrder = Tabs.Max(t => t.Order);
+                var tabName = String.IsNullOrWhiteSpace(TabName) ? DefaultValues.DefaultTabName : TabName;
+                var newItem = new NavbarTabItem(tabName, maxItemOrder + 1);
+
+                Tabs.Add(newItem);
+                SelectedTabIndex = newItem.Order;
+            }
+
             TabName = null;
         }
     }
