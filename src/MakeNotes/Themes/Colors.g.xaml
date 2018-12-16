@@ -9,6 +9,11 @@
   <SolidColorBrush x:Key="BlueGrey700" Color="#455A64"/>
   <SolidColorBrush x:Key="BlueGrey800" Color="#37474F"/>
   <SolidColorBrush x:Key="BlueGrey900" Color="#263238"/>
+  <SolidColorBrush x:Key="LightBlue100" Color="#80D8FF"/>
+  <SolidColorBrush x:Key="LightBlue200" Color="#40C4FF"/>
+  <SolidColorBrush x:Key="LightBlue400" Color="#00B0FF"/>
+  <SolidColorBrush x:Key="LightBlue700" Color="#0091EA"/>
+  <SolidColorBrush x:Key="DeepPurple500" Color="#673ab7"/>
   <SolidColorBrush x:Key="WindowBackground">
     <SolidColorBrush.Color>
       <Binding Path="Color" Source="{StaticResource BlueGrey900}"/>
@@ -19,11 +24,20 @@
       <Binding Path="Color" Source="{StaticResource BlueGrey800}"/>
     </SolidColorBrush.Color>
   </SolidColorBrush>
-  <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#40C4FF"/>
+  <SolidColorBrush x:Key="SecondaryAccentBrush">
+    <SolidColorBrush.Color>
+      <Binding Path="Color" Source="{StaticResource LightBlue200}"/>
+    </SolidColorBrush.Color>
+  </SolidColorBrush>
   <SolidColorBrush x:Key="NavbarBackgroundBrush">
     <SolidColorBrush.Color>
       <Binding Path="Color" Source="{StaticResource PrimaryHueMidBrush}"/>
     </SolidColorBrush.Color>
   </SolidColorBrush>
   <SolidColorBrush x:Key="NavbarForegroundBrush" Color="GhostWhite"/>
+  <SolidColorBrush x:Key="ActionPopupBoxBackgroundBrush">
+    <SolidColorBrush.Color>
+      <Binding Path="Color" Source="{StaticResource DeepPurple500}"/>
+    </SolidColorBrush.Color>
+  </SolidColorBrush>
 </ResourceDictionary>

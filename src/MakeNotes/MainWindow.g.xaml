@@ -1,8 +1,14 @@
 <Window x:Class="MakeNotes.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MakeNotes.Properties" xmlns:ns1="clr-namespace:Prism.Regions;assembly=Prism.Wpf" xmlns:ns2="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns3="clr-namespace:AmmySidekick;assembly=AmmySidekick" Style="{DynamicResource MainWindow}" Title="{x:Static ns0:Resources.ApplicationName}" ns3:Ammy.Register="/MakeNotes;component/MainWindow.g.xaml">
   <ns2:DialogHost Identifier="RootDialogArea">
-    <StackPanel TextElement.Foreground="{StaticResource NavbarForegroundBrush}">
-      <ContentControl ns1:RegionManager.RegionName="ToolbarRegion"/>
-      <ContentControl ns1:RegionManager.RegionName="NavigationRegion"/>
-    </StackPanel>
+    <Grid TextElement.Foreground="{StaticResource NavbarForegroundBrush}">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <ContentControl Grid.Row="0" ns1:RegionManager.RegionName="ToolbarRegion"/>
+      <ContentControl Grid.Row="1" ns1:RegionManager.RegionName="NavigationRegion"/>
+      <ContentControl Grid.Row="2" ns1:RegionManager.RegionName="ContentRegion"/>
+    </Grid>
   </ns2:DialogHost>
 </Window>

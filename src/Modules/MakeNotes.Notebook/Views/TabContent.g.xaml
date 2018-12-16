@@ -1,0 +1,36 @@
+<UserControl x:Class="MakeNotes.Notebook.Views.TabContent" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:Prism.Regions;assembly=Prism.Wpf" xmlns:ns1="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns2="clr-namespace:AmmySidekick;assembly=AmmySidekick" ns2:Ammy.Register="/MakeNotes.Notebook;component/Views/TabContent.g.xaml">
+  <Grid>
+    <Grid Margin="14">
+      <ContentControl ns0:RegionManager.RegionName="TabContentRegion"/>
+    </Grid>
+    <ns1:PopupBox Panel.ZIndex="1" ns1:ShadowAssist.ShadowDepth="Depth1" Style="{StaticResource RegularFloatingActionPopupBox}" PopupMode="Click" ToolTip="Click to see actions">
+      <ItemsControl>
+        <ItemsControl.ItemsSource>
+          <Binding Path="ActionMenuItems"/>
+        </ItemsControl.ItemsSource>
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <StackPanel/>
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Button ns1:ShadowAssist.ShadowDepth="Depth1">
+              <Button.Command>
+                <Binding Path="Action"/>
+              </Button.Command>
+              <Button.ToolTip>
+                <Binding Path="Tooltip"/>
+              </Button.ToolTip>
+              <ns1:PackIcon Width="22" Height="22">
+                <ns1:PackIcon.Kind>
+                  <Binding Path="Icon"/>
+                </ns1:PackIcon.Kind>
+              </ns1:PackIcon>
+            </Button>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ns1:PopupBox>
+  </Grid>
+</UserControl>

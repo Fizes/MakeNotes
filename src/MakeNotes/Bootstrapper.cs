@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Autofac;
@@ -39,10 +39,16 @@ namespace MakeNotes
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             var builder = containerRegistry.GetBuilder();
-            
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).PublicOnly();
 
-            builder.RegisterAssemblyModules(AppDomain.CurrentDomain.GetAssemblies());
+            var currentAssembly = Assembly.GetExecutingAssembly();
+            var assemblies = currentAssembly
+                .GetReferencedAssemblies()
+                .Select(an => Assembly.Load(an))
+                .ToArray();
+
+            builder.RegisterAssemblyTypes(currentAssembly).PublicOnly();
+            
+            builder.RegisterAssemblyModules(assemblies);
 
             builder.RegisterInstance(_configuration.GetConfiguration<WindowSettings>());
         }
@@ -54,6 +60,7 @@ namespace MakeNotes
             var regionManager = Container.Resolve<IRegionManager>();
             regionManager.RegisterViewWithRegion("ToolbarRegion", typeof(Views.Toolbar));
             regionManager.RegisterViewWithRegion("NavigationRegion", typeof(Notebook.Views.Navbar));
+            regionManager.RegisterViewWithRegion("ContentRegion", typeof(Notebook.Views.TabContent));
         }
     }
 }

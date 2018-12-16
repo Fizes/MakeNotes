@@ -9,12 +9,13 @@ Window "MakeNotes.MainWindow" {
     DialogHost {
         Identifier: "RootDialogArea"
 
-        StackPanel {
+        Grid {
+            #ThreeRows("Auto", "Auto", "*")
             TextElement.Foreground: resource "NavbarForegroundBrush"
 
-            ContentControl { RegionManager.RegionName: "ToolbarRegion" }
-
-            ContentControl { RegionManager.RegionName: "NavigationRegion" }
+            ContentControl { Grid.Row: 0, RegionManager.RegionName: "ToolbarRegion" }
+            ContentControl { Grid.Row: 1, RegionManager.RegionName: "NavigationRegion" }
+            ContentControl { Grid.Row: 2, RegionManager.RegionName: "ContentRegion" }
         }
     }
 }

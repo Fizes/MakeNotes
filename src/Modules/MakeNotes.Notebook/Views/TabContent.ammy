@@ -1,0 +1,37 @@
+﻿using MaterialDesignThemes.Wpf
+using Prism.Regions
+
+UserControl "MakeNotes.Notebook.Views.TabContent" {
+    Grid {
+        Grid {
+            Margin: "14"
+            ContentControl { RegionManager.RegionName: "TabContentRegion" }
+        }
+        PopupBox {
+            Grid.ZIndex: 1
+            ShadowAssist.ShadowDepth: Depth1
+            Style: resource "RegularFloatingActionPopupBox"
+            PopupMode: Click
+            ToolTip: "Click to see actions"
+            
+            ItemsControl {
+                ItemsSource: bind ActionMenuItems
+                ItemsPanel: ItemsPanelTemplate {
+                    StackPanel {}
+                }
+                ItemTemplate: DataTemplate {
+                    Button {
+                        ShadowAssist.ShadowDepth: Depth1
+                        Command: bind Action
+                        ToolTip: bind Tooltip
+                        PackIcon {
+                            Width: 22
+                            Height: 22
+                            Kind: bind Icon
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MakeNotes.Notebook.Providers;
 
 namespace MakeNotes.Notebook
 {
@@ -7,6 +8,7 @@ namespace MakeNotes.Notebook
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(GetType().Assembly).PublicOnly();
+            builder.RegisterType<NavigationContext>().As<INavigationContext>().SingleInstance();
         }
     }
 }

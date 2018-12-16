@@ -48,8 +48,8 @@ ResourceDictionary {
         #Setter("Margin", "0,-0.5,0,0.5")
         #Setter("FontSize", 16)
         Setter {
-            Property: "Height"
-            Value: bind ActualHeight from $ancestor<Window>(1)
+            Property: "ContentTemplate"
+            Value: DataTemplate {} // Empty content
         }
     }
     
@@ -99,5 +99,16 @@ ResourceDictionary {
         TargetType: DialogHost
         BasedOn: resource "{x:Type ns1:DialogHost}"
         #Setter("PopupStyle", resource "VerticalAdjustedDialogHostPopup")
+    }
+
+    Style Key="RegularFloatingActionPopupBox" {
+        TargetType: PopupBox
+        BasedOn: resource "MaterialDesignMultiFloatingActionPopupBox"
+        #Setter("Background", resource "ActionPopupBoxBackgroundBrush")
+        #Setter("BorderBrush", resource "ActionPopupBoxBackgroundBrush")
+        #Setter("PlacementMode", "TopAndAlignCentres")
+        #Setter("HorizontalAlignment", "Right")
+        #Setter("VerticalAlignment", "Bottom")
+        #Setter("Margin", "20")
     }
 }

@@ -10,14 +10,23 @@
     SolidColorBrush Key="BlueGrey700" { Color: "#455A64" }
     SolidColorBrush Key="BlueGrey800" { Color: "#37474F" }
     SolidColorBrush Key="BlueGrey900" { Color: "#263238" }
+    // LightBlue
+    SolidColorBrush Key="LightBlue100" { Color: "#80D8FF" }
+    SolidColorBrush Key="LightBlue200" { Color: "#40C4FF" }
+    SolidColorBrush Key="LightBlue400" { Color: "#00B0FF" }
+    SolidColorBrush Key="LightBlue700" { Color: "#0091EA" }
+    // DeepPurple
+    SolidColorBrush Key="DeepPurple500" { Color: "#673ab7" }
 
     SolidColorBrush Key="WindowBackground" { Color: bind Color from $resource BlueGrey900 }
-    // Primary background
+    // Primary color
     SolidColorBrush Key="PrimaryHueMidBrush" { Color: bind Color from $resource BlueGrey800 }
-    // TabablzControl underline
-    SolidColorBrush Key="SecondaryAccentBrush" { Color: "#40C4FF" }
+    // Accent color
+    SolidColorBrush Key="SecondaryAccentBrush" { Color: bind Color from $resource LightBlue200 }
     
     SolidColorBrush Key="NavbarBackgroundBrush" { Color: bind Color from $resource PrimaryHueMidBrush }
     
     SolidColorBrush Key="NavbarForegroundBrush" { Color: "GhostWhite" }
+
+    SolidColorBrush Key="ActionPopupBoxBackgroundBrush" { Color: bind Color from $resource DeepPurple500 }
 }

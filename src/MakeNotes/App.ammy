@@ -2,8 +2,8 @@
     Resources: ResourceDictionary {
         #MergeDictionary("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml")
         #MergeDictionary("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml")
-        #MergeDictionary("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.LightBlue.xaml")
-        #MergeDictionary("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml")
+        #MergeDictionary("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml")
+        #MergeDictionary("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml")
         // Include the Dragablz Material Design style
         #MergeDictionary("pack://application:,,,/Dragablz;component/Themes/MaterialDesign.xaml")
         // Colors

@@ -79,10 +79,15 @@
   <ItemGroup>
     <Compile Include="Collections\NavbarTabItemObservableCollection.cs" />
     <Compile Include="Consts\DefaultValues.cs" />
+    <Compile Include="Events\TabChangedEvent.cs" />
+    <Compile Include="Models\ActionMenuItem.cs" />
     <Compile Include="NotebookModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Providers\INavigationContext.cs" />
+    <Compile Include="Providers\NavigationContext.cs" />
+    <Compile Include="ViewModels\TabContentViewModel.cs" />
     <Compile Include="ViewModels\NavbarViewModel.cs" />
     <Compile Include="Views\AddTabDialog.ammy.cs">
       <DependentUpon>AddTabDialog.ammy</DependentUpon>
@@ -90,10 +95,18 @@
     <Compile Include="Views\Navbar.ammy.cs">
       <DependentUpon>Navbar.ammy</DependentUpon>
     </Compile>
+    <Compile Include="Views\TabContent.ammy.cs">
+      <DependentUpon>TabContent.ammy</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Templates\DataGridTemplate.ammy.cs">
+      <DependentUpon>DataGridTemplate.ammy</DependentUpon>
+    </Compile>
     <None Include="lib.ammy" />
     <None Include="packages.config" />
     <None Include="Views\AddTabDialog.ammy" />
     <None Include="Views\Navbar.ammy" />
+    <None Include="Views\TabContent.ammy" />
+    <None Include="Views\Templates\DataGridTemplate.ammy" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MakeNotes.Common\MakeNotes.Common.csproj">
@@ -116,6 +129,16 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <DependentUpon>Navbar.ammy</DependentUpon>
+    </Page>
+    <Page Include="Views\TabContent.g.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>TabContent.ammy</DependentUpon>
+    </Page>
+    <Page Include="Views\Templates\DataGridTemplate.g.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>DataGridTemplate.ammy</DependentUpon>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
