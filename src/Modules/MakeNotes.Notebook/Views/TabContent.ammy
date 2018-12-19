@@ -3,17 +3,41 @@ using Prism.Regions
 
 UserControl "MakeNotes.Notebook.Views.TabContent" {
     Grid {
-        Grid {
-            Margin: "14"
-            ContentControl { RegionManager.RegionName: "TabContentRegion" }
+        ScrollViewer "Scrollbar" {
+            Margin: "0,14"
+            VerticalScrollBarVisibility: Auto
+            
+            ItemsControl {
+                Margin: "14,0"
+                ItemsSource: bind Content
+                ItemsPanel: ItemsPanelTemplate {
+                    StackPanel {}
+                }
+                ItemTemplate: DataTemplate {
+                    ContentControl { Content: bind }
+                }
+            }
         }
+
         PopupBox {
             Grid.ZIndex: 1
             ShadowAssist.ShadowDepth: Depth1
-            Style: resource "RegularFloatingActionPopupBox"
             PopupMode: Click
             ToolTip: "Click to see actions"
-            
+            // Override style to offset the popupbox when the scrollbar is visible
+            Style: Style {
+                BasedOn: resource "RegularFloatingActionPopupBox"
+                TargetType: PopupBox
+                #Setter("Margin", "35,18")
+                Triggers: [
+                    DataTrigger {
+                        Binding: bind ScrollableHeight from "Scrollbar"
+                        Value: 0
+                        #Setter("Margin", "18")
+                    }
+                ]
+            }
+
             ItemsControl {
                 ItemsSource: bind ActionMenuItems
                 ItemsPanel: ItemsPanelTemplate {

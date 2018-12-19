@@ -1,4 +1,15 @@
 ﻿ResourceDictionary {
+    // Grey
+    SolidColorBrush Key="Grey50"  { Color: "#FAFAFA" }
+    SolidColorBrush Key="Grey100" { Color: "#F5F5F5" }
+    SolidColorBrush Key="Grey200" { Color: "#EEEEEE" }
+    SolidColorBrush Key="Grey300" { Color: "#E0E0E0" }
+    SolidColorBrush Key="Grey400" { Color: "#BDBDBD" }
+    SolidColorBrush Key="Grey500" { Color: "#9E9E9E" }
+    SolidColorBrush Key="Grey600" { Color: "#757575" }
+    SolidColorBrush Key="Grey700" { Color: "#616161" }
+    SolidColorBrush Key="Grey800" { Color: "#424242" }
+    SolidColorBrush Key="Grey900" { Color: "#212121" }
     // BlueGrey
     SolidColorBrush Key="BlueGrey50"  { Color: "#ECEFF1" }
     SolidColorBrush Key="BlueGrey100" { Color: "#CFD8DC" }
@@ -18,7 +29,10 @@
     // DeepPurple
     SolidColorBrush Key="DeepPurple500" { Color: "#673ab7" }
 
-    SolidColorBrush Key="WindowBackground" { Color: bind Color from $resource BlueGrey900 }
+    SolidColorBrush Key="WindowBorderBrush" { Color: bind Color from $resource BlueGrey900 }
+
+    SolidColorBrush Key="WindowBackgroundBrush" { Color: "#ECF0F1" }
+
     // Primary color
     SolidColorBrush Key="PrimaryHueMidBrush" { Color: bind Color from $resource BlueGrey800 }
     // Accent color

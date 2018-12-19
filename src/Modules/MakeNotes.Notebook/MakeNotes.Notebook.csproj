@@ -81,6 +81,7 @@
     <Compile Include="Consts\DefaultValues.cs" />
     <Compile Include="Events\TabChangedEvent.cs" />
     <Compile Include="Models\ActionMenuItem.cs" />
+    <Compile Include="Models\PasswordDataGridItem.cs" />
     <Compile Include="NotebookModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -98,15 +99,16 @@
     <Compile Include="Views\TabContent.ammy.cs">
       <DependentUpon>TabContent.ammy</DependentUpon>
     </Compile>
-    <Compile Include="Views\Templates\DataGridTemplate.ammy.cs">
-      <DependentUpon>DataGridTemplate.ammy</DependentUpon>
+    <Compile Include="Views\Templates\PasswordDataGridTemplate.ammy.cs">
+      <DependentUpon>PasswordDataGridTemplate.ammy</DependentUpon>
     </Compile>
+    <Compile Include="Views\Templates\PasswordDataGridTemplateViewModel.cs" />
     <None Include="lib.ammy" />
     <None Include="packages.config" />
     <None Include="Views\AddTabDialog.ammy" />
     <None Include="Views\Navbar.ammy" />
     <None Include="Views\TabContent.ammy" />
-    <None Include="Views\Templates\DataGridTemplate.ammy" />
+    <None Include="Views\Templates\PasswordDataGridTemplate.ammy" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MakeNotes.Common\MakeNotes.Common.csproj">
@@ -135,10 +137,10 @@
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>TabContent.ammy</DependentUpon>
     </Page>
-    <Page Include="Views\Templates\DataGridTemplate.g.xaml">
+    <Page Include="Views\Templates\PasswordDataGridTemplate.g.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>DataGridTemplate.ammy</DependentUpon>
+      <DependentUpon>PasswordDataGridTemplate.ammy</DependentUpon>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

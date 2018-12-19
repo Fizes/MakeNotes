@@ -91,7 +91,7 @@
     </Style.Triggers>
   </Style>
   <ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type Window}">
-    <Border x:Name="WindowBorder" BorderBrush="{StaticResource WindowBackground}" BorderThickness="1">
+    <Border x:Name="WindowBorder" BorderBrush="{StaticResource WindowBorderBrush}" BorderThickness="1">
       <Border.Margin>
         <Binding Source="{x:Static SystemParameters.WindowNonClientFrameThickness}"/>
       </Border.Margin>
@@ -102,7 +102,7 @@
               <RowDefinition Height="Auto"/>
               <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Row="0" Background="{StaticResource WindowBackground}">
+            <Grid Row="0" Background="{StaticResource WindowBorderBrush}">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>

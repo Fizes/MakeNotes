@@ -1,4 +1,14 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <SolidColorBrush x:Key="Grey50" Color="#FAFAFA"/>
+  <SolidColorBrush x:Key="Grey100" Color="#F5F5F5"/>
+  <SolidColorBrush x:Key="Grey200" Color="#EEEEEE"/>
+  <SolidColorBrush x:Key="Grey300" Color="#E0E0E0"/>
+  <SolidColorBrush x:Key="Grey400" Color="#BDBDBD"/>
+  <SolidColorBrush x:Key="Grey500" Color="#9E9E9E"/>
+  <SolidColorBrush x:Key="Grey600" Color="#757575"/>
+  <SolidColorBrush x:Key="Grey700" Color="#616161"/>
+  <SolidColorBrush x:Key="Grey800" Color="#424242"/>
+  <SolidColorBrush x:Key="Grey900" Color="#212121"/>
   <SolidColorBrush x:Key="BlueGrey50" Color="#ECEFF1"/>
   <SolidColorBrush x:Key="BlueGrey100" Color="#CFD8DC"/>
   <SolidColorBrush x:Key="BlueGrey200" Color="#B0BEC5"/>
@@ -14,11 +24,12 @@
   <SolidColorBrush x:Key="LightBlue400" Color="#00B0FF"/>
   <SolidColorBrush x:Key="LightBlue700" Color="#0091EA"/>
   <SolidColorBrush x:Key="DeepPurple500" Color="#673ab7"/>
-  <SolidColorBrush x:Key="WindowBackground">
+  <SolidColorBrush x:Key="WindowBorderBrush">
     <SolidColorBrush.Color>
       <Binding Path="Color" Source="{StaticResource BlueGrey900}"/>
     </SolidColorBrush.Color>
   </SolidColorBrush>
+  <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#ECF0F1"/>
   <SolidColorBrush x:Key="PrimaryHueMidBrush">
     <SolidColorBrush.Color>
       <Binding Path="Color" Source="{StaticResource BlueGrey800}"/>

@@ -1,45 +1,44 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using MakeNotes.Common.Models;
+using MakeNotes.Framework.Factories;
 using MakeNotes.Notebook.Models;
 using MakeNotes.Notebook.Providers;
+using MakeNotes.Notebook.Views.Templates;
 using Prism.Commands;
 using Prism.Mvvm;
-using Prism.Regions;
 
 namespace MakeNotes.Notebook.ViewModels
 {
     public class TabContentViewModel : BindableBase
     {
         private readonly INavigationContext _navigationContext;
-        private readonly IRegionManager _regionManager;
+        private readonly IViewFactory _viewFactory;
 
-        public TabContentViewModel(INavigationContext navigationContext, IRegionManager regionManager)
+        public TabContentViewModel(INavigationContext navigationContext, IViewFactory viewFactory)
         {
             _navigationContext = navigationContext;
-            _regionManager = regionManager;
-            InitializeActionMenuItems();
-        }
-
-        public IEnumerable<ActionMenuItem> ActionMenuItems { get; private set; }
-
-        private void InitializeActionMenuItems()
-        {
-            var addGridAction = new ActionMenuItem
-            {
-                Tooltip = "Add new grid",
-                Icon = "TablePlus",
-                Action = new DelegateCommand(AddNewGrid)
-            };
-
+            _viewFactory = viewFactory;
+            
             ActionMenuItems = new ActionMenuItem[]
             {
-                addGridAction
+                new ActionMenuItem
+                {
+                    Tooltip = "Add a new password list",
+                    Icon = "TablePlus",
+                    Action = new DelegateCommand(AddNewGrid)
+                }
             };
         }
+
+        public IEnumerable<ActionMenuItem> ActionMenuItems { get; }
+
+        public ObservableCollection<IDynamicElement> Content { get; } = new ObservableCollection<IDynamicElement>();
 
         private void AddNewGrid()
         {
-            var grid = new Views.Templates.DataGridTemplate();
-            _regionManager.Regions["TabContentRegion"].Add(grid);
+            var grid = _viewFactory.Create<PasswordDataGridTemplate>();
+            Content.Add(grid);
         }
     }
 }

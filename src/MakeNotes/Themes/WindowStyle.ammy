@@ -120,7 +120,7 @@ ResourceDictionary {
     TargetType: Window
 
     Border "WindowBorder" {
-      BorderBrush: resource "WindowBackground"
+      BorderBrush: resource "WindowBorderBrush"
       BorderThickness: 1
       Margin: bind from SystemParameters.WindowNonClientFrameThickness
 
@@ -135,7 +135,7 @@ ResourceDictionary {
             
             Grid {
               Grid.Row: 0
-              Background: resource "WindowBackground"
+              Background: resource "WindowBorderBrush"
               #FourColumns("*", "Auto", "Auto", "Auto")
             
               StackPanel {

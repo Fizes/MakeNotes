@@ -11,7 +11,7 @@ ResourceDictionary {
         TargetType: Window
         #Setter("MinWidth", 640)
         #Setter("MinHeight", 480)
-        #Setter("Background", resource "MaterialDesignPaper")
+        #Setter("Background", resource "WindowBackgroundBrush")
         #Setter("TextElement.Foreground", resource "MaterialDesignBody")
         #Setter("TextElement.FontSize", 14)
         #Setter("FontFamily", "pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto")
@@ -109,6 +109,6 @@ ResourceDictionary {
         #Setter("PlacementMode", "TopAndAlignCentres")
         #Setter("HorizontalAlignment", "Right")
         #Setter("VerticalAlignment", "Bottom")
-        #Setter("Margin", "20")
+        #Setter("Margin", "18")
     }
 }

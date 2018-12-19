@@ -2,6 +2,9 @@
 using System.Reflection;
 using System.Windows;
 using Autofac;
+using MakeNotes.Common.Core;
+using MakeNotes.Common.Interfaces;
+using MakeNotes.Framework.Factories;
 using MakeNotes.Framework.Utilities;
 using MakeNotes.Infrastructure;
 using MakeNotes.Infrastructure.Extensions;
@@ -51,6 +54,10 @@ namespace MakeNotes
             builder.RegisterAssemblyModules(assemblies);
 
             builder.RegisterInstance(_configuration.GetConfiguration<WindowSettings>());
+
+            builder.RegisterType<ApplicationState>().As<IApplicationState>().SingleInstance();
+
+            builder.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
         }
 
         protected override void InitializeModules()

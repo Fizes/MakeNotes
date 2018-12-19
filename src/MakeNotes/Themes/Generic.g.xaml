@@ -2,7 +2,7 @@
   <Style x:Key="MainWindow" TargetType="{x:Type Window}">
     <Setter Property="MinWidth" Value="640"/>
     <Setter Property="MinHeight" Value="480"/>
-    <Setter Property="Background" Value="{StaticResource MaterialDesignPaper}"/>
+    <Setter Property="Background" Value="{StaticResource WindowBackgroundBrush}"/>
     <Setter Property="TextElement.Foreground" Value="{StaticResource MaterialDesignBody}"/>
     <Setter Property="TextElement.FontSize" Value="14"/>
     <Setter Property="FontFamily" Value="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"/>
@@ -71,6 +71,6 @@
     <Setter Property="PlacementMode" Value="TopAndAlignCentres"/>
     <Setter Property="HorizontalAlignment" Value="Right"/>
     <Setter Property="VerticalAlignment" Value="Bottom"/>
-    <Setter Property="Margin" Value="20"/>
+    <Setter Property="Margin" Value="18"/>
   </Style>
 </ResourceDictionary>

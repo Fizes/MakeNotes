@@ -17,6 +17,7 @@ namespace MakeNotes.Notebook.ViewModels
     public class NavbarViewModel : BindableBase
     {
         private readonly IEventAggregator _eventAggregator;
+
         private string _tabName;
         private int _selectedTabIndex;
         private NavbarTabItem _selectedTab;
@@ -53,7 +54,7 @@ namespace MakeNotes.Notebook.ViewModels
                 }
             }
         }
-
+        
         public NavbarTabItemObservableCollection Tabs { get; } = new NavbarTabItemObservableCollection();
         
         public ICommand AddTabCommand { get; }
