@@ -2,9 +2,9 @@
 
 namespace MakeNotes.Notebook.Views
 {
-    public partial class TabContent
+    public partial class NavbarView
     {
-        public TabContent(TabContentViewModel viewModel)
+        public NavbarView(NavbarViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;

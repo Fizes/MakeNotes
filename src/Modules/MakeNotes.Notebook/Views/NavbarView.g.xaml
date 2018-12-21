@@ -1,4 +1,4 @@
-<UserControl x:Class="MakeNotes.Notebook.Views.Navbar" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:Dragablz;assembly=Dragablz" xmlns:ns2="clr-namespace:AmmySidekick;assembly=AmmySidekick" ns2:Ammy.Register="/MakeNotes.Notebook;component/Views/Navbar.g.xaml">
+<UserControl x:Class="MakeNotes.Notebook.Views.NavbarView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:Dragablz;assembly=Dragablz" xmlns:ns2="clr-namespace:AmmySidekick;assembly=AmmySidekick" ns2:Ammy.Register="/MakeNotes.Notebook;component/Views/NavbarView.g.xaml">
   <ns1:TabablzControl Style="{StaticResource NavbarTabControl}" HeaderMemberPath="Header">
     <ns1:TabablzControl.ItemsSource>
       <Binding Path="Tabs"/>

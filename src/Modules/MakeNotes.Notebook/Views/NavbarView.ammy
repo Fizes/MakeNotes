@@ -2,7 +2,7 @@
 using MakeNotes.Common.Models
 using MaterialDesignThemes.Wpf
 
-UserControl "MakeNotes.Notebook.Views.Navbar" {
+UserControl "MakeNotes.Notebook.Views.NavbarView" {
     TabablzControl {
         Style: resource "NavbarTabControl"
         ItemsSource: bind Tabs

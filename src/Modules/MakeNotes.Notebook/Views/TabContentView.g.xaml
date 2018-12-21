@@ -1,4 +1,4 @@
-<UserControl x:Class="MakeNotes.Notebook.Views.TabContent" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:AmmySidekick;assembly=AmmySidekick" ns1:Ammy.Register="/MakeNotes.Notebook;component/Views/TabContent.g.xaml">
+<UserControl x:Class="MakeNotes.Notebook.Views.TabContentView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:AmmySidekick;assembly=AmmySidekick" ns1:Ammy.Register="/MakeNotes.Notebook;component/Views/TabContentView.g.xaml">
   <Grid>
     <ScrollViewer x:Name="Scrollbar" Margin="0,14" VerticalScrollBarVisibility="Auto">
       <ItemsControl Margin="14,0">

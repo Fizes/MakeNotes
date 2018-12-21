@@ -1,7 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf
 using Prism.Regions
 
-UserControl "MakeNotes.Notebook.Views.TabContent" {
+UserControl "MakeNotes.Notebook.Views.TabContentView" {
     Grid {
         ScrollViewer "Scrollbar" {
             Margin: "0,14"
@@ -18,7 +18,7 @@ UserControl "MakeNotes.Notebook.Views.TabContent" {
                 }
             }
         }
-
+        
         PopupBox {
             Grid.ZIndex: 1
             ShadowAssist.ShadowDepth: Depth1

@@ -7,7 +7,7 @@ using MakeNotes.Framework.Models;
 using MakeNotes.Notebook.Collections;
 using MakeNotes.Notebook.Consts;
 using MakeNotes.Notebook.Events;
-using MakeNotes.Notebook.Views;
+using MakeNotes.Notebook.Views.Templates;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;

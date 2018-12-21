@@ -1,8 +1,8 @@
 ﻿namespace MakeNotes.Views
 {
-    public partial class Toolbar
+    public partial class ToolbarView
     {
-        public Toolbar()
+        public ToolbarView()
         {
             InitializeComponent();
         }

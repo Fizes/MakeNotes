@@ -82,6 +82,7 @@
     <Compile Include="Events\TabChangedEvent.cs" />
     <Compile Include="Models\ActionMenuItem.cs" />
     <Compile Include="Models\PasswordDataGridItem.cs" />
+    <Compile Include="Models\TabContent.cs" />
     <Compile Include="NotebookModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -90,14 +91,14 @@
     <Compile Include="Providers\NavigationContext.cs" />
     <Compile Include="ViewModels\TabContentViewModel.cs" />
     <Compile Include="ViewModels\NavbarViewModel.cs" />
-    <Compile Include="Views\AddTabDialog.ammy.cs">
+    <Compile Include="Views\Templates\AddTabDialog.ammy.cs">
       <DependentUpon>AddTabDialog.ammy</DependentUpon>
     </Compile>
-    <Compile Include="Views\Navbar.ammy.cs">
-      <DependentUpon>Navbar.ammy</DependentUpon>
+    <Compile Include="Views\NavbarView.ammy.cs">
+      <DependentUpon>NavbarView.ammy</DependentUpon>
     </Compile>
-    <Compile Include="Views\TabContent.ammy.cs">
-      <DependentUpon>TabContent.ammy</DependentUpon>
+    <Compile Include="Views\TabContentView.ammy.cs">
+      <DependentUpon>TabContentView.ammy</DependentUpon>
     </Compile>
     <Compile Include="Views\Templates\PasswordDataGridTemplate.ammy.cs">
       <DependentUpon>PasswordDataGridTemplate.ammy</DependentUpon>
@@ -105,9 +106,9 @@
     <Compile Include="Views\Templates\PasswordDataGridTemplateViewModel.cs" />
     <None Include="lib.ammy" />
     <None Include="packages.config" />
-    <None Include="Views\AddTabDialog.ammy" />
-    <None Include="Views\Navbar.ammy" />
-    <None Include="Views\TabContent.ammy" />
+    <None Include="Views\Templates\AddTabDialog.ammy" />
+    <None Include="Views\NavbarView.ammy" />
+    <None Include="Views\TabContentView.ammy" />
     <None Include="Views\Templates\PasswordDataGridTemplate.ammy" />
   </ItemGroup>
   <ItemGroup>
@@ -122,20 +123,20 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="Views\AddTabDialog.g.xaml">
+    <Page Include="Views\Templates\AddTabDialog.g.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>AddTabDialog.ammy</DependentUpon>
     </Page>
-    <Page Include="Views\Navbar.g.xaml">
+    <Page Include="Views\NavbarView.g.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
-      <DependentUpon>Navbar.ammy</DependentUpon>
+      <DependentUpon>NavbarView.ammy</DependentUpon>
     </Page>
-    <Page Include="Views\TabContent.g.xaml">
+    <Page Include="Views\TabContentView.g.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>TabContent.ammy</DependentUpon>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <DependentUpon>TabContentView.ammy</DependentUpon>
     </Page>
     <Page Include="Views\Templates\PasswordDataGridTemplate.g.xaml">
       <SubType>Designer</SubType>

@@ -65,9 +65,9 @@ namespace MakeNotes
             // NOTE: Method from the base class is not called to avoid NotSupportedException
 
             var regionManager = Container.Resolve<IRegionManager>();
-            regionManager.RegisterViewWithRegion("ToolbarRegion", typeof(Views.Toolbar));
-            regionManager.RegisterViewWithRegion("NavigationRegion", typeof(Notebook.Views.Navbar));
-            regionManager.RegisterViewWithRegion("ContentRegion", typeof(Notebook.Views.TabContent));
+            regionManager.RegisterViewWithRegion("ToolbarRegion", typeof(Views.ToolbarView));
+            regionManager.RegisterViewWithRegion("NavigationRegion", typeof(Notebook.Views.NavbarView));
+            regionManager.RegisterViewWithRegion("ContentRegion", typeof(Notebook.Views.TabContentView));
         }
     }
 }
