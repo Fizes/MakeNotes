@@ -14,7 +14,9 @@ namespace MakeNotes
             var resourcePath = $"/{Ammy.GetAssemblyName(bootstrapper)};component/App.g.xaml";
 
             bootstrapper.InitializeComponent(resourcePath);
+#if DEBUG
             RuntimeUpdateHandler.Register(bootstrapper, resourcePath);
+#endif
 
             bootstrapper.Run();
         }

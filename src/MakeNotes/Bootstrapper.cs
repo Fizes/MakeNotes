@@ -4,6 +4,7 @@ using System.Windows;
 using Autofac;
 using MakeNotes.Common.Core;
 using MakeNotes.Common.Interfaces;
+using MakeNotes.DAL.Infrastructure;
 using MakeNotes.Framework.Factories;
 using MakeNotes.Framework.Utilities;
 using MakeNotes.Infrastructure;
@@ -53,6 +54,9 @@ namespace MakeNotes
             
             builder.RegisterAssemblyModules(assemblies);
 
+            var connectionString = SQLiteConnectionStringParser.Parse(_configuration.GetConnectionString("DefaultConnection"));
+            builder.RegisterInstance(new DefaultConnectionFactory(connectionString)).As<IDbConnectionFactory>().SingleInstance();
+
             builder.RegisterInstance(_configuration.GetConfiguration<WindowSettings>());
 
             builder.RegisterType<ApplicationState>().As<IApplicationState>().SingleInstance();
@@ -63,6 +67,9 @@ namespace MakeNotes
         protected override void InitializeModules()
         {
             // NOTE: Method from the base class is not called to avoid NotSupportedException
+
+            var dbConnectionFactory = Container.Resolve<IDbConnectionFactory>();
+            DatabaseMigrator.Migrate(dbConnectionFactory);
 
             var regionManager = Container.Resolve<IRegionManager>();
             regionManager.RegisterViewWithRegion("ToolbarRegion", typeof(Views.ToolbarView));

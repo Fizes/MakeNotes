@@ -118,7 +118,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
@@ -212,6 +211,10 @@
     <ProjectReference Include="..\MakeNotes.Common\MakeNotes.Common.csproj">
       <Project>{0a3e1b0c-10e5-4f93-b0c7-dde6573a9673}</Project>
       <Name>MakeNotes.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MakeNotes.DAL\MakeNotes.DAL.csproj">
+      <Project>{8b4def15-7564-452d-a267-b93d3320ff06}</Project>
+      <Name>MakeNotes.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\MakeNotes.Framework\MakeNotes.Framework.csproj">
       <Project>{3ba89279-3052-4091-8d04-f12b56cbfca2}</Project>
