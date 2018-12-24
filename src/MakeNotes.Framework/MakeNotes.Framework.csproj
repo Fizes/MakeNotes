@@ -69,5 +69,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MakeNotes.Common\MakeNotes.Common.csproj">
+      <Project>{0a3e1b0c-10e5-4f93-b0c7-dde6573a9673}</Project>
+      <Name>MakeNotes.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

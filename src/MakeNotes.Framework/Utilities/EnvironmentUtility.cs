@@ -2,9 +2,9 @@
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Threading;
-using System.Web;
 using System.Windows;
 using System.Windows.Markup;
+using MakeNotes.Common.Infrastructure.Extensions;
 
 namespace MakeNotes.Framework.Utilities
 {
@@ -33,8 +33,7 @@ namespace MakeNotes.Framework.Utilities
         public static NameValueCollection GetCommandLineVariables()
         {
             var args = Environment.GetCommandLineArgs();
-            var queryString = String.Join("&", args);
-            var variables = HttpUtility.ParseQueryString(queryString);
+            var variables = args.ToNameValueCollection();
 
             return variables;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using MakeNotes.Common.Infrastructure.Extensions;
 using MakeNotes.DAL.Infrastructure;
 using Xunit;
 
@@ -17,11 +18,11 @@ namespace MakeNotes.UnitTests.DAL
 
         private static string GetResultConnectionString(string original)
         {
-            return $"{SQLiteConnectionStringKeys.DataSource}={original}";
+            return StringExtensions.ToKeyValuePairString(SQLiteConnectionStringKeys.DataSource, original);
         }
 
         [Fact]
-        public void Parse_Should_ReturnLocalPath_WhenNoDataSourceGiven()
+        public void Parse_ShouldReturnLocalPath_WhenNoDataSourceGiven()
         {
             var connectionString = "Database=test";
 
@@ -32,7 +33,7 @@ namespace MakeNotes.UnitTests.DAL
         }
 
         [Fact]
-        public void Parse_Should_ReturnRelativePath_WhenDataSourceIsNotSpecialFolderAndNotRootedPath()
+        public void Parse_ShouldReturnRelativePath_WhenDataSourceIsNotSpecialFolderAndNotRootedPath()
         {
             var connectionString = @"Data Source=TestFolder\SubFolder;Database=test";
 
@@ -43,7 +44,7 @@ namespace MakeNotes.UnitTests.DAL
         }
 
         [Fact]
-        public void Parse_Should_ReturnAbsolutePath_WhenDataSourceIsRootedPath()
+        public void Parse_ShouldReturnAbsolutePath_WhenDataSourceIsRootedPath()
         {
             var connectionString = @"Data Source=c:\TestFolder\SubFolder;Database=test";
 
@@ -57,7 +58,7 @@ namespace MakeNotes.UnitTests.DAL
         [InlineData("Desktop")]
         [InlineData("MyDocuments")]
         [InlineData("ApplicationData")]
-        public void Parse_Should_ReturnSystemPath_WhenSpecialFolderAsDataSourceGiven(string specialFolder)
+        public void Parse_ShouldReturnSystemPath_WhenSpecialFolderAsDataSourceGiven(string specialFolder)
         {
             var connectionString = $"Data Source={specialFolder};Database=test";
 
@@ -66,9 +67,9 @@ namespace MakeNotes.UnitTests.DAL
             var expected = GetResultConnectionString(Path.Combine(GetSpecialFolderFullPath(specialFolder), "test.db"));
             Assert.Equal(expected, result);
         }
-
+        
         [Fact]
-        public void Parse_ShouldNot_Fail_WhenRedundantParametersGiven()
+        public void Parse_ShouldNotFail_WhenRedundantParametersGiven()
         {
             var connectionString = @";Redundant1=random; ;Data Source=ApplicationData;Some ;Redundant=test value;Database=test";
 
@@ -79,7 +80,7 @@ namespace MakeNotes.UnitTests.DAL
         }
 
         [Fact]
-        public void Parse_Should_ThrowArgumentNullException_WhenNoDatabaseGiven()
+        public void Parse_ShouldThrowArgumentNullException_WhenNoDatabaseGiven()
         {
             var connectionString = @"Data Source=Test;";
             
@@ -87,7 +88,7 @@ namespace MakeNotes.UnitTests.DAL
         }
 
         [Fact]
-        public void Parse_Should_ThrowArgumentNullException_WhenNoConnectionStringGiven()
+        public void Parse_ShouldThrowArgumentNullException_WhenNoConnectionStringGiven()
         {
             var connectionString = " ";
 

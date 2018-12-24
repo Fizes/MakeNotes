@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Web;
+using MakeNotes.Common.Infrastructure.Extensions;
 
 namespace MakeNotes.DAL.Infrastructure
 {
@@ -19,10 +19,8 @@ namespace MakeNotes.DAL.Infrastructure
             {
                 throw new ArgumentNullException(nameof(connectionString));
             }
-
-            var args = connectionString.Replace(';', '&');
-            var values = HttpUtility.ParseQueryString(args);
-
+            
+            var values = connectionString.ToNameValueCollection();
             var folderValue = values.Get(SQLiteConnectionStringKeys.DataSource);
             var databaseValue = values.Get(SQLiteConnectionStringKeys.Database);
 
@@ -36,7 +34,7 @@ namespace MakeNotes.DAL.Infrastructure
 
             if (String.IsNullOrWhiteSpace(folderValue))
             {
-                return $"{SQLiteConnectionStringKeys.DataSource}={Path.Combine(folder, database)}";
+                return StringExtensions.ToKeyValuePairString(SQLiteConnectionStringKeys.DataSource, Path.Combine(folder, database));
             }
 
             // 1. If it is a special folder, get the folder path ending with the application name;
@@ -55,7 +53,7 @@ namespace MakeNotes.DAL.Infrastructure
                 folder = Path.Combine(folderValue, ApplicationFolderName);
             }
 
-            return $"{SQLiteConnectionStringKeys.DataSource}={Path.Combine(folder, database)}";
+            return StringExtensions.ToKeyValuePairString(SQLiteConnectionStringKeys.DataSource, Path.Combine(folder, database));
         }
     }
 }
