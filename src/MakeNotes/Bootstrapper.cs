@@ -3,6 +3,9 @@ using System.Reflection;
 using System.Windows;
 using Autofac;
 using MakeNotes.Common.Core;
+using MakeNotes.Common.Core.Commands;
+using MakeNotes.Common.Core.Notifications;
+using MakeNotes.Common.Core.Queries;
 using MakeNotes.Common.Interfaces;
 using MakeNotes.DAL.Infrastructure;
 using MakeNotes.Framework.Factories;
@@ -39,7 +42,7 @@ namespace MakeNotes
         {
             return Container.Resolve<MainWindow>();
         }
-        
+
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             var builder = containerRegistry.GetBuilder();
@@ -51,8 +54,15 @@ namespace MakeNotes
                 .ToArray();
 
             builder.RegisterAssemblyTypes(currentAssembly).PublicOnly();
-            
+
             builder.RegisterAssemblyModules(assemblies);
+
+            foreach (var assembly in assemblies)
+            {
+                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandler<>));
+                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
+                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(INotificationHandler<>));
+            }
 
             var connectionString = SQLiteConnectionStringParser.Parse(_configuration.GetConnectionString("DefaultConnection"));
             builder.RegisterInstance(new DefaultConnectionFactory(connectionString)).As<IDbConnectionFactory>().SingleInstance();
@@ -62,6 +72,10 @@ namespace MakeNotes
             builder.RegisterType<ApplicationState>().As<IApplicationState>().SingleInstance();
 
             builder.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
+
+            builder.RegisterType<AutofacHandlerFactory>().As<IHandlerFactory>().SingleInstance();
+
+            builder.RegisterType<DefaultMessageBus>().As<IMessageBus>().SingleInstance();
         }
 
         protected override void InitializeModules()
