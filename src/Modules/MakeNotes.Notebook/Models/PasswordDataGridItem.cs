@@ -11,6 +11,11 @@
         public string Site { get; set; }
 
         /// <summary>
+        /// Username used to login the site.
+        /// </summary>
+        public string Username { get; set; }
+
+        /// <summary>
         /// Password to the site.
         /// </summary>
         public string Password { get; set; }

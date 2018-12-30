@@ -1,20 +1,29 @@
-<UserControl x:Class="MakeNotes.Notebook.Views.NavbarView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:Dragablz;assembly=Dragablz" xmlns:ns2="clr-namespace:AmmySidekick;assembly=AmmySidekick" ns2:Ammy.Register="/MakeNotes.Notebook;component/Views/NavbarView.g.xaml">
-  <ns1:TabablzControl Style="{StaticResource NavbarTabControl}" HeaderMemberPath="Header">
-    <ns1:TabablzControl.ItemsSource>
+<UserControl x:Class="MakeNotes.Notebook.Views.NavbarView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ns1="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns2="clr-namespace:Dragablz;assembly=Dragablz" xmlns:ns3="clr-namespace:AmmySidekick;assembly=AmmySidekick" ns3:Ammy.Register="/MakeNotes.Notebook;component/Views/NavbarView.g.xaml">
+  <ns0:Interaction.Triggers>
+    <ns0:EventTrigger EventName="Loaded">
+      <ns0:InvokeCommandAction>
+        <ns0:InvokeCommandAction.Command>
+          <Binding Path="LoadTabsCommand"/>
+        </ns0:InvokeCommandAction.Command>
+      </ns0:InvokeCommandAction>
+    </ns0:EventTrigger>
+  </ns0:Interaction.Triggers>
+  <ns2:TabablzControl Style="{StaticResource NavbarTabControl}" HeaderMemberPath="Header">
+    <ns2:TabablzControl.ItemsSource>
       <Binding Path="Tabs"/>
-    </ns1:TabablzControl.ItemsSource>
-    <ns1:TabablzControl.SelectedIndex>
+    </ns2:TabablzControl.ItemsSource>
+    <ns2:TabablzControl.SelectedIndex>
       <Binding Path="SelectedTabIndex"/>
-    </ns1:TabablzControl.SelectedIndex>
-    <ns1:TabablzControl.SelectedItem>
+    </ns2:TabablzControl.SelectedIndex>
+    <ns2:TabablzControl.SelectedItem>
       <Binding Path="SelectedTab" Mode="OneWayToSource"/>
-    </ns1:TabablzControl.SelectedItem>
-    <ns1:TabablzControl.HeaderSuffixContent>
-      <Button ns0:ShadowAssist.ShadowDepth="Depth0" Style="{StaticResource NavbarAddTabButton}">
+    </ns2:TabablzControl.SelectedItem>
+    <ns2:TabablzControl.HeaderSuffixContent>
+      <Button ns1:ShadowAssist.ShadowDepth="Depth0" Style="{StaticResource NavbarAddTabButton}">
         <Button.Command>
           <Binding Path="AddTabCommand"/>
         </Button.Command>
       </Button>
-    </ns1:TabablzControl.HeaderSuffixContent>
-  </ns1:TabablzControl>
+    </ns2:TabablzControl.HeaderSuffixContent>
+  </ns2:TabablzControl>
 </UserControl>

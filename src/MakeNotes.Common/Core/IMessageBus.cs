@@ -1,6 +1,6 @@
-﻿using MakeNotes.Common.Core.Commands;
+﻿using System.Threading.Tasks;
+using MakeNotes.Common.Core.Commands;
 using MakeNotes.Common.Core.Notifications;
-using MakeNotes.Common.Core.Queries;
 
 namespace MakeNotes.Common.Core
 {
@@ -11,18 +11,10 @@ namespace MakeNotes.Common.Core
     public interface IMessageBus
     {
         /// <summary>
-        /// Sends a command to a particular handler which executes the command.
+        /// Sends the command to a particular handler which executes the command.
         /// </summary>
         /// <param name="command">Command instance.</param>
-        void Send(ICommand command);
-
-        /// <summary>
-        /// Sends a query to a particular handler which executes the query and returns its result.
-        /// </summary>
-        /// <typeparam name="TResult">Query result type.</typeparam>
-        /// <param name="query">Query instance.</param>
-        /// <returns></returns>
-        TResult Send<TResult>(IQuery<TResult> query);
+        Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand;
 
         /// <summary>
         /// Publishes all pending notifications.

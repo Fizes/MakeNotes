@@ -79,6 +79,12 @@
   <ItemGroup>
     <Compile Include="Collections\NavbarTabItemObservableCollection.cs" />
     <Compile Include="Consts\DefaultValues.cs" />
+    <Compile Include="Core\Commands\CreateTab.cs" />
+    <Compile Include="Core\Commands\TabCommandHandler.cs" />
+    <Compile Include="Core\Queries\FindTabById.cs" />
+    <Compile Include="Core\Queries\GetAllTabs.cs" />
+    <Compile Include="Core\Queries\GetLastTabOrder.cs" />
+    <Compile Include="Core\Queries\TabQueryHandler.cs" />
     <Compile Include="Events\TabChangedEvent.cs" />
     <Compile Include="Models\ActionMenuItem.cs" />
     <Compile Include="Models\PasswordDataGridItem.cs" />
@@ -117,6 +123,10 @@
     <ProjectReference Include="..\..\MakeNotes.Common\MakeNotes.Common.csproj">
       <Project>{0a3e1b0c-10e5-4f93-b0c7-dde6573a9673}</Project>
       <Name>MakeNotes.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MakeNotes.DAL\MakeNotes.DAL.csproj">
+      <Project>{8B4DEF15-7564-452D-A267-B93D3320FF06}</Project>
+      <Name>MakeNotes.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\MakeNotes.Framework\MakeNotes.Framework.csproj">
       <Project>{3BA89279-3052-4091-8D04-F12B56CBFCA2}</Project>

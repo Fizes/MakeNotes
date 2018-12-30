@@ -1,35 +1,24 @@
-﻿using MakeNotes.Common.Core.Commands;
-using MakeNotes.Common.Core.Notifications;
-using MakeNotes.Common.Core.Queries;
+﻿using System.Collections.Generic;
 
 namespace MakeNotes.Common.Core
 {
     /// <summary>
-    /// Creates instances of <see cref="IQueryHandler{TQuery, TResult}"/>,
-    /// <see cref="ICommandHandler{TCommand}"/> and <see cref="INotificationHandler{TNotification}"/> handlers.
+    /// Factory for creating query, command and notification handlers.
     /// </summary>
     public interface IHandlerFactory
     {
         /// <summary>
-        /// Creates an instance of a query handler of the specified query type.
+        /// Creates an instance of a handler of the specified type.
         /// </summary>
-        /// <typeparam name="TResult">Query result type.</typeparam>
-        /// <param name="query">Query handler parameter.</param>
+        /// <typeparam name="THandler">Handler type.</typeparam>
         /// <returns></returns>
-        IQueryHandler<IQuery<TResult>, TResult> Create<TResult>(IQuery<TResult> query);
+        THandler Create<THandler>() where THandler : IHandler;
 
         /// <summary>
-        /// Creates an instance of a command handler of the specified command type.
+        /// Creates a list of handler instances of the specified notification type.
         /// </summary>
-        /// <param name="command">Command handler parameter.</param>
+        /// <typeparam name="TNotificationHandler">Notification handler type.</typeparam>
         /// <returns></returns>
-        ICommandHandler<ICommand> Create(ICommand command);
-
-        /// <summary>
-        /// Creates an instance of a notification handler of the specified notification type.
-        /// </summary>
-        /// <param name="notification">Notification handler parameter.</param>
-        /// <returns></returns>
-        INotificationHandler<INotification> Create(INotification notification);
+        IEnumerable<TNotificationHandler> CreateAll<TNotificationHandler>() where TNotificationHandler : IHandler;
     }
 }

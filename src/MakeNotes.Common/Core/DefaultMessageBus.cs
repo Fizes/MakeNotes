@@ -1,11 +1,11 @@
-﻿using MakeNotes.Common.Core.Commands;
+﻿using System.Threading.Tasks;
+using MakeNotes.Common.Core.Commands;
 using MakeNotes.Common.Core.Notifications;
-using MakeNotes.Common.Core.Queries;
 
 namespace MakeNotes.Common.Core
 {
     /// <summary>
-    /// Default implementation of <see cref="IMessageBus"/> that executes actions synchronously in-memory.
+    /// Default implementation of <see cref="IMessageBus"/> that executes actions in-memory.
     /// </summary>
     public class DefaultMessageBus : IMessageBus
     {
@@ -16,18 +16,10 @@ namespace MakeNotes.Common.Core
             _handlerFactory = handlerFactory;
         }
 
-        public void Send(ICommand command)
+        public Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
-            var handler = _handlerFactory.Create(command);
-            handler.Execute(command);
-        }
-
-        public TResult Send<TResult>(IQuery<TResult> query)
-        {
-            var handler = _handlerFactory.Create(query);
-            var result = handler.Execute(query);
-
-            return result;
+            var handler = _handlerFactory.Create<ICommandHandler<TCommand>>();
+            return handler.ExecuteAsync(command);
         }
 
         public void Publish()
@@ -40,8 +32,11 @@ namespace MakeNotes.Common.Core
 
         public void Publish<TNotification>(TNotification notification) where TNotification : INotification
         {
-            var handler = _handlerFactory.Create(notification);
-            handler.Handle(notification);
+            var handlers = _handlerFactory.CreateAll<INotificationHandler<TNotification>>();
+            foreach (var handler in handlers)
+            {
+                handler.Handle(notification);
+            }
         }
     }
 }

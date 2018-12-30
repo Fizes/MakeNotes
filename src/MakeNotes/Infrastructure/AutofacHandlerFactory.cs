@@ -1,11 +1,12 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using Autofac;
 using MakeNotes.Common.Core;
-using MakeNotes.Common.Core.Commands;
-using MakeNotes.Common.Core.Notifications;
-using MakeNotes.Common.Core.Queries;
 
 namespace MakeNotes.Infrastructure
 {
+    /// <summary>
+    /// Autofac implementation of <see cref="IHandlerFactory"/>.
+    /// </summary>
     public class AutofacHandlerFactory : IHandlerFactory
     {
         private readonly IComponentContext _componentContext;
@@ -15,19 +16,14 @@ namespace MakeNotes.Infrastructure
             _componentContext = componentContext;
         }
 
-        public IQueryHandler<IQuery<TResult>, TResult> Create<TResult>(IQuery<TResult> query)
+        public THandler Create<THandler>() where THandler : IHandler
         {
-            return _componentContext.Resolve<IQueryHandler<IQuery<TResult>, TResult>>();
+            return _componentContext.Resolve<THandler>();
         }
 
-        public ICommandHandler<ICommand> Create(ICommand command)
+        public IEnumerable<TNotificationHandler> CreateAll<TNotificationHandler>() where TNotificationHandler : IHandler
         {
-            return _componentContext.Resolve<ICommandHandler<ICommand>>();
-        }
-
-        public INotificationHandler<INotification> Create(INotification notification)
-        {
-            return _componentContext.Resolve<INotificationHandler<INotification>>();
+            return _componentContext.Resolve<IEnumerable<TNotificationHandler>>();
         }
     }
 }

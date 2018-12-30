@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -25,7 +26,17 @@ namespace MakeNotes.Notebook.Collections
             Add(_createDefaultItemFactory());
             CollectionChanged += OnCollectionChanged;
         }
-        
+
+        public NavbarTabItemObservableCollection(IEnumerable<NavbarTabItem> collection) : base(collection)
+        {
+            if (!collection.Any())
+            {
+                Add(_createDefaultItemFactory());
+            }
+
+            CollectionChanged += OnCollectionChanged;
+        }
+
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             PreserveAtLeastOneItem(e);

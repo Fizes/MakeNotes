@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Autofac;
@@ -7,6 +8,7 @@ using MakeNotes.Common.Core.Commands;
 using MakeNotes.Common.Core.Notifications;
 using MakeNotes.Common.Core.Queries;
 using MakeNotes.Common.Interfaces;
+using MakeNotes.DAL.Core;
 using MakeNotes.DAL.Infrastructure;
 using MakeNotes.Framework.Factories;
 using MakeNotes.Framework.Utilities;
@@ -57,15 +59,12 @@ namespace MakeNotes
 
             builder.RegisterAssemblyModules(assemblies);
 
-            foreach (var assembly in assemblies)
-            {
-                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandler<>));
-                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
-                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(INotificationHandler<>));
-            }
-
             var connectionString = SQLiteConnectionStringParser.Parse(_configuration.GetConnectionString("DefaultConnection"));
             builder.RegisterInstance(new DefaultConnectionFactory(connectionString)).As<IDbConnectionFactory>().SingleInstance();
+
+            builder.Register(ctx => ctx.Resolve<IDbConnectionFactory>().Create()).As<IDbConnection>();
+
+            builder.RegisterType<DapperRepository>().As<IRepository>();
 
             builder.RegisterInstance(_configuration.GetConfiguration<WindowSettings>());
 
@@ -73,7 +72,16 @@ namespace MakeNotes
 
             builder.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
 
+            foreach (var assembly in assemblies)
+            {
+                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandler<>));
+                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
+                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(INotificationHandler<>));
+            }
+
             builder.RegisterType<AutofacHandlerFactory>().As<IHandlerFactory>().SingleInstance();
+
+            builder.RegisterType<QueryDispatcher>().As<IQueryDispatcher>().SingleInstance();
 
             builder.RegisterType<DefaultMessageBus>().As<IMessageBus>().SingleInstance();
         }

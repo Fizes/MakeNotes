@@ -1,8 +1,18 @@
-﻿using Dragablz
+﻿﻿using System.Windows.Interactivity
+using Dragablz
 using MakeNotes.Common.Models
 using MaterialDesignThemes.Wpf
 
 UserControl "MakeNotes.Notebook.Views.NavbarView" {
+    Interaction.Triggers: [
+        Interactivity.EventTrigger {
+            EventName: "Loaded"
+            InvokeCommandAction {
+                Command: bind LoadTabsCommand
+            }
+        }
+    ]
+
     TabablzControl {
         Style: resource "NavbarTabControl"
         ItemsSource: bind Tabs
