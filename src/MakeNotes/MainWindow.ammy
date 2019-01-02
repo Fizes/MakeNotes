@@ -8,6 +8,7 @@ Window "MakeNotes.MainWindow" {
 
     DialogHost {
         Identifier: "RootDialogArea"
+        ShadowAssist.ShadowDepth: Depth3
 
         Grid {
             #ThreeRows("Auto", "Auto", "*")

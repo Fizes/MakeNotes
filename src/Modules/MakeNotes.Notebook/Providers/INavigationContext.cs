@@ -10,6 +10,6 @@ namespace MakeNotes.Notebook.Providers
         /// <summary>
         /// Id of currently selected tab.
         /// </summary>
-        Guid CurrentTabId { get; }
+        int CurrentTabId { get; }
     }
 }

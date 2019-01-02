@@ -1,34 +1,34 @@
 ﻿using MaterialDesignThemes.Wpf
 
-UserControl "MakeNotes.Notebook.Views.Templates.AddTabDialog" {
+UserControl "MakeNotes.Notebook.Views.Templates.DeleteTabDialog" {
     StackPanel {
         Margin: "20"
+        MaxWidth: 260
+
+        TextBlock {
+            Style: resource "MaterialDesignTitleTextBlock"
+            Text: "Delete tab?"
+        }
 
         TextBlock {
             Style: resource "MaterialDesignSubheadingTextBlock"
-            Text: "Add new tab"
-        }
-
-        TextBox {
-            HintAssist.Hint: "Name"
-            HorizontalAlignment: Stretch
-            MaxWidth: bind ActualWidth from $ancestor<Panel>(1)
-            Margin: "0,8"
-            Text: bind TabName
+            Margin: "0,12"
+            Text: "This will delete the tab. The action cannot be undone"
+            TextWrapping: WrapWithOverflow
         }
 
         StackPanel {
             Orientation: Horizontal
-            HorizontalAlignment: Center
+            HorizontalAlignment: Right
             Margin: "0,8,0,-6"
-
+        
             Button {
                 Style: resource "MaterialDesignFlatButton"
                 Command: DialogHost.CloseDialogCommand
                 CommandParameter: true
                 Content: resource "AcceptButtonText"
             }
-
+        
             Button {
                 Style: resource "MaterialDesignFlatButton"
                 Command: DialogHost.CloseDialogCommand

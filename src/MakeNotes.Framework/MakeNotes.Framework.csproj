@@ -53,6 +53,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\TabablzControlAssist.cs" />
     <Compile Include="Controls\WindowInitializer.cs" />
     <Compile Include="Extensions\ApplicationExtensions.cs" />
     <Compile Include="Controls\DialogManager.cs" />
@@ -74,6 +75,13 @@
       <Project>{0a3e1b0c-10e5-4f93-b0c7-dde6573a9673}</Project>
       <Name>MakeNotes.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Resources\ResourceStrings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

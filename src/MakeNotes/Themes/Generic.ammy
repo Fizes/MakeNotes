@@ -3,9 +3,6 @@ using Dragablz
 using MakeNotes
 using MaterialDesignThemes.Wpf
 
-$navbarAddTabButtonSize = "24"
-$navbarAddTabIconSize = "20"
-
 ResourceDictionary {
     Style Key="MainWindow" {
         TargetType: Window
@@ -47,6 +44,7 @@ ResourceDictionary {
         BasedOn: resource "MaterialDesignTabablzControlStyle"
         #Setter("Margin", "0,-0.5,0,0.5")
         #Setter("FontSize", 16)
+        #Setter("ItemContainerStyle", resource "NavbarTabControlItemContainerStyle")
         Setter {
             Property: "ContentTemplate"
             Value: DataTemplate {} // Empty content
@@ -67,17 +65,16 @@ ResourceDictionary {
         BasedOn: resource "MaterialDesignFloatingActionMiniButton"
         #Setter("Background", "Transparent")
         #Setter("BorderBrush", "Transparent")
-        #Setter("Height", $navbarAddTabButtonSize)
-        #Setter("Width", $navbarAddTabButtonSize)
-        #Setter("Margin", "10,6")
+        #Setter("Height", 24)
+        #Setter("Width", 24)
+        #Setter("Margin", "10,0")
         #Setter("HorizontalAlignment", "Left")
         #Setter("ToolTip", "Add new tab")
         Setter {
             Property: "Content"
-            Value: PackIcon {
+            Value: PackIconExtension {
                 Kind: "Plus"
-                Width: $navbarAddTabIconSize
-                Height: $navbarAddTabIconSize
+                Size: 20
             }
         }
         Triggers: [

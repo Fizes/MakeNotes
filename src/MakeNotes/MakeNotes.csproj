@@ -168,6 +168,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Themes\Generic.ammy" />
+    <None Include="Themes\DragablzStyles.ammy" />
     <None Include="Themes\WindowStyle.ammy" />
     <None Include="Views\ToolbarView.ammy" />
   </ItemGroup>
@@ -187,6 +188,11 @@
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>Colors.ammy</DependentUpon>
     </Page>
+    <Page Include="Themes\DragablzStyles.g.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <DependentUpon>DragablzStyles.ammy</DependentUpon>
+    </Page>
     <Page Include="Themes\Generic.g.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
@@ -201,6 +207,10 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <DependentUpon>WindowStyle.ammy</DependentUpon>
+    </Page>
+    <Page Include="Themes\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ToolbarView.g.xaml">
       <SubType>Designer</SubType>

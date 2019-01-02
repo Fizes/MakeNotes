@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MakeNotes.Common.Models
+﻿namespace MakeNotes.Common.Models
 {
     /// <summary>
     /// Represents a tab item inside the navbar.
@@ -9,10 +7,9 @@ namespace MakeNotes.Common.Models
     {
         public NavbarTabItem()
         {
-            Id = Guid.NewGuid();
         }
 
-        public NavbarTabItem(string header, int order) : this()
+        public NavbarTabItem(string header, int order)
         {
             Header = header;
             Order = order;
@@ -21,7 +18,7 @@ namespace MakeNotes.Common.Models
         /// <summary>
         /// Unique id associated with a particular tab.
         /// </summary>
-        public Guid Id { get; set; }
+        public int? Id { get; set; }
 
         /// <summary>
         /// Tab title.

@@ -1,15 +1,15 @@
-﻿﻿using System.Windows.Interactivity
+﻿using System.Windows.Interactivity
 using Dragablz
+using Dragablz.Themes
 using MakeNotes.Common.Models
+using MakeNotes.Framework.Controls
 using MaterialDesignThemes.Wpf
 
 UserControl "MakeNotes.Notebook.Views.NavbarView" {
     Interaction.Triggers: [
         Interactivity.EventTrigger {
             EventName: "Loaded"
-            InvokeCommandAction {
-                Command: bind LoadTabsCommand
-            }
+            InvokeCommandAction { Command: bind LoadTabsCommand }
         }
     ]
 
@@ -17,8 +17,8 @@ UserControl "MakeNotes.Notebook.Views.NavbarView" {
         Style: resource "NavbarTabControl"
         ItemsSource: bind Tabs
         HeaderMemberPath: "Header"
-        SelectedIndex: bind SelectedTabIndex
-        SelectedItem: bind SelectedTab set [ Mode: OneWayToSource ]
+        SelectedItem: bind SelectedTab
+        TabablzControlAssist.CloseTabCommand: bind DeleteTabCommand
 
         HeaderSuffixContent: Button {
             ShadowAssist.ShadowDepth: Depth0

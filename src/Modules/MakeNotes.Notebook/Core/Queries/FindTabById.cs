@@ -5,6 +5,11 @@ namespace MakeNotes.Notebook.Core.Queries
 {
     public class FindTabById : IQuery<Tab>
     {
-        public int Id { get; set; }
+        public FindTabById(int id)
+        {
+            Id = id;
+        }
+
+        public int Id { get; }
     }
 }

@@ -6,11 +6,12 @@
         #MergeDictionary("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml")
         // Include the Dragablz Material Design style
         #MergeDictionary("pack://application:,,,/Dragablz;component/Themes/MaterialDesign.xaml")
-        // Colors
+        // User-defined dictionaries
+        #MergeDictionary("pack://application:,,,/MakeNotes.Framework;component/Resources/ResourceStrings.xaml")
         #MergeDictionary("/Themes/Colors.g.xaml")
-        // Custom window style
+        #MergeDictionary("/Themes/Icons.xaml")
         #MergeDictionary("/Themes/WindowStyle.g.xaml")
-        // Custom styles
+        #MergeDictionary("/Themes/DragablzStyles.g.xaml")
         #MergeDictionary("/Themes/Generic.g.xaml")
     }
 }

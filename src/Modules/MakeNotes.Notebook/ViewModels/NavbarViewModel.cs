@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MakeNotes.Common.Core;
+using MakeNotes.Common.Infrastructure.Extensions;
 using MakeNotes.Common.Models;
 using MakeNotes.Framework.Controls;
 using MakeNotes.Framework.Models;
@@ -25,9 +26,8 @@ namespace MakeNotes.Notebook.ViewModels
         private readonly IQueryDispatcher _queryDispatcher;
 
         private string _tabName;
-        private int _selectedTabIndex;
         private NavbarTabItem _selectedTab;
-        private NavbarTabItemObservableCollection _tabs = new NavbarTabItemObservableCollection();
+        private NavbarTabItemObservableCollection _tabs;
 
         public NavbarViewModel(IEventAggregator eventAggregator, IMessageBus messageBus, IQueryDispatcher queryDispatcher)
         {
@@ -37,6 +37,7 @@ namespace MakeNotes.Notebook.ViewModels
 
             LoadTabsCommand = new DelegateCommand(LoadTabs);
             AddTabCommand = new DelegateCommand(AddTab);
+            DeleteTabCommand = new DelegateCommand<NavbarTabItem>(DeleteTab);
         }
 
         #region Properties
@@ -44,12 +45,6 @@ namespace MakeNotes.Notebook.ViewModels
         {
             get => _tabName;
             set => SetProperty(ref _tabName, value);
-        }
-
-        public int SelectedTabIndex
-        {
-            get => _selectedTabIndex;
-            set => SetProperty(ref _selectedTabIndex, value);
         }
 
         public NavbarTabItem SelectedTab
@@ -62,7 +57,7 @@ namespace MakeNotes.Notebook.ViewModels
 
                 if (_selectedTab != null && _selectedTab != oldValue)
                 {
-                    _eventAggregator.GetEvent<TabChangedEvent>().Publish(_selectedTab.Id);
+                    _eventAggregator.GetEvent<TabSelectedEvent>().Publish(_selectedTab.Id.GetValueOrDefault());
                 }
             }
         }
@@ -70,27 +65,51 @@ namespace MakeNotes.Notebook.ViewModels
         public NavbarTabItemObservableCollection Tabs
         {
             get => _tabs;
-            set => SetProperty(ref _tabs, value);
+            private set => SetProperty(ref _tabs, value);
         }
 
         public ICommand LoadTabsCommand { get; }
 
         public ICommand AddTabCommand { get; }
+
+        public ICommand DeleteTabCommand { get; }
         #endregion
 
         private async void LoadTabs()
         {
             var tabs = await _queryDispatcher.ExecuteAsync(new GetAllTabs());
-            var items = tabs.Select(t => new NavbarTabItem(t.Name, t.Order));
+            var items = tabs.Select(t => new NavbarTabItem(t.Name, t.Order) { Id = t.Id });
             Tabs = new NavbarTabItemObservableCollection(items);
         }
 
         private async void AddTab()
         {
-            await DialogManager.Show<AddTabDialog>(viewModel: this, OnCloseDialog);
+            await DialogManager.Show<AddTabDialog>(viewModel: this, OnCloseAddTabDialog);
         }
 
-        private async void OnCloseDialog(DialogResult result)
+        private async void DeleteTab(NavbarTabItem tabItem)
+        {
+            await DialogManager.Show<DeleteTabDialog>(viewModel: null, async result => await OnCloseDeleteTabDialog(result, tabItem));
+        }
+
+        private async Task OnCloseDeleteTabDialog(DialogResult result, NavbarTabItem tabItem)
+        {
+            if (result != DialogResult.Accepted || !tabItem.Id.HasValue)
+            {
+                return;
+            }
+            
+            await _messageBus.SendAsync(new DeleteTab(tabItem.Id.Value));
+
+            if (SelectedTab == tabItem)
+            {
+                SelectedTab = Tabs.GetPreviousElement(tabItem);
+            }
+
+            Tabs.Remove(tabItem);
+        }
+
+        private async void OnCloseAddTabDialog(DialogResult result)
         {
             if (result == DialogResult.Accepted)
             {
@@ -104,7 +123,7 @@ namespace MakeNotes.Notebook.ViewModels
                 await _messageBus.SendAsync(new CreateTab(newItem.Header, newItem.Order));
 
                 Tabs.Add(newItem);
-                SelectedTabIndex = newItem.Order;
+                SelectedTab = newItem;
             }
 
             TabName = null;
@@ -112,9 +131,14 @@ namespace MakeNotes.Notebook.ViewModels
 
         private async Task PrependInitialTab(int initialTabOrder)
         {
-            if (initialTabOrder == 0)
+            if (initialTabOrder != 0)
             {
-                var tab = Tabs[initialTabOrder];
+                return;
+            }
+            
+            var tab = Tabs[initialTabOrder];
+            if (!tab.Id.HasValue)
+            {
                 await _messageBus.SendAsync(new CreateTab(tab.Header, tab.Order));
             }
         }

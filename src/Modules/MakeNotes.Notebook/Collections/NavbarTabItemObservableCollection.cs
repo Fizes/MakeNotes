@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Windows;
 using MakeNotes.Common.Models;
 using MakeNotes.Notebook.Consts;
 
@@ -49,8 +50,9 @@ namespace MakeNotes.Notebook.Collections
             {
                 return;
             }
-            
-            Items.Add(_createDefaultItemFactory());
+
+            Action action = () => Add(_createDefaultItemFactory());
+            Application.Current.Dispatcher.BeginInvoke(action);
         }
     }
 }

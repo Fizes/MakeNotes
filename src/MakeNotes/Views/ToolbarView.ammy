@@ -11,6 +11,7 @@ UserControl "MakeNotes.Views.ToolbarView" {
         
         PopupBox {
             Style: resource "NavbarPopupBox"
+            RippleAssist.RippleSizeMultiplier: 0.55
             StackPanel {
                 Button { Content: "Options" }
                 Separator {}

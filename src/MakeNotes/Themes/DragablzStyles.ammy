@@ -1,0 +1,167 @@
+﻿using Dragablz
+using MakeNotes.Framework.Controls
+using MaterialDesignThemes.Wpf
+
+ResourceDictionary {
+    ControlTemplate Key="MaterialDesignFloatingActionMiniButtonTemplate" {
+        TargetType: ButtonBase
+        Grid {
+            AdornerDecorator {
+                Ellipse "border" {
+                    Fill: "{TemplateBinding Background}"
+                    Stroke: "{TemplateBinding BorderBrush}"
+                    StrokeThickness: "{TemplateBinding BorderThickness}"
+                }
+            }
+            Ripple {
+                Content: resource "DeleteTabIcon"
+                ContentTemplate: "{TemplateBinding ContentTemplate}"
+                Focusable: false
+                ClipToBounds: true
+                HorizontalContentAlignment: "{TemplateBinding HorizontalContentAlignment}"
+                VerticalContentAlignment: "{TemplateBinding VerticalContentAlignment}"
+                Padding: "{TemplateBinding Padding}"
+                SnapsToDevicePixels: "{TemplateBinding SnapsToDevicePixels}"
+            }
+            Ellipse "GeometryEllipse" {
+                Fill: Transparent
+                IsHitTestVisible: false
+                Focusable: false
+            }
+        }
+        Triggers: [
+            Trigger {
+                Property: "Button.IsDefaulted"
+                Value: true
+                Setter {
+                    Property: "Stroke"
+                    TargetName: "border"
+                    Value: resource dyn SystemColors.HighlightBrushKey
+                }
+            }
+            Trigger {
+                Property: "IsEnabled"
+                Value: false
+                Setter {
+                    Property: "Opacity"
+                    Value: 0.33
+                }
+            }
+        ]
+    }
+
+    Style Key="NavbarDeleteTabButton" {
+        TargetType: ButtonBase
+        BasedOn: resource "MaterialDesignFloatingActionMiniButton"
+        #Setter("Background", "Transparent")
+        #Setter("BorderBrush", "Transparent")
+        #Setter("Height", 18)
+        #Setter("Width", 18)
+        #Setter("Margin", "0,0,4,0")
+        #Setter("Opacity", 0.87)
+        #Setter("ToolTip", "Delete tab")
+        Setter {
+            Property: "Template"
+            Value: resource "MaterialDesignFloatingActionMiniButtonTemplate"
+        }
+        Triggers: [
+            Trigger {
+                Property: "IsMouseOver"
+                Value: true
+                #Setter("Background", resource "BlueGrey600")
+            }
+            Trigger {
+            	Property: "IsPressed"
+            	Value: true
+            	#Setter("Opacity", 0.7)
+            }
+        ]
+    }
+
+    Style Key="NavbarTabControlItemContainerStyle" {
+        TargetType: DragablzItem
+        BasedOn: resource "MaterialDesignDragableTabItemStyle"
+        Setter {
+            Property: "Template"
+            Value: ControlTemplate {
+                TargetType: DragablzItem
+                Grid "templateRoot" {
+                    SnapsToDevicePixels: true
+                    #TwoRows("*", "Auto")
+        
+                    Border {
+                        BorderBrush: "{TemplateBinding BorderBrush}"
+                        Background: "{TemplateBinding Background}"
+                        Margin: "0"
+
+                        Dragablz.Themes.Ripple {
+                            HorizontalContentAlignment: Stretch
+                            VerticalAlignment: Stretch
+
+                            Grid {
+                                #TwoColumns("*", "Auto")
+        
+                                ContentPresenter "contentPresenter" {
+                                    Content: "{TemplateBinding ContentControl.Content}"
+                                    ContentTemplate: "{TemplateBinding ContentControl.ContentTemplate}"
+                                    ContentStringFormat: "{TemplateBinding ContentControl.ContentStringFormat}"
+                                    HorizontalAlignment: "{TemplateBinding Control.HorizontalContentAlignment}"
+                                    VerticalAlignment: "{TemplateBinding Control.VerticalContentAlignment}"
+                                    SnapsToDevicePixels: "{TemplateBinding UIElement.SnapsToDevicePixels}"
+                                    Margin: "{TemplateBinding Control.Padding}"
+                                    Opacity: 0.87
+                                }
+                                Thumb "PART_Thumb" {
+                                    Grid.Column: 0
+                                    HorizontalAlignment: Stretch
+                                    VerticalContentAlignment: Stretch
+                                    Style: resource "MaterialDesignInvisibleThumbStyle"
+                                }
+                                Button {
+                                    Grid.Column: 1
+                                    ShadowAssist.ShadowDepth: Depth0
+                                    RippleAssist.IsDisabled: true
+                                    Style: resource dyn "NavbarDeleteTabButton"
+                                    Command: "{Binding (ns1:TabablzControlAssist.CloseTabCommand), RelativeSource={RelativeSource Self}}"
+                                    CommandParameter: bind
+                                }
+                            }
+                        }
+                    }
+
+                    Border "SelectionHighlightBorder" {
+                        Grid.Row: 1
+                        Height: 2
+                        Background: resource "SecondaryAccentBrush"
+                        Visibility: Hidden
+                    }
+                }
+                Triggers: [
+                    Trigger {
+                        Property: TabablzControl.IsWrappingTabItem
+                        Value: true
+                        Setter {
+                            TargetName: "contentPresenter"
+                            Property: "Content"
+                            Value: bind DataContext.Header from $template
+                        }
+                    }
+                    Trigger {
+                        Property: "IsSelected"
+                        Value: true
+                        Setter {
+                            TargetName: "contentPresenter"
+                            Property: "Opacity"
+                            Value: "1"
+                        }
+                        Setter {
+                            TargetName: "SelectionHighlightBorder"
+                            Property: "Visibility"
+                            Value: "Visible"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

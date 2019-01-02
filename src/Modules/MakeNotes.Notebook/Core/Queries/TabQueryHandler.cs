@@ -6,10 +6,9 @@ using MakeNotes.DAL.Models;
 
 namespace MakeNotes.Notebook.Core.Queries
 {
-    public class TabQueryHandler :
-        IQueryHandler<GetAllTabs, IEnumerable<Tab>>,
-        IQueryHandler<FindTabById, Tab>,
-        IQueryHandler<GetLastTabOrder, int>
+    public class TabQueryHandler : IQueryHandler<GetAllTabs, IEnumerable<Tab>>,
+                                   IQueryHandler<FindTabById, Tab>,
+                                   IQueryHandler<GetLastTabOrder, int>
     {
         private readonly IRepository _repository;
 
@@ -34,7 +33,7 @@ namespace MakeNotes.Notebook.Core.Queries
                   FROM [Tab]
                   WHERE [Id] = @Id", query);
 
-            return _repository.QuerySingleAsync<Tab>(queryObject);
+            return _repository.QuerySingleOrDefaultAsync<Tab>(queryObject);
         }
 
         public Task<int> ExecuteAsync(GetLastTabOrder query)
