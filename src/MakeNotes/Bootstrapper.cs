@@ -4,9 +4,9 @@ using System.Reflection;
 using System.Windows;
 using Autofac;
 using MakeNotes.Common.Core;
-using MakeNotes.Common.Core.Commands;
+using MakeNotes.Common.Core.Factories;
 using MakeNotes.Common.Core.Notifications;
-using MakeNotes.Common.Core.Queries;
+using MakeNotes.Common.Core.Requests;
 using MakeNotes.Common.Interfaces;
 using MakeNotes.DAL.Core;
 using MakeNotes.DAL.Infrastructure;
@@ -74,16 +74,16 @@ namespace MakeNotes
 
             foreach (var assembly in assemblies)
             {
-                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandler<>));
-                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
-                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(INotificationHandler<>));
+                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IRequestHandler<,>));
+                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(INotificationHandler<>)).InstancePerLifetimeScope();
             }
 
             builder.RegisterType<AutofacHandlerFactory>().As<IHandlerFactory>().SingleInstance();
-
-            builder.RegisterType<QueryDispatcher>().As<IQueryDispatcher>().SingleInstance();
-
             builder.RegisterType<DefaultMessageBus>().As<IMessageBus>().SingleInstance();
+
+            builder.RegisterType<DefaultNotificationStrategy>().As<INotificationStrategy>().InstancePerLifetimeScope();
+            builder.RegisterType<FireAndForgetNotificationStrategy>().As<INotificationStrategy>().InstancePerLifetimeScope();
+            builder.RegisterType<AutofacNotificationStrategyFactory>().As<INotificationStrategyFactory>().SingleInstance();
         }
 
         protected override void InitializeModules()

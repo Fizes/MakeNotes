@@ -1,5 +1,6 @@
 ﻿using MakeNotes.Common.Interfaces;
-using MakeNotes.Notebook.Events;
+using MakeNotes.Framework.Events;
+using MakeNotes.Notebook.Core.Notifications;
 using Prism.Events;
 
 namespace MakeNotes.Notebook.Providers
@@ -13,14 +14,17 @@ namespace MakeNotes.Notebook.Providers
         {
             _eventAggregator = eventAggregator;
             _applicationState = applicationState;
-            _eventAggregator.GetEvent<TabSelectedEvent>().Subscribe(OnTabSelected);
+
+            _eventAggregator.GetEvent<ApplicationEvent<TabSelected>>().Subscribe(OnTabSelected);
         }
 
         public int CurrentTabId => _applicationState.GetValue<int>(nameof(CurrentTabId));
 
-        private void OnTabSelected(int tabId)
+        #region Methods
+        private void OnTabSelected(TabSelected notification)
         {
-            _applicationState.SetValue(nameof(CurrentTabId), tabId);
+            _applicationState.SetValue(nameof(CurrentTabId), notification.Id);
         }
+        #endregion
     }
 }

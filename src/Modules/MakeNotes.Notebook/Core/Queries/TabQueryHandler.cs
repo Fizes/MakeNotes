@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MakeNotes.Common.Core.Queries;
+using MakeNotes.Common.Core.Requests;
 using MakeNotes.DAL.Core;
 using MakeNotes.DAL.Models;
 
 namespace MakeNotes.Notebook.Core.Queries
 {
-    public class TabQueryHandler : IQueryHandler<GetAllTabs, IEnumerable<Tab>>,
-                                   IQueryHandler<FindTabById, Tab>,
-                                   IQueryHandler<GetLastTabOrder, int>
+    public class TabQueryHandler : IRequestHandler<GetAllTabs, IEnumerable<Tab>>,
+                                   IRequestHandler<FindTabById, Tab>,
+                                   IRequestHandler<GetLastTabOrder, int>
     {
         private readonly IRepository _repository;
 
@@ -21,7 +21,8 @@ namespace MakeNotes.Notebook.Core.Queries
         {
             var queryObject = new QueryObject(
                 @"SELECT [Id], [Name], [Order]
-                  FROM [Tab]");
+                  FROM [Tab]
+                  ORDER BY [Order]");
 
             return _repository.QueryAsync<Tab>(queryObject);
         }

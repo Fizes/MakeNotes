@@ -1,8 +1,8 @@
-﻿using MakeNotes.Common.Core.Commands;
+﻿using MakeNotes.Common.Core.Requests;
 
 namespace MakeNotes.Notebook.Core.Commands
 {
-    public class DeleteTab : ICommand
+    public class DeleteTab : IRequest
     {
         public DeleteTab(int id)
         {

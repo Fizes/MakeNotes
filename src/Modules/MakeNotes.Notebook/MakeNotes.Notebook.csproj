@@ -83,11 +83,12 @@
     <Compile Include="Core\Commands\DeleteTab.cs" />
     <Compile Include="Core\Commands\TabCommandHandler.cs" />
     <Compile Include="Core\Notifications\TabDeleted.cs" />
+    <Compile Include="Core\Notifications\TabNotificationHandler.cs" />
+    <Compile Include="Core\Notifications\TabSelected.cs" />
     <Compile Include="Core\Queries\FindTabById.cs" />
     <Compile Include="Core\Queries\GetAllTabs.cs" />
     <Compile Include="Core\Queries\GetLastTabOrder.cs" />
     <Compile Include="Core\Queries\TabQueryHandler.cs" />
-    <Compile Include="Events\TabSelectedEvent.cs" />
     <Compile Include="Models\ActionMenuItem.cs" />
     <Compile Include="Models\PasswordDataGridItem.cs" />
     <Compile Include="Models\TabContent.cs" />

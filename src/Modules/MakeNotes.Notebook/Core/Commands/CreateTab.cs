@@ -1,8 +1,8 @@
-﻿using MakeNotes.Common.Core.Commands;
+﻿using MakeNotes.Common.Core.Requests;
 
 namespace MakeNotes.Notebook.Core.Commands
 {
-    public class CreateTab : ICommand
+    public class CreateTab : IRequest<int>
     {
         public CreateTab(string name, int order)
         {

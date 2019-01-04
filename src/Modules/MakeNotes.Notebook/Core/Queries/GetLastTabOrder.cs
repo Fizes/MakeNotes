@@ -1,8 +1,8 @@
-﻿using MakeNotes.Common.Core.Queries;
+﻿using MakeNotes.Common.Core.Requests;
 
 namespace MakeNotes.Notebook.Core.Queries
 {
-    public class GetLastTabOrder : IQuery<int>
+    public class GetLastTabOrder : IRequest<int>
     {
     }
 }

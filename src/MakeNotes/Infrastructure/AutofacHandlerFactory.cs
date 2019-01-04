@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Autofac;
 using MakeNotes.Common.Core;
+using MakeNotes.Common.Core.Factories;
 
 namespace MakeNotes.Infrastructure
 {

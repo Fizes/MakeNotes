@@ -10,30 +10,25 @@ using MakeNotes.Framework.Models;
 using MakeNotes.Notebook.Collections;
 using MakeNotes.Notebook.Consts;
 using MakeNotes.Notebook.Core.Commands;
+using MakeNotes.Notebook.Core.Notifications;
 using MakeNotes.Notebook.Core.Queries;
-using MakeNotes.Notebook.Events;
 using MakeNotes.Notebook.Views.Templates;
 using Prism.Commands;
-using Prism.Events;
 using Prism.Mvvm;
 
 namespace MakeNotes.Notebook.ViewModels
 {
     public class NavbarViewModel : BindableBase
     {
-        private readonly IEventAggregator _eventAggregator;
         private readonly IMessageBus _messageBus;
-        private readonly IQueryDispatcher _queryDispatcher;
 
         private string _tabName;
         private NavbarTabItem _selectedTab;
         private NavbarTabItemObservableCollection _tabs;
 
-        public NavbarViewModel(IEventAggregator eventAggregator, IMessageBus messageBus, IQueryDispatcher queryDispatcher)
+        public NavbarViewModel(IMessageBus messageBus)
         {
-            _eventAggregator = eventAggregator;
             _messageBus = messageBus;
-            _queryDispatcher = queryDispatcher;
 
             LoadTabsCommand = new DelegateCommand(LoadTabs);
             AddTabCommand = new DelegateCommand(AddTab);
@@ -57,7 +52,7 @@ namespace MakeNotes.Notebook.ViewModels
 
                 if (_selectedTab != null && _selectedTab != oldValue)
                 {
-                    _eventAggregator.GetEvent<TabSelectedEvent>().Publish(_selectedTab.Id.GetValueOrDefault());
+                    _messageBus.Publish(new TabSelected(_selectedTab.Id.GetValueOrDefault()));
                 }
             }
         }
@@ -77,7 +72,7 @@ namespace MakeNotes.Notebook.ViewModels
 
         private async void LoadTabs()
         {
-            var tabs = await _queryDispatcher.ExecuteAsync(new GetAllTabs());
+            var tabs = await _messageBus.SendAsync(new GetAllTabs());
             var items = tabs.Select(t => new NavbarTabItem(t.Name, t.Order) { Id = t.Id });
             Tabs = new NavbarTabItemObservableCollection(items);
         }
@@ -98,7 +93,7 @@ namespace MakeNotes.Notebook.ViewModels
             {
                 return;
             }
-            
+
             await _messageBus.SendAsync(new DeleteTab(tabItem.Id.Value));
 
             if (SelectedTab == tabItem)
@@ -113,14 +108,14 @@ namespace MakeNotes.Notebook.ViewModels
         {
             if (result == DialogResult.Accepted)
             {
-                var lastTabOrder = await _queryDispatcher.ExecuteAsync(new GetLastTabOrder());
+                var lastTabOrder = await _messageBus.SendAsync(new GetLastTabOrder());
 
                 var tabOrder = lastTabOrder + 1;
                 var tabName = String.IsNullOrWhiteSpace(TabName) ? DefaultValues.DefaultTabName : TabName;
                 var newItem = new NavbarTabItem(tabName, tabOrder);
 
                 await PrependInitialTab(lastTabOrder);
-                await _messageBus.SendAsync(new CreateTab(newItem.Header, newItem.Order));
+                await CreateTab(newItem);
 
                 Tabs.Add(newItem);
                 SelectedTab = newItem;
@@ -135,12 +130,18 @@ namespace MakeNotes.Notebook.ViewModels
             {
                 return;
             }
-            
+
             var tab = Tabs[initialTabOrder];
             if (!tab.Id.HasValue)
             {
-                await _messageBus.SendAsync(new CreateTab(tab.Header, tab.Order));
+                await CreateTab(tab);
             }
+        }
+
+        private async Task CreateTab(NavbarTabItem tabItem)
+        {
+            var id = await _messageBus.SendAsync(new CreateTab(tabItem.Header, tabItem.Order));
+            tabItem.Id = id;
         }
     }
 }

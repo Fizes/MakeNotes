@@ -43,6 +43,9 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Caching" />
@@ -55,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Controls\TabablzControlAssist.cs" />
     <Compile Include="Controls\WindowInitializer.cs" />
+    <Compile Include="Events\ApplicationEvent.cs" />
     <Compile Include="Extensions\ApplicationExtensions.cs" />
     <Compile Include="Controls\DialogManager.cs" />
     <Compile Include="Factories\IViewFactory.cs" />
@@ -68,7 +72,9 @@
     <Compile Include="Win32\Win32Types.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MakeNotes.Common\MakeNotes.Common.csproj">

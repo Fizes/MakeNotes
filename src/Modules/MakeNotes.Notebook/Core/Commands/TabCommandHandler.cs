@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
 using MakeNotes.Common.Core;
-using MakeNotes.Common.Core.Commands;
+using MakeNotes.Common.Core.Requests;
 using MakeNotes.DAL.Core;
 using MakeNotes.Notebook.Core.Notifications;
 
 namespace MakeNotes.Notebook.Core.Commands
 {
-    public class TabCommandHandler : ICommandHandler<CreateTab>,
-                                     ICommandHandler<DeleteTab>
+    public class TabCommandHandler : IRequestHandler<CreateTab, int>,
+                                     IRequestHandler<DeleteTab>
     {
         private readonly IRepository _repository;
 
@@ -16,16 +16,19 @@ namespace MakeNotes.Notebook.Core.Commands
             _repository = repository;
         }
 
-        public Task ExecuteAsync(CreateTab command)
+        public async Task<int> ExecuteAsync(CreateTab command)
         {
             var query = new QueryObject(
                 @"INSERT INTO [Tab] ([Name], [Order])
-                  VALUES (@Name, @Order)", command);
+                  VALUES (@Name, @Order);
+                  SELECT last_insert_rowid()", command);
 
-            return _repository.ExecuteAsync(query);
+            var newId = await _repository.QuerySingleAsync<long>(query);
+
+            return (int)newId;
         }
 
-        public async Task ExecuteAsync(DeleteTab command)
+        public async Task<Unit> ExecuteAsync(DeleteTab command)
         {
             var query = new QueryObject(
                 @"DELETE FROM [Tab]
@@ -34,6 +37,8 @@ namespace MakeNotes.Notebook.Core.Commands
             await _repository.ExecuteAsync(query);
 
             ApplicationEvents.Raise(new TabDeleted(command.Id));
+
+            return await Unit.Task;
         }
     }
 }

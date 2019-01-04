@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MakeNotes.Notebook.Providers
+﻿namespace MakeNotes.Notebook.Providers
 {
     /// <summary>
     /// Provides global data of navigation region.

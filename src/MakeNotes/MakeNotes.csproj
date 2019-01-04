@@ -133,6 +133,7 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Infrastructure\AutofacHandlerFactory.cs" />
+    <Compile Include="Infrastructure\AutofacNotificationStrategyFactory.cs" />
     <Compile Include="Infrastructure\Extensions\ConfigurationExtensions.cs" />
     <Compile Include="Infrastructure\WindowSettings.cs" />
     <Compile Include="MainWindow.ammy.cs">

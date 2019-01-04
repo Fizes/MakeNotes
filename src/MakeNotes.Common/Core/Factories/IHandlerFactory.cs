@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace MakeNotes.Common.Core
+namespace MakeNotes.Common.Core.Factories
 {
     /// <summary>
-    /// Factory for creating query, command and notification handlers.
+    /// Factory for creating request and notification handlers.
     /// </summary>
     public interface IHandlerFactory
     {
