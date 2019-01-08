@@ -1,11 +1,10 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:Dragablz;assembly=Dragablz" xmlns:ns2="clr-namespace:Dragablz.Themes;assembly=Dragablz">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:Dragablz;assembly=Dragablz">
   <ControlTemplate x:Key="MaterialDesignFloatingActionMiniButtonTemplate" TargetType="{x:Type ButtonBase}">
     <Grid>
       <AdornerDecorator>
         <Ellipse x:Name="border" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="{TemplateBinding BorderThickness}"/>
       </AdornerDecorator>
       <ns0:Ripple Content="{StaticResource DeleteTabIcon}" ContentTemplate="{TemplateBinding ContentTemplate}" Focusable="False" ClipToBounds="True" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-      <Ellipse x:Name="GeometryEllipse" Fill="Transparent" IsHitTestVisible="False" Focusable="False"/>
     </Grid>
     <ControlTemplate.Triggers>
       <Trigger Property="Button.IsDefaulted" Value="True">
@@ -44,7 +43,13 @@
               <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Border BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Margin="0">
-              <ns2:Ripple HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch">
+              <ns0:Ripple HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch">
+                <ns0:Ripple.Feedback>
+                  <Binding Path="Foreground" RelativeSource="{x:Static RelativeSource.Self}"/>
+                </ns0:Ripple.Feedback>
+                <ns0:RippleAssist.IsDisabled>
+                  <Binding Path="IsMouseOver" ElementName="CloseButton"/>
+                </ns0:RippleAssist.IsDisabled>
                 <Grid>
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -52,13 +57,13 @@
                   </Grid.ColumnDefinitions>
                   <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" Margin="{TemplateBinding Control.Padding}" Opacity="0.87"/>
                   <Thumb x:Name="PART_Thumb" Grid.Column="0" HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch" Style="{StaticResource MaterialDesignInvisibleThumbStyle}"/>
-                  <Button Grid.Column="1" ns0:ShadowAssist.ShadowDepth="Depth0" ns0:RippleAssist.IsDisabled="True" Style="{DynamicResource NavbarDeleteTabButton}" Command="{Binding (ns1:TabablzControlAssist.CloseTabCommand), RelativeSource={RelativeSource Self}}">
+                  <Button x:Name="CloseButton" Grid.Column="1" ns0:ShadowAssist.ShadowDepth="Depth0" ns0:RippleAssist.IsDisabled="True" Style="{DynamicResource NavbarDeleteTabButton}" Command="{Binding (ns1:TabablzControlAssist.CloseTabCommand), RelativeSource={RelativeSource Self}}">
                     <Button.CommandParameter>
                       <Binding/>
                     </Button.CommandParameter>
                   </Button>
                 </Grid>
-              </ns2:Ripple>
+              </ns0:Ripple>
             </Border>
             <Border x:Name="SelectionHighlightBorder" Grid.Row="1" Height="2" Background="{StaticResource SecondaryAccentBrush}" Visibility="Hidden"/>
           </Grid>

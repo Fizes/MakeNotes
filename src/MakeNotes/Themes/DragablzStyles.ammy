@@ -23,11 +23,6 @@ ResourceDictionary {
                 Padding: "{TemplateBinding Padding}"
                 SnapsToDevicePixels: "{TemplateBinding SnapsToDevicePixels}"
             }
-            Ellipse "GeometryEllipse" {
-                Fill: Transparent
-                IsHitTestVisible: false
-                Focusable: false
-            }
         }
         Triggers: [
             Trigger {
@@ -94,9 +89,11 @@ ResourceDictionary {
                         Background: "{TemplateBinding Background}"
                         Margin: "0"
 
-                        Dragablz.Themes.Ripple {
+                        Ripple {
                             HorizontalContentAlignment: Stretch
                             VerticalAlignment: Stretch
+                            Feedback: bind Foreground from $this
+                            RippleAssist.IsDisabled: bind IsMouseOver from "CloseButton"
 
                             Grid {
                                 #TwoColumns("*", "Auto")
@@ -117,7 +114,7 @@ ResourceDictionary {
                                     VerticalContentAlignment: Stretch
                                     Style: resource "MaterialDesignInvisibleThumbStyle"
                                 }
-                                Button {
+                                Button "CloseButton" {
                                     Grid.Column: 1
                                     ShadowAssist.ShadowDepth: Depth0
                                     RippleAssist.IsDisabled: true
