@@ -2,5 +2,5 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-    <materialDesign:PackIconExtension x:Key="DeleteTabIcon" x:Shared="False" Size="15" Kind="Close" />
+    <materialDesign:PackIconExtension x:Key="DeleteTabIcon" x:Shared="False" Size="16" Kind="Close" />
 </ResourceDictionary>

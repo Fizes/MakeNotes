@@ -3,11 +3,11 @@ using MakeNotes.Framework.Controls
 using MaterialDesignThemes.Wpf
 
 ResourceDictionary {
-    ControlTemplate Key="MaterialDesignFloatingActionMiniButtonTemplate" {
+    ControlTemplate Key="NavbarFloatingActionMiniButtonTemplate" {
         TargetType: ButtonBase
         Grid {
             AdornerDecorator {
-                Ellipse "border" {
+                Ellipse "HighlightBackground" {
                     Fill: "{TemplateBinding Background}"
                     Stroke: "{TemplateBinding BorderBrush}"
                     StrokeThickness: "{TemplateBinding BorderThickness}"
@@ -28,19 +28,27 @@ ResourceDictionary {
             Trigger {
                 Property: "Button.IsDefaulted"
                 Value: true
-                Setter {
-                    Property: "Stroke"
-                    TargetName: "border"
-                    Value: resource dyn SystemColors.HighlightBrushKey
-                }
+            	#Setter("Stroke", resource dyn SystemColors.HighlightBrushKey, "HighlightBackground")
             }
             Trigger {
                 Property: "IsEnabled"
                 Value: false
-                Setter {
-                    Property: "Opacity"
-                    Value: 0.33
-                }
+            	#Setter("Opacity", 0.33)
+            }
+            Trigger {
+                Property: "IsMouseOver"
+                Value: true
+            	#Setter("Opacity", 0.2, "HighlightBackground")
+            }
+            Trigger {
+                Property: "IsMouseOver"
+                Value: false
+            	#Setter("Opacity", 0, "HighlightBackground")
+            }
+            Trigger {
+            	Property: "IsPressed"
+            	Value: true
+            	#Setter("Opacity", "0.26", "HighlightBackground")
             }
         ]
     }
@@ -48,29 +56,13 @@ ResourceDictionary {
     Style Key="NavbarDeleteTabButton" {
         TargetType: ButtonBase
         BasedOn: resource "MaterialDesignFloatingActionMiniButton"
-        #Setter("Background", "Transparent")
+        #Setter("Background", "White")
         #Setter("BorderBrush", "Transparent")
         #Setter("Height", 18)
         #Setter("Width", 18)
-        #Setter("Margin", "0,0,4,0")
-        #Setter("Opacity", 0.87)
+        #Setter("Margin", "0,1,4,0")
         #Setter("ToolTip", "Delete tab")
-        Setter {
-            Property: "Template"
-            Value: resource "MaterialDesignFloatingActionMiniButtonTemplate"
-        }
-        Triggers: [
-            Trigger {
-                Property: "IsMouseOver"
-                Value: true
-                #Setter("Background", resource "BlueGrey600")
-            }
-            Trigger {
-            	Property: "IsPressed"
-            	Value: true
-            	#Setter("Opacity", 0.7)
-            }
-        ]
+        #Setter("Template", resource "NavbarFloatingActionMiniButtonTemplate")
     }
 
     Style Key="NavbarTabControlItemContainerStyle" {
@@ -80,7 +72,7 @@ ResourceDictionary {
             Property: "Template"
             Value: ControlTemplate {
                 TargetType: DragablzItem
-                Grid "templateRoot" {
+                Grid "TemplateRoot" {
                     SnapsToDevicePixels: true
                     #TwoRows("*", "Auto")
         
@@ -98,7 +90,7 @@ ResourceDictionary {
                             Grid {
                                 #TwoColumns("*", "Auto")
         
-                                ContentPresenter "contentPresenter" {
+                                ContentPresenter "ContentContainer" {
                                     Content: "{TemplateBinding ContentControl.Content}"
                                     ContentTemplate: "{TemplateBinding ContentControl.ContentTemplate}"
                                     ContentStringFormat: "{TemplateBinding ContentControl.ContentStringFormat}"
@@ -117,7 +109,6 @@ ResourceDictionary {
                                 Button "CloseButton" {
                                     Grid.Column: 1
                                     ShadowAssist.ShadowDepth: Depth0
-                                    RippleAssist.IsDisabled: true
                                     Style: resource dyn "NavbarDeleteTabButton"
                                     Command: "{Binding (ns1:TabablzControlAssist.CloseTabCommand), RelativeSource={RelativeSource Self}}"
                                     CommandParameter: bind
@@ -138,7 +129,7 @@ ResourceDictionary {
                         Property: TabablzControl.IsWrappingTabItem
                         Value: true
                         Setter {
-                            TargetName: "contentPresenter"
+                            TargetName: "ContentContainer"
                             Property: "Content"
                             Value: bind DataContext.Header from $template
                         }
@@ -146,16 +137,8 @@ ResourceDictionary {
                     Trigger {
                         Property: "IsSelected"
                         Value: true
-                        Setter {
-                            TargetName: "contentPresenter"
-                            Property: "Opacity"
-                            Value: "1"
-                        }
-                        Setter {
-                            TargetName: "SelectionHighlightBorder"
-                            Property: "Visibility"
-                            Value: "Visible"
-                        }
+                        #Setter("Opacity", 1, "ContentContainer")
+                        #Setter("Visibility", "Visible", "SelectionHighlightBorder")
                     }
                 ]
             }

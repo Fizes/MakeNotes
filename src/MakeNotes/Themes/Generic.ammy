@@ -67,7 +67,7 @@ ResourceDictionary {
         #Setter("BorderBrush", "Transparent")
         #Setter("Height", 24)
         #Setter("Width", 24)
-        #Setter("Margin", "10,0")
+        #Setter("Margin", "10,0,10,3")
         #Setter("HorizontalAlignment", "Left")
         #Setter("ToolTip", "Add new tab")
         Setter {
@@ -81,7 +81,13 @@ ResourceDictionary {
             Trigger {
                 Property: "IsMouseOver"
                 Value: true
-                #Setter("Background", resource "BlueGrey600")
+            	Setter {
+                    Property: "Background"
+                    Value: SolidColorBrush {
+                        Color: "White"
+                        Opacity: "0.1"
+                    }
+                }
             }
         ]
     }
