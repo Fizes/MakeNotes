@@ -9,7 +9,7 @@ UserControl "MakeNotes.Notebook.Views.TabContentView" {
             
             ItemsControl {
                 Margin: "14,0"
-                ItemsSource: bind Content
+                ItemsSource: bind TabContent.Items
                 ItemsPanel: ItemsPanelTemplate {
                     StackPanel {}
                 }

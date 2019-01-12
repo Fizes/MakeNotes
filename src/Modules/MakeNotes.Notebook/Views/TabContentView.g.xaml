@@ -3,7 +3,7 @@
     <ScrollViewer x:Name="Scrollbar" Margin="0,14" VerticalScrollBarVisibility="Auto">
       <ItemsControl Margin="14,0">
         <ItemsControl.ItemsSource>
-          <Binding Path="Content"/>
+          <Binding Path="TabContent.Items"/>
         </ItemsControl.ItemsSource>
         <ItemsControl.ItemsPanel>
           <ItemsPanelTemplate>

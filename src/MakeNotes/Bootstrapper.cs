@@ -61,9 +61,7 @@ namespace MakeNotes
 
             var connectionString = SQLiteConnectionStringParser.Parse(_configuration.GetConnectionString("DefaultConnection"));
             builder.RegisterInstance(new DefaultConnectionFactory(connectionString)).As<IDbConnectionFactory>().SingleInstance();
-
-            builder.Register(ctx => ctx.Resolve<IDbConnectionFactory>().Create()).As<IDbConnection>();
-
+            
             builder.RegisterType<DapperRepository>().As<IRepository>();
 
             builder.RegisterInstance(_configuration.GetConfiguration<WindowSettings>());

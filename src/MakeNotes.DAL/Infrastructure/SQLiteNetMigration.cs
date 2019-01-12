@@ -1,5 +1,6 @@
 ﻿using System.Data.SQLite;
 using Dapper;
+using MakeNotes.DAL.Infrastructure.Extensions;
 using SimpleMigrations;
 
 namespace MakeNotes.DAL.Infrastructure
@@ -16,9 +17,9 @@ namespace MakeNotes.DAL.Infrastructure
         protected bool UseTransaction { get; set; }
 
         public abstract void Up();
-        
+
         public abstract void Down();
-        
+
         public void Execute(string sql)
         {
             Logger.LogSql(sql);
@@ -44,7 +45,7 @@ namespace MakeNotes.DAL.Infrastructure
 
             if (UseTransaction)
             {
-                using (var transaction = Connection.BeginTransaction())
+                using (var transaction = Connection.BeginTransactionSafe())
                 {
                     try
                     {

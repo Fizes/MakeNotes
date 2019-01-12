@@ -2,7 +2,7 @@
 using MakeNotes.Framework.Events;
 using Prism.Events;
 
-namespace MakeNotes.Notebook.Core.Notifications
+namespace MakeNotes.Notebook.Core.Notifications.Handlers
 {
     public class TabNotificationHandler : INotificationHandler<TabDeleted>,
                                           INotificationHandler<TabSelected>

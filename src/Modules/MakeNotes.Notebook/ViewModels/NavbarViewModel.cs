@@ -84,17 +84,40 @@ namespace MakeNotes.Notebook.ViewModels
 
         private async void DeleteTab(NavbarTabItem tabItem)
         {
-            await DialogManager.Show<DeleteTabDialog>(viewModel: null, async result => await OnCloseDeleteTabDialog(result, tabItem));
+            var canBeDeletedWithoutConfirmation = await CanTabBeDeletedWithoutConfirmation(tabItem);
+            if (canBeDeletedWithoutConfirmation)
+            {
+                await OnCloseDeleteTabDialog(DialogResult.Accepted, tabItem);
+            }
+            else
+            {
+                await DialogManager.Show<DeleteTabDialog>(viewModel: null, async result => await OnCloseDeleteTabDialog(result, tabItem));
+            }
+        }
+
+        private async Task<bool> CanTabBeDeletedWithoutConfirmation(NavbarTabItem tabItem)
+        {
+            if (!tabItem.Id.HasValue)
+            {
+                return true;
+            }
+
+            var tabContent = await _messageBus.SendAsync(new GetTabContentByTabId(tabItem.Id.Value));
+
+            return !tabContent.Any();
         }
 
         private async Task OnCloseDeleteTabDialog(DialogResult result, NavbarTabItem tabItem)
         {
-            if (result != DialogResult.Accepted || !tabItem.Id.HasValue)
+            if (result != DialogResult.Accepted)
             {
                 return;
             }
 
-            await _messageBus.SendAsync(new DeleteTab(tabItem.Id.Value));
+            if (tabItem.Id.HasValue)
+            {
+                await _messageBus.SendAsync(new DeleteTab(tabItem.Id.Value));
+            }
 
             if (SelectedTab == tabItem)
             {
@@ -131,7 +154,7 @@ namespace MakeNotes.Notebook.ViewModels
                 return;
             }
 
-            var tab = Tabs[initialTabOrder];
+            var tab = Tabs.First();
             if (!tab.Id.HasValue)
             {
                 await CreateTab(tab);

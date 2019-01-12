@@ -2,6 +2,6 @@
 {
     public static class DefaultValues
     {
-        public const string DefaultTabName = "Unnamed";
+        public const string DefaultTabName = "new";
     }
 }

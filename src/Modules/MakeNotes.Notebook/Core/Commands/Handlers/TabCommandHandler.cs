@@ -4,7 +4,7 @@ using MakeNotes.Common.Core.Requests;
 using MakeNotes.DAL.Core;
 using MakeNotes.Notebook.Core.Notifications;
 
-namespace MakeNotes.Notebook.Core.Commands
+namespace MakeNotes.Notebook.Core.Commands.Handlers
 {
     public class TabCommandHandler : IRequestHandler<CreateTab, int>,
                                      IRequestHandler<DeleteTab>

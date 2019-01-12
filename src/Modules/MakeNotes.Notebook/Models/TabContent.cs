@@ -1,12 +1,13 @@
 ﻿using System.Collections.ObjectModel;
-using MakeNotes.Common.Models;
 
 namespace MakeNotes.Notebook.Models
 {
     public class TabContent
     {
+        public int Id { get; set; }
+
         public int TabId { get; set; }
-        
-        public ObservableCollection<IDynamicElement> Items { get; } = new ObservableCollection<IDynamicElement>();
+
+        public ObservableCollection<object> Items { get; } = new ObservableCollection<object>();
     }
 }

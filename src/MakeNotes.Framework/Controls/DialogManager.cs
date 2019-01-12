@@ -19,16 +19,16 @@ namespace MakeNotes.Framework.Controls
         // Makes an attempt to parse the value as DialogResult enum, then as bool
         private static DialogResult ParseDialogResult(string value)
         {
-            if (Enum.TryParse(value, out DialogResult parsedEnumValue))
-            {
-                return parsedEnumValue;
-            }
-            
             if (bool.TryParse(value, out bool parsedBoolValue))
             {
                 return (DialogResult)Convert.ToInt32(parsedBoolValue);
             }
 
+            if (Enum.TryParse(value, out DialogResult parsedEnumValue))
+            {
+                return parsedEnumValue;
+            }
+            
             return DialogResult.Unspecified;
         }
 

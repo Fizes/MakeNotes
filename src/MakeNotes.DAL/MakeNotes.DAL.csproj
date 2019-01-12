@@ -57,20 +57,27 @@
     <Compile Include="Core\QueryObject.cs" />
     <Compile Include="Infrastructure\DatabaseMigrator.cs" />
     <Compile Include="Infrastructure\DefaultConnectionFactory.cs" />
+    <Compile Include="Infrastructure\Extensions\DbConnectionExtensions.cs" />
     <Compile Include="Infrastructure\IDbConnectionFactory.cs" />
     <Compile Include="Infrastructure\SQLiteConnectionStringKeys.cs" />
     <Compile Include="Infrastructure\SQLiteConnectionStringParser.cs" />
     <Compile Include="Infrastructure\SQLiteNetDatabaseProvider.cs" />
     <Compile Include="Infrastructure\SQLiteNetMigration.cs" />
+    <Compile Include="Migrations\201901061400_Add_TabContent_Forms.cs" />
     <Compile Include="Migrations\0_Initial.cs" />
     <Compile Include="Models\JsonData.cs" />
+    <Compile Include="Models\PasswordSheet.cs" />
     <Compile Include="Models\SchemaVersion.cs" />
     <Compile Include="Models\Tab.cs" />
     <Compile Include="Models\TabContent.cs" />
+    <Compile Include="Models\TabContentVisualBlock.cs" />
+    <Compile Include="Models\VisualBlockType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\SQLite.Interop.dll">
@@ -86,6 +93,7 @@
       <Name>MakeNotes.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

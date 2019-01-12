@@ -1,8 +1,6 @@
-﻿using MakeNotes.Common.Models;
-
-namespace MakeNotes.Notebook.Views.Templates
+﻿namespace MakeNotes.Notebook.Views.Templates
 {
-    public partial class PasswordDataGridTemplate : IDynamicElement
+    public partial class PasswordDataGridTemplate
     {
         public PasswordDataGridTemplate(PasswordDataGridTemplateViewModel viewModel)
         {

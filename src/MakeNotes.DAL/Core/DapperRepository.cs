@@ -1,17 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using Dapper;
+using MakeNotes.DAL.Infrastructure;
+using MakeNotes.DAL.Infrastructure.Extensions;
 
 namespace MakeNotes.DAL.Core
 {
-    public class DapperRepository : IRepository
+    public class DapperRepository : IRepository, IDisposable
     {
         private readonly IDbConnection _connection;
 
-        public DapperRepository(IDbConnection connection)
+        public DapperRepository(IDbConnectionFactory connectionFactory)
         {
-            _connection = connection;
+            _connection = connectionFactory.Create();
         }
 
         public async Task<IEnumerable<T>> QueryAsync<T>(QueryObject queryObject, IDbTransaction transaction = null)
@@ -46,12 +49,12 @@ namespace MakeNotes.DAL.Core
 
         public IDbTransaction BeginTransaction()
         {
-            if (_connection.State == ConnectionState.Closed)
-            {
-                _connection.Open();
-            }
+            return _connection.BeginTransactionSafe();
+        }
 
-            return _connection.BeginTransaction();
+        public void Dispose()
+        {
+            _connection.Dispose();
         }
     }
 }

@@ -3,7 +3,8 @@
     /// <summary>
     /// Represents an element that is created dynamically by a user.
     /// </summary>
-    public interface IDynamicElement
+    public interface IVisualBlock
     {
+        int Id { get; set; }
     }
 }

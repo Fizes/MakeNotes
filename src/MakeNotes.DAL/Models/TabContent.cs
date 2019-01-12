@@ -1,7 +1,7 @@
 ﻿namespace MakeNotes.DAL.Models
 {
     /// <summary>
-    /// Represents an element associated with a tab which together forms its content.
+    /// Represents a block of data inside a tab.
     /// </summary>
     public class TabContent
     {
@@ -21,8 +21,8 @@
         public int Order { get; set; }
 
         /// <summary>
-        /// Data associated with a particular element as a json string.
+        /// Type of a visual block containing the data.
         /// </summary>
-        public string Data { get; set; }
+        public int VisualBlockTypeId { get; set; }
     }
 }

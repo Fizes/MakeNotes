@@ -79,16 +79,24 @@
   <ItemGroup>
     <Compile Include="Collections\NavbarTabItemObservableCollection.cs" />
     <Compile Include="Consts\DefaultValues.cs" />
+    <Compile Include="Consts\VisualBlockTypes.cs" />
+    <Compile Include="Core\Commands\AddTabContent.cs" />
     <Compile Include="Core\Commands\CreateTab.cs" />
     <Compile Include="Core\Commands\DeleteTab.cs" />
-    <Compile Include="Core\Commands\TabCommandHandler.cs" />
+    <Compile Include="Core\Commands\Handlers\TabContentCommandHandler.cs" />
+    <Compile Include="Core\Commands\Handlers\TabCommandHandler.cs" />
     <Compile Include="Core\Notifications\TabDeleted.cs" />
-    <Compile Include="Core\Notifications\TabNotificationHandler.cs" />
+    <Compile Include="Core\Notifications\Handlers\TabNotificationHandler.cs" />
     <Compile Include="Core\Notifications\TabSelected.cs" />
     <Compile Include="Core\Queries\FindTabById.cs" />
     <Compile Include="Core\Queries\GetAllTabs.cs" />
+    <Compile Include="Core\Queries\GetLastTabContentOrder.cs" />
     <Compile Include="Core\Queries\GetLastTabOrder.cs" />
-    <Compile Include="Core\Queries\TabQueryHandler.cs" />
+    <Compile Include="Core\Queries\GetTabContentByTabId.cs" />
+    <Compile Include="Core\Queries\FindVisualBlockTypeById.cs" />
+    <Compile Include="Core\Queries\Handlers\TabContentQueryHandler.cs" />
+    <Compile Include="Core\Queries\Handlers\TabQueryHandler.cs" />
+    <Compile Include="Core\Queries\Handlers\VisualBlockQueryHandler.cs" />
     <Compile Include="Models\ActionMenuItem.cs" />
     <Compile Include="Models\PasswordDataGridItem.cs" />
     <Compile Include="Models\TabContent.cs" />
@@ -98,6 +106,7 @@
     </Compile>
     <Compile Include="Providers\INavigationContext.cs" />
     <Compile Include="Providers\NavigationContext.cs" />
+    <Compile Include="Providers\TabContentVisualBlockProviderBase.cs" />
     <Compile Include="ViewModels\TabContentViewModel.cs" />
     <Compile Include="ViewModels\NavbarViewModel.cs" />
     <Compile Include="Views\Templates\AddTabDialog.ammy.cs">

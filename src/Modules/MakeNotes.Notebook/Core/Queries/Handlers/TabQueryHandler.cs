@@ -4,7 +4,7 @@ using MakeNotes.Common.Core.Requests;
 using MakeNotes.DAL.Core;
 using MakeNotes.DAL.Models;
 
-namespace MakeNotes.Notebook.Core.Queries
+namespace MakeNotes.Notebook.Core.Queries.Handlers
 {
     public class TabQueryHandler : IRequestHandler<GetAllTabs, IEnumerable<Tab>>,
                                    IRequestHandler<FindTabById, Tab>,
