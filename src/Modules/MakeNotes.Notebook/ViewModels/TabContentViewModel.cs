@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 using MakeNotes.Common.Core;
 using MakeNotes.Framework.Events;
-using MakeNotes.Framework.Factories;
 using MakeNotes.Notebook.Consts;
 using MakeNotes.Notebook.Core.Commands;
 using MakeNotes.Notebook.Core.Notifications;
 using MakeNotes.Notebook.Core.Queries;
 using MakeNotes.Notebook.Models;
-using MakeNotes.Notebook.Views.Templates;
+using MakeNotes.Notebook.Templates;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -18,17 +19,17 @@ namespace MakeNotes.Notebook.ViewModels
     {
         private readonly IMessageBus _messageBus;
         private readonly IEventAggregator _eventAggregator;
-        private readonly IViewFactory _viewFactory;
-        
-        private TabContent _tabContent;
+        private readonly VisualBlockTemplateFactory _visualBlockTemplateFactory;
 
-        public TabContentViewModel(IMessageBus messageBus, IEventAggregator eventAggregator, IViewFactory viewFactory)
+        public TabContentViewModel(IMessageBus messageBus, IEventAggregator eventAggregator, VisualBlockTemplateFactory visualBlockTemplateFactory)
         {
             _messageBus = messageBus;
             _eventAggregator = eventAggregator;
-            _viewFactory = viewFactory;
+            _visualBlockTemplateFactory = visualBlockTemplateFactory;
 
-            _eventAggregator.GetEvent<ApplicationEvent<TabSelected>>().Subscribe(OnTabSelected);
+            _eventAggregator.GetEvent<ApplicationEvent<TabSelected>>().Subscribe(OnTabSelected, ThreadOption.UIThread);
+
+            AddVisualBlockCommand = new DelegateCommand<string>(AddVisualBlock);
 
             ActionMenuItems = new[]
             {
@@ -36,37 +37,39 @@ namespace MakeNotes.Notebook.ViewModels
                 {
                     Tooltip = "Add a new password sheet",
                     Icon = "TablePlus",
-                    Action = new DelegateCommand(AddNewGrid)
+                    Action = AddVisualBlockCommand,
+                    ActionParameter = VisualBlockTypes.PasswordSheet
                 }
             };
         }
 
         public IEnumerable<ActionMenuItem> ActionMenuItems { get; }
 
+        public ObservableCollection<VisualBlockTemplate> Content { get; } = new ObservableCollection<VisualBlockTemplate>();
+
         public int CurrentTabId { get; private set; }
 
-        public TabContent TabContent
-        {
-            get => _tabContent;
-            set => SetProperty(ref _tabContent, value);
-        }
+        public ICommand AddVisualBlockCommand { get; set; }
 
         private async void OnTabSelected(TabSelected notification)
         {
             CurrentTabId = notification.Id;
+            Content.Clear();
 
             var tabContent = await _messageBus.SendAsync(new GetTabContentByTabId(notification.Id));
+            foreach (var content in tabContent)
+            {
+                var type = await _messageBus.SendAsync(new FindVisualBlockTypeById(content.VisualBlockTypeId));
+                Content.Add(_visualBlockTemplateFactory.Create(content.Id, type.SysName));
+            }
         }
 
-        private async void AddNewGrid()
+        private async void AddVisualBlock(string templateName)
         {
             var lastTabContentOrder = await _messageBus.SendAsync(new GetLastTabContentOrder(CurrentTabId));
-            var id = await _messageBus.SendAsync(new AddTabContent(CurrentTabId, lastTabContentOrder + 1, VisualBlockTypes.PasswordSheet));
+            var id = await _messageBus.SendAsync(new AddTabContent(CurrentTabId, lastTabContentOrder + 1, templateName));
 
-            TabContent = new TabContent { Id = id, TabId = CurrentTabId };
-
-            var grid = _viewFactory.Create<PasswordDataGridTemplate>();
-            TabContent.Items.Add(grid);
+            Content.Add(_visualBlockTemplateFactory.Create(id, templateName));
         }
     }
 }

@@ -1,4 +1,4 @@
-<UserControl x:Class="MakeNotes.Notebook.Views.Templates.AddTabDialog" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:AmmySidekick;assembly=AmmySidekick" ns1:Ammy.Register="/MakeNotes.Notebook;component/Views/Templates/AddTabDialog.g.xaml">
+<UserControl x:Class="MakeNotes.Notebook.Templates.Views.AddTabDialog" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:AmmySidekick;assembly=AmmySidekick" ns1:Ammy.Register="/MakeNotes.Notebook;component/Templates/Views/AddTabDialog.g.xaml">
   <StackPanel Margin="20">
     <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="Add new tab"/>
     <TextBox ns0:HintAssist.Hint="Name" HorizontalAlignment="Stretch" Margin="0,8">

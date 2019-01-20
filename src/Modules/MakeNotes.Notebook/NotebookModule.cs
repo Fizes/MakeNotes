@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using MakeNotes.Notebook.Consts;
 using MakeNotes.Notebook.Providers;
+using MakeNotes.Notebook.Templates.VisualBlocks.ViewModels;
 
 namespace MakeNotes.Notebook
 {
@@ -9,6 +11,8 @@ namespace MakeNotes.Notebook
         {
             builder.RegisterAssemblyTypes(GetType().Assembly).PublicOnly();
             builder.RegisterType<NavigationContext>().As<INavigationContext>().SingleInstance();
+
+            builder.RegisterType<PasswordSheetTemplateViewModel>().Keyed<IVisualBlockViewModel>(VisualBlockTypes.PasswordSheet);
         }
     }
 }

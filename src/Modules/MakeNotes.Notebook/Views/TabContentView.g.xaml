@@ -1,9 +1,12 @@
 <UserControl x:Class="MakeNotes.Notebook.Views.TabContentView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns1="clr-namespace:AmmySidekick;assembly=AmmySidekick" ns1:Ammy.Register="/MakeNotes.Notebook;component/Views/TabContentView.g.xaml">
+  <UserControl.Resources>
+    <ResourceDictionary Source="../Templates/VisualBlocks/Resources/VisualBlockTemplates.g.xaml"/>
+  </UserControl.Resources>
   <Grid>
-    <ScrollViewer x:Name="Scrollbar" Margin="0,14" VerticalScrollBarVisibility="Auto">
+    <ScrollViewer x:Name="Scrollbar" Margin="0,14,0,0" VerticalScrollBarVisibility="Auto">
       <ItemsControl Margin="14,0">
         <ItemsControl.ItemsSource>
-          <Binding Path="TabContent.Items"/>
+          <Binding Path="Content"/>
         </ItemsControl.ItemsSource>
         <ItemsControl.ItemsPanel>
           <ItemsPanelTemplate>
@@ -12,7 +15,7 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
           <DataTemplate>
-            <ContentControl>
+            <ContentControl Margin="0,0,0,14" ContentTemplateSelector="{StaticResource VisualBlockTemplateSelector}">
               <ContentControl.Content>
                 <Binding/>
               </ContentControl.Content>
@@ -50,6 +53,9 @@
               <Button.Command>
                 <Binding Path="Action"/>
               </Button.Command>
+              <Button.CommandParameter>
+                <Binding Path="ActionParameter"/>
+              </Button.CommandParameter>
               <Button.ToolTip>
                 <Binding Path="Tooltip"/>
               </Button.ToolTip>

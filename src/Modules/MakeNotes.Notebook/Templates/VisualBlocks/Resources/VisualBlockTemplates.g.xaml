@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MakeNotes.Notebook.Templates.VisualBlocks" xmlns:ns1="clr-namespace:MakeNotes.Notebook.Templates.VisualBlocks.Views">
+  <ns0:VisualBlockTemplateSelector x:Key="VisualBlockTemplateSelector"/>
+  <DataTemplate x:Key="PasswordSheetTemplate">
+    <ns1:PasswordSheetTemplate>
+      <FrameworkElement.DataContext>
+        <Binding Path="DataContext.DataContext" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ContentControl}, AncestorLevel=1}"/>
+      </FrameworkElement.DataContext>
+    </ns1:PasswordSheetTemplate>
+  </DataTemplate>
+</ResourceDictionary>

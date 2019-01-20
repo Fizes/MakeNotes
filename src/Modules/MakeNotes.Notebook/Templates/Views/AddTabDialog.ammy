@@ -1,6 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf
 
-UserControl "MakeNotes.Notebook.Views.Templates.AddTabDialog" {
+UserControl "MakeNotes.Notebook.Templates.Views.AddTabDialog" {
     StackPanel {
         Margin: "20"
 

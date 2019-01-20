@@ -80,6 +80,10 @@
     <Compile Include="Collections\NavbarTabItemObservableCollection.cs" />
     <Compile Include="Consts\DefaultValues.cs" />
     <Compile Include="Consts\VisualBlockTypes.cs" />
+    <Compile Include="Templates\VisualBlocks\ViewModels\IVisualBlockViewModel.cs" />
+    <Compile Include="Templates\VisualBlocks\ViewModels\PasswordSheetTemplateViewModel.cs" />
+    <Compile Include="Templates\VisualBlockTemplateFactory.cs" />
+    <Compile Include="Templates\VisualBlockTemplateSelector.cs" />
     <Compile Include="Core\Commands\AddTabContent.cs" />
     <Compile Include="Core\Commands\CreateTab.cs" />
     <Compile Include="Core\Commands\DeleteTab.cs" />
@@ -98,18 +102,18 @@
     <Compile Include="Core\Queries\Handlers\TabQueryHandler.cs" />
     <Compile Include="Core\Queries\Handlers\VisualBlockQueryHandler.cs" />
     <Compile Include="Models\ActionMenuItem.cs" />
-    <Compile Include="Models\PasswordDataGridItem.cs" />
-    <Compile Include="Models\TabContent.cs" />
+    <Compile Include="Models\VisualBlockTemplate.cs" />
     <Compile Include="NotebookModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Providers\INavigationContext.cs" />
     <Compile Include="Providers\NavigationContext.cs" />
+    <Compile Include="Providers\PasswordSheetVisualBlockProvider.cs" />
     <Compile Include="Providers\TabContentVisualBlockProviderBase.cs" />
     <Compile Include="ViewModels\TabContentViewModel.cs" />
     <Compile Include="ViewModels\NavbarViewModel.cs" />
-    <Compile Include="Views\Templates\AddTabDialog.ammy.cs">
+    <Compile Include="Templates\Views\AddTabDialog.ammy.cs">
       <DependentUpon>AddTabDialog.ammy</DependentUpon>
     </Compile>
     <Compile Include="Views\NavbarView.ammy.cs">
@@ -118,22 +122,23 @@
     <Compile Include="Views\TabContentView.ammy.cs">
       <DependentUpon>TabContentView.ammy</DependentUpon>
     </Compile>
-    <Compile Include="Views\Templates\DeleteTabDialog.ammy.cs">
+    <Compile Include="Templates\Views\DeleteTabDialog.ammy.cs">
       <DependentUpon>DeleteTabDialog.ammy</DependentUpon>
     </Compile>
-    <Compile Include="Views\Templates\PasswordDataGridTemplate.ammy.cs">
-      <DependentUpon>PasswordDataGridTemplate.ammy</DependentUpon>
+    <Compile Include="Templates\VisualBlocks\Views\PasswordSheetTemplate.ammy.cs">
+      <DependentUpon>PasswordSheetTemplate.ammy</DependentUpon>
     </Compile>
-    <Compile Include="Views\Templates\PasswordDataGridTemplateViewModel.cs" />
+    <Compile Include="Templates\VisualBlocks\ViewModels\VisualBlockViewModelBase.cs" />
     <None Include="lib.ammy" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Views\Templates\AddTabDialog.ammy" />
+    <None Include="Templates\Views\AddTabDialog.ammy" />
+    <None Include="Templates\VisualBlocks\Resources\VisualBlockTemplates.ammy" />
     <None Include="Views\NavbarView.ammy" />
     <None Include="Views\TabContentView.ammy" />
-    <None Include="Views\Templates\DeleteTabDialog.ammy" />
-    <None Include="Views\Templates\PasswordDataGridTemplate.ammy" />
+    <None Include="Templates\Views\DeleteTabDialog.ammy" />
+    <None Include="Templates\VisualBlocks\Views\PasswordSheetTemplate.ammy" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MakeNotes.Common\MakeNotes.Common.csproj">
@@ -151,10 +156,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="Views\Templates\AddTabDialog.g.xaml">
+    <Page Include="Templates\Views\AddTabDialog.g.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>AddTabDialog.ammy</DependentUpon>
+    </Page>
+    <Page Include="Templates\VisualBlocks\Resources\VisualBlockTemplates.g.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>VisualBlockTemplates.ammy</DependentUpon>
     </Page>
     <Page Include="Views\NavbarView.g.xaml">
       <SubType>Designer</SubType>
@@ -166,15 +176,15 @@
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <DependentUpon>TabContentView.ammy</DependentUpon>
     </Page>
-    <Page Include="Views\Templates\DeleteTabDialog.g.xaml">
+    <Page Include="Templates\Views\DeleteTabDialog.g.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <DependentUpon>DeleteTabDialog.ammy</DependentUpon>
     </Page>
-    <Page Include="Views\Templates\PasswordDataGridTemplate.g.xaml">
+    <Page Include="Templates\VisualBlocks\Views\PasswordSheetTemplate.g.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>PasswordDataGridTemplate.ammy</DependentUpon>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <DependentUpon>PasswordSheetTemplate.ammy</DependentUpon>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

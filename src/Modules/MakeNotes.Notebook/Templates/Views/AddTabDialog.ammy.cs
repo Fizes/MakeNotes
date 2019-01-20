@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace MakeNotes.Notebook.Views.Templates
+namespace MakeNotes.Notebook.Templates.Views
 {
     public partial class AddTabDialog : UserControl
     {

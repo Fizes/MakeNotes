@@ -7,7 +7,7 @@ namespace MakeNotes.Notebook.Providers
 {
     public abstract class TabContentVisualBlockProviderBase<TVisualBlock> where TVisualBlock : IVisualBlock
     {
-        public TabContentVisualBlockProviderBase(IRepository repository)
+        protected TabContentVisualBlockProviderBase(IRepository repository)
         {
             Repository = repository;
         }

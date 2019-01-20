@@ -1,0 +1,12 @@
+﻿using MakeNotes.Notebook.Templates.VisualBlocks
+using MakeNotes.Notebook.Templates.VisualBlocks.Views
+
+ResourceDictionary {
+    VisualBlockTemplateSelector Key="VisualBlockTemplateSelector" {}
+    
+    DataTemplate Key="PasswordSheetTemplate" {
+        PasswordSheetTemplate {
+            DataContext: bind DataContext.DataContext from $ancestor<ContentControl>(1)
+        }
+    }
+}

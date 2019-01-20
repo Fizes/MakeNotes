@@ -2,23 +2,30 @@
 using Prism.Regions
 
 UserControl "MakeNotes.Notebook.Views.TabContentView" {
+    Resources: ResourceDictionary { Source: "../Templates/VisualBlocks/Resources/VisualBlockTemplates.g.xaml" }
+
     Grid {
         ScrollViewer "Scrollbar" {
-            Margin: "0,14"
+            Margin: "0,14,0,0"
             VerticalScrollBarVisibility: Auto
             
             ItemsControl {
                 Margin: "14,0"
-                ItemsSource: bind TabContent.Items
+                ItemsSource: bind Content
                 ItemsPanel: ItemsPanelTemplate {
                     StackPanel {}
                 }
                 ItemTemplate: DataTemplate {
-                    ContentControl { Content: bind }
+                    ContentControl {
+                        Margin: "0,0,0,14"
+                        Content: bind
+                        ContentTemplateSelector: resource "VisualBlockTemplateSelector"
+                    }
                 }
             }
         }
         
+        // Add content button
         PopupBox {
             Grid.ZIndex: 1
             ShadowAssist.ShadowDepth: Depth1
@@ -38,6 +45,7 @@ UserControl "MakeNotes.Notebook.Views.TabContentView" {
                 ]
             }
 
+            // Items
             ItemsControl {
                 ItemsSource: bind ActionMenuItems
                 ItemsPanel: ItemsPanelTemplate {
@@ -47,6 +55,7 @@ UserControl "MakeNotes.Notebook.Views.TabContentView" {
                     Button {
                         ShadowAssist.ShadowDepth: Depth1
                         Command: bind Action
+                        CommandParameter: bind ActionParameter
                         ToolTip: bind Tooltip
                         PackIcon {
                             Width: 22
