@@ -55,6 +55,7 @@
     <Compile Include="Core\DapperRepository.cs" />
     <Compile Include="Core\IRepository.cs" />
     <Compile Include="Core\QueryObject.cs" />
+    <Compile Include="Decorators\TransactionNotificationHandlerDecorator.cs" />
     <Compile Include="Infrastructure\DatabaseMigrator.cs" />
     <Compile Include="Infrastructure\DefaultConnectionFactory.cs" />
     <Compile Include="Infrastructure\Extensions\DbConnectionExtensions.cs" />

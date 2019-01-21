@@ -1,7 +1,7 @@
 ﻿namespace MakeNotes.Common.Core.Notifications
 {
     /// <summary>
-    /// Represents a handler that executes actions after an event occured.
+    /// Represents a handler that is executed after an event occurred.
     /// </summary>
     /// <typeparam name="TNotification"></typeparam>
     public interface INotificationHandler<in TNotification> : IHandler

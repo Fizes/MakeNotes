@@ -49,7 +49,7 @@ namespace MakeNotes.Notebook.ViewModels
 
         public int CurrentTabId { get; private set; }
 
-        public ICommand AddVisualBlockCommand { get; set; }
+        public ICommand AddVisualBlockCommand { get; }
 
         private async void OnTabSelected(TabSelected notification)
         {

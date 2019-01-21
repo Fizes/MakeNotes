@@ -13,16 +13,21 @@ namespace MakeNotes.Notebook.Core.Commands.Handlers
             _repository = repository;
         }
 
-        public async Task<int> ExecuteAsync(AddTabContent command)
+        private Task<int> GetVisualBlockTypeIdBySysName(string sysName)
         {
             var query = new QueryObject(
                 @"SELECT [Id]
                   FROM [VisualBlockType]
-                  WHERE [SysName] = @SysName", new { SysName = command.Type });
+                  WHERE [SysName] = @SysName", new { SysName = sysName });
 
-            var visualBlockTypeId = await _repository.QuerySingleAsync<int>(query);
+            return _repository.QuerySingleAsync<int>(query);
+        }
 
-            query = new QueryObject(
+        public async Task<int> ExecuteAsync(AddTabContent command)
+        {
+            var visualBlockTypeId = await GetVisualBlockTypeIdBySysName(command.Type);
+
+            var query = new QueryObject(
                 @"INSERT INTO [TabContent] ([TabId], [Order], [VisualBlockTypeId])
                   VALUES (@TabId, @Order, @VisualBlockTypeId);
                   SELECT last_insert_rowid()",

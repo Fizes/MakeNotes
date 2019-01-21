@@ -13,7 +13,7 @@ namespace MakeNotes.Notebook.Templates.VisualBlocks.ViewModels
 
         public VisualBlockViewModelBase()
         {
-            InitializeCommand = new DelegateCommand(Initialize);
+            InitializeCommand = new DelegateCommand<int?>(Initialize);
         }
 
         public ObservableCollection<TVisualBlock> Items
@@ -24,6 +24,6 @@ namespace MakeNotes.Notebook.Templates.VisualBlocks.ViewModels
 
         public ICommand InitializeCommand { get; }
 
-        protected abstract void Initialize();
+        protected abstract void Initialize(int? tabContentId);
     }
 }

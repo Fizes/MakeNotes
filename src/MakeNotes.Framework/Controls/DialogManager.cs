@@ -16,7 +16,7 @@ namespace MakeNotes.Framework.Controls
 
         public delegate void DialogClosedEventHandler(DialogResult result);
 
-        // Makes an attempt to parse the value as DialogResult enum, then as bool
+        // Makes an attempt to parse the value either as DialogResult or bool
         private static DialogResult ParseDialogResult(string value)
         {
             if (bool.TryParse(value, out bool parsedBoolValue))
@@ -82,7 +82,8 @@ namespace MakeNotes.Framework.Controls
         /// </summary>
         /// <typeparam name="TView">Type of view used as content.</typeparam>
         /// <param name="viewModel">DataContext of the view.</param>
-        /// <param name="closedEventHandler">A handler that is called when dialog is closed passing value of the parameter given to <see cref="DialogHost.CloseDialogCommand"/>.</param>
+        /// <param name="closedEventHandler">A handler that is called when a dialog is closed passing
+        /// value of the parameter given to <see cref="DialogHost.CloseDialogCommand"/>.</param>
         /// <returns></returns>
         public async static Task Show<TView>(object viewModel, DialogClosedEventHandler closedEventHandler) where TView : UserControl, new()
         {
