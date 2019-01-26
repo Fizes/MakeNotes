@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
 
 namespace MakeNotes.DAL.Core
@@ -9,18 +8,55 @@ namespace MakeNotes.DAL.Core
     /// </summary>
     public interface IRepository
     {
-        IDbTransaction BeginTransaction();
+        /// <summary>
+        /// Executes a query that returns no result.
+        /// </summary>
+        /// <param name="queryObject">Data required for a query.</param>
+        /// <returns></returns>
+        Task ExecuteAsync(QueryObject queryObject);
 
-        Task ExecuteAsync(QueryObject queryObject, IDbTransaction transaction = null);
-        
-        Task<IEnumerable<T>> QueryAsync<T>(QueryObject queryObject, IDbTransaction transaction = null);
-        
-        Task<T> QueryFirstAsync<T>(QueryObject queryObject, IDbTransaction transaction = null);
+        /// <summary>
+        /// Executes a query that returns collection of elements with the specified type.
+        /// </summary>
+        /// <typeparam name="T">Result type.</typeparam>
+        /// <param name="queryObject">Data required for a query.</param>
+        /// <returns></returns>
+        Task<IEnumerable<T>> QueryAsync<T>(QueryObject queryObject);
 
-        Task<T> QueryFirstOrDefaultAsync<T>(QueryObject queryObject, IDbTransaction transaction = null);
+        /// <summary>
+        /// Executes a query that returns first element with the specified type from the resulting set.
+        /// Throws an exception if no element found.
+        /// </summary>
+        /// <typeparam name="T">Result type.</typeparam>
+        /// <param name="queryObject">Data required for a query.</param>
+        /// <returns></returns>
+        Task<T> QueryFirstAsync<T>(QueryObject queryObject);
 
-        Task<T> QuerySingleAsync<T>(QueryObject queryObject, IDbTransaction transaction = null);
+        /// <summary>
+        /// Executes a query that returns first element with the specified type from the resulting set.
+        /// Returns null if no element found.
+        /// </summary>
+        /// <typeparam name="T">Result type.</typeparam>
+        /// <param name="queryObject">Data required for a query.</param>
+        /// <returns></returns>
+        Task<T> QueryFirstOrDefaultAsync<T>(QueryObject queryObject);
 
-        Task<T> QuerySingleOrDefaultAsync<T>(QueryObject queryObject, IDbTransaction transaction = null);
+        /// <summary>
+        /// Executes a query that returns a single element with the specified type from the resulting set.
+        /// Throws an exception if the element is not found or the resulting set contains more than one such element.
+        /// </summary>
+        /// <typeparam name="T">Result type.</typeparam>
+        /// <param name="queryObject">Data required for a query.</param>
+        /// <returns></returns>
+        Task<T> QuerySingleAsync<T>(QueryObject queryObject);
+
+        /// <summary>
+        /// Executes a query that returns a single element with the specified type, or null if not found, from the resulting set.
+        /// Throws an exception if the resulting set contains more than one such element.
+        /// </summary>
+        /// <typeparam name="T">Result type.</typeparam>
+        /// <param name="queryObject">Data required for a query.</param>
+        /// <returns></returns>
+        Task<T> QuerySingleOrDefaultAsync<T>(QueryObject queryObject);
     }
 }

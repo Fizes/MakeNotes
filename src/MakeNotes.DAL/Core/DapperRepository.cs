@@ -1,60 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
-using Dapper;
-using MakeNotes.DAL.Infrastructure;
-using MakeNotes.DAL.Infrastructure.Extensions;
+using Dapper.AmbientContext;
 
 namespace MakeNotes.DAL.Core
 {
-    public class DapperRepository : IRepository, IDisposable
+    public class DapperRepository : IRepository
     {
-        private readonly IDbConnection _connection;
+        private readonly IAmbientDbContextLocator _ambientDbContextLocator;
+        private readonly IAmbientDbContextFactory _ambientDbContextFactory;
 
-        public DapperRepository(IDbConnectionFactory connectionFactory)
+        public DapperRepository(IAmbientDbContextLocator ambientDbContextLocator, IAmbientDbContextFactory ambientDbContextFactory)
         {
-            _connection = connectionFactory.Create();
+            _ambientDbContextLocator = ambientDbContextLocator;
+            _ambientDbContextFactory = ambientDbContextFactory;
         }
 
-        public async Task<IEnumerable<T>> QueryAsync<T>(QueryObject queryObject, IDbTransaction transaction = null)
+        private IAmbientDbContextQueryProxy Context => _ambientDbContextLocator.Get();
+
+        public Task<IEnumerable<T>> QueryAsync<T>(QueryObject queryObject)
         {
-            return await _connection.QueryAsync<T>(queryObject.Sql, queryObject.Parameters, transaction);
+            return UsingContext(() => Context.QueryAsync<T>(queryObject.Sql, queryObject.Parameters));
         }
 
-        public async Task<T> QuerySingleAsync<T>(QueryObject queryObject, IDbTransaction transaction = null)
+        public Task<T> QuerySingleAsync<T>(QueryObject queryObject)
         {
-            return await _connection.QuerySingleAsync<T>(queryObject.Sql, queryObject.Parameters, transaction);
+            return UsingContext(() => Context.QuerySingleAsync<T>(queryObject.Sql, queryObject.Parameters));
         }
         
-        public async Task<T> QuerySingleOrDefaultAsync<T>(QueryObject queryObject, IDbTransaction transaction = null)
+        public Task<T> QuerySingleOrDefaultAsync<T>(QueryObject queryObject)
         {
-            return await _connection.QuerySingleOrDefaultAsync<T>(queryObject.Sql, queryObject.Parameters, transaction);
+            return UsingContext(() => Context.QuerySingleOrDefaultAsync<T>(queryObject.Sql, queryObject.Parameters));
         }
 
-        public async Task<T> QueryFirstAsync<T>(QueryObject queryObject, IDbTransaction transaction = null)
+        public Task<T> QueryFirstAsync<T>(QueryObject queryObject)
         {
-            return await _connection.QueryFirstAsync<T>(queryObject.Sql, queryObject.Parameters, transaction);
+            return UsingContext(() => Context.QueryFirstAsync<T>(queryObject.Sql, queryObject.Parameters));
         }
 
-        public async Task<T> QueryFirstOrDefaultAsync<T>(QueryObject queryObject, IDbTransaction transaction = null)
+        public Task<T> QueryFirstOrDefaultAsync<T>(QueryObject queryObject)
         {
-            return await _connection.QueryFirstOrDefaultAsync<T>(queryObject.Sql, queryObject.Parameters, transaction);
+            return UsingContext(() => Context.QueryFirstOrDefaultAsync<T>(queryObject.Sql, queryObject.Parameters));
         }
 
-        public async Task ExecuteAsync(QueryObject queryObject, IDbTransaction transaction = null)
+        public Task ExecuteAsync(QueryObject queryObject)
         {
-            await _connection.ExecuteAsync(queryObject.Sql, queryObject.Parameters, transaction);
+            return UsingContext(() => Context.ExecuteAsync(queryObject.Sql, queryObject.Parameters));
         }
 
-        public IDbTransaction BeginTransaction()
+        private Task<T> UsingContext<T>(Func<Task<T>> dbQuery)
         {
-            return _connection.BeginTransactionSafe();
-        }
-
-        public void Dispose()
-        {
-            _connection.Dispose();
+            // Join to parent context if it exists
+            using (var context = _ambientDbContextFactory.Create(join: true, suppress: true))
+            {
+                return dbQuery();
+            }
         }
     }
 }

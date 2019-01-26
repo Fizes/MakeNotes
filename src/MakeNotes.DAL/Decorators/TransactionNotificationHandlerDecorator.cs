@@ -1,5 +1,5 @@
-﻿using MakeNotes.Common.Core.Notifications;
-using MakeNotes.DAL.Core;
+﻿using Dapper.AmbientContext;
+using MakeNotes.Common.Core.Notifications;
 
 namespace MakeNotes.DAL.Decorators
 {
@@ -10,27 +10,27 @@ namespace MakeNotes.DAL.Decorators
     public class TransactionNotificationHandlerDecorator<TNotification> : INotificationHandler<TNotification>
         where TNotification : INotification
     {
-        private readonly IRepository _repository;
+        private readonly IAmbientDbContextFactory _ambientDbContextFactory;
         private readonly INotificationHandler<TNotification> _decorated;
 
-        public TransactionNotificationHandlerDecorator(IRepository repository, INotificationHandler<TNotification> decorated)
+        public TransactionNotificationHandlerDecorator(IAmbientDbContextFactory ambientDbContextFactory, INotificationHandler<TNotification> decorated)
         {
-            _repository = repository;
+            _ambientDbContextFactory = ambientDbContextFactory;
             _decorated = decorated;
         }
 
         public void Handle(TNotification command)
         {
-            using (var transaction = _repository.BeginTransaction())
+            using (var ambientContext = _ambientDbContextFactory.Create())
             {
                 try
                 {
                     _decorated.Handle(command);
-                    transaction.Commit();
+                    ambientContext.Commit();
                 }
                 catch
                 {
-                    transaction.Rollback();
+                    ambientContext.Rollback();
                     throw;
                 }
             }

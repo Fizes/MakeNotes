@@ -3,6 +3,8 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Autofac;
+using Dapper.AmbientContext;
+using Dapper.AmbientContext.Storage;
 using MakeNotes.Common.Core;
 using MakeNotes.Common.Core.Factories;
 using MakeNotes.Common.Core.Notifications;
@@ -59,9 +61,12 @@ namespace MakeNotes
 
             builder.RegisterAssemblyModules(assemblies);
 
+            AmbientDbContextStorageProvider.SetStorage(new LogicalCallContextStorage());
             var connectionString = SQLiteConnectionStringParser.Parse(_configuration.GetConnectionString("DefaultConnection"));
             builder.RegisterInstance(new DefaultConnectionFactory(connectionString)).As<IDbConnectionFactory>().SingleInstance();
-            
+            builder.RegisterType<AmbientDbContextFactory>().As<IAmbientDbContextFactory>().SingleInstance();
+            builder.RegisterType<AmbientDbContextLocator>().As<IAmbientDbContextLocator>();
+
             builder.RegisterType<DapperRepository>().As<IRepository>();
 
             builder.RegisterInstance(_configuration.GetConfiguration<WindowSettings>());

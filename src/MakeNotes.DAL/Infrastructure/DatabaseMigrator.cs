@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.SQLite;
 using System.IO;
+using Dapper.AmbientContext;
 using MakeNotes.Common.Infrastructure.Extensions;
 using SimpleMigrations;
 
