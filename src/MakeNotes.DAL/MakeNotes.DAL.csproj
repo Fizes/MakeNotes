@@ -79,6 +79,8 @@
     <Compile Include="Models\TabContentVisualBlock.cs" />
     <Compile Include="Models\VisualBlockType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\CommonQueries.cs" />
+    <Compile Include="Queries\TabQueries.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

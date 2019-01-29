@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MakeNotes.Common.Core;
 using MakeNotes.Common.Core.Requests;
 using MakeNotes.DAL.Core;
+using MakeNotes.DAL.Queries;
 using MakeNotes.Notebook.Core.Notifications;
 
 namespace MakeNotes.Notebook.Core.Commands.Handlers
@@ -18,10 +20,7 @@ namespace MakeNotes.Notebook.Core.Commands.Handlers
 
         public async Task<int> ExecuteAsync(CreateTab command)
         {
-            var query = new QueryObject(
-                @"INSERT INTO [Tab] ([Name], [Order])
-                  VALUES (@Name, @Order);
-                  SELECT last_insert_rowid()", command);
+            var query = new QueryObject(String.Concat(TabQueries.CreateTab, CommonQueries.GetInsertedId), command);
 
             var newId = await _repository.QuerySingleAsync<long>(query);
 
@@ -30,9 +29,7 @@ namespace MakeNotes.Notebook.Core.Commands.Handlers
 
         public async Task<Unit> ExecuteAsync(DeleteTab command)
         {
-            var query = new QueryObject(
-                @"DELETE FROM [Tab]
-                  WHERE [Id] = @Id", command);
+            var query = new QueryObject(TabQueries.DeleteTab, command);
 
             await _repository.ExecuteAsync(query);
 

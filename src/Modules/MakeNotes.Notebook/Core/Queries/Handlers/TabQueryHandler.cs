@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MakeNotes.Common.Core.Requests;
 using MakeNotes.DAL.Core;
 using MakeNotes.DAL.Models;
+using MakeNotes.DAL.Queries;
 
 namespace MakeNotes.Notebook.Core.Queries.Handlers
 {
@@ -19,29 +20,21 @@ namespace MakeNotes.Notebook.Core.Queries.Handlers
 
         public Task<IEnumerable<Tab>> ExecuteAsync(GetAllTabs query)
         {
-            var queryObject = new QueryObject(
-                @"SELECT [Id], [Name], [Order]
-                  FROM [Tab]
-                  ORDER BY [Order]");
+            var queryObject = new QueryObject(TabQueries.GetAllTabs);
 
             return _repository.QueryAsync<Tab>(queryObject);
         }
 
         public Task<Tab> ExecuteAsync(FindTabById query)
         {
-            var queryObject = new QueryObject(
-                @"SELECT [Id], [Name], [Order]
-                  FROM [Tab]
-                  WHERE [Id] = @Id", query);
+            var queryObject = new QueryObject(TabQueries.FindTabById, query);
 
             return _repository.QuerySingleOrDefaultAsync<Tab>(queryObject);
         }
 
         public Task<int> ExecuteAsync(GetLastTabOrder query)
         {
-            var queryObject = new QueryObject(
-                @"SELECT COALESCE(MAX([Order]), 0)
-                  FROM [Tab]");
+            var queryObject = new QueryObject(TabQueries.GetLastTabOrder);
 
             return _repository.QuerySingleAsync<int>(queryObject);
         }
