@@ -5,8 +5,8 @@ using System.Windows.Input;
 using MakeNotes.Common.Core;
 using MakeNotes.Common.Infrastructure.Extensions;
 using MakeNotes.Common.Models;
-using MakeNotes.Framework.Controls;
 using MakeNotes.Framework.Models;
+using MakeNotes.Framework.Services;
 using MakeNotes.Notebook.Collections;
 using MakeNotes.Notebook.Consts;
 using MakeNotes.Notebook.Core.Commands;
@@ -21,14 +21,16 @@ namespace MakeNotes.Notebook.ViewModels
     public class NavbarViewModel : BindableBase
     {
         private readonly IMessageBus _messageBus;
+        private readonly IInteractionService _interactionService;
 
         private string _tabName;
         private NavbarTabItem _selectedTab;
-        private NavbarTabItemObservableCollection _tabs;
+        private NavbarTabItemObservableCollection _tabs = new NavbarTabItemObservableCollection();
 
-        public NavbarViewModel(IMessageBus messageBus)
+        public NavbarViewModel(IMessageBus messageBus, IInteractionService interactionService)
         {
             _messageBus = messageBus;
+            _interactionService = interactionService;
 
             LoadTabsCommand = new DelegateCommand(LoadTabs);
             AddTabCommand = new DelegateCommand(AddTab);
@@ -79,7 +81,7 @@ namespace MakeNotes.Notebook.ViewModels
 
         private async void AddTab()
         {
-            await DialogManager.Show<AddTabDialog>(viewModel: this, OnCloseAddTabDialog);
+            await _interactionService.Show<AddTabDialog>(viewModel: this, OnCloseAddTabDialog);
         }
 
         private async void DeleteTab(NavbarTabItem tabItem)
@@ -91,7 +93,7 @@ namespace MakeNotes.Notebook.ViewModels
             }
             else
             {
-                await DialogManager.Show<DeleteTabDialog>(viewModel: null, async result => await OnCloseDeleteTabDialog(result, tabItem));
+                await _interactionService.Show<DeleteTabDialog>(viewModel: null, async result => await OnCloseDeleteTabDialog(result, tabItem));
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using MakeNotes.Common.Core.Notifications;
+using MakeNotes.Common.Infrastructure.Extensions;
 using MakeNotes.DAL.Decorators;
 using MakeNotes.Notebook.Consts;
 using MakeNotes.Notebook.Core.Notifications;
@@ -13,16 +14,12 @@ namespace MakeNotes.Notebook
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(GetType().Assembly).PublicOnly();
+            builder.RegisterAssemblyTypes(ThisAssembly).PublicOnly();
             builder.RegisterType<NavigationContext>().As<INavigationContext>().SingleInstance();
 
             builder.RegisterType<PasswordSheetTemplateViewModel>().Keyed<IVisualBlockViewModel>(VisualBlockTypes.PasswordSheet);
 
-            builder.RegisterType<TabNotificationHandler>().Named<INotificationHandler<TabDeleted>>(nameof(TabNotificationHandler));
-            builder.RegisterGenericDecorator(
-                typeof(TransactionNotificationHandlerDecorator<>),
-                typeof(INotificationHandler<>),
-                fromKey: nameof(TabNotificationHandler));
+            builder.RegisterGenericDecorator<TabNotificationHandler, INotificationHandler<TabDeleted>>(typeof(TransactionNotificationHandlerDecorator<>));
         }
     }
 }

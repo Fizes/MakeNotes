@@ -10,7 +10,7 @@ using MakeNotes.Common.Core.Requests;
 using MakeNotes.Common.Interfaces;
 using MakeNotes.DAL.Core;
 using MakeNotes.DAL.Infrastructure;
-using MakeNotes.Framework.Factories;
+using MakeNotes.Framework.Services;
 using MakeNotes.Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
 
@@ -47,7 +47,7 @@ namespace MakeNotes.Infrastructure
 
             builder.RegisterType<ApplicationState>().As<IApplicationState>().SingleInstance();
 
-            builder.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
+            builder.RegisterType<InteractionService>().As<IInteractionService>().SingleInstance();
 
             foreach (var assembly in assemblies)
             {
@@ -58,8 +58,8 @@ namespace MakeNotes.Infrastructure
             builder.RegisterType<AutofacHandlerFactory>().As<IHandlerFactory>().SingleInstance();
             builder.RegisterType<DefaultMessageBus>().As<IMessageBus>().SingleInstance();
 
-            builder.RegisterType<DefaultNotificationStrategy>().As<INotificationStrategy>().InstancePerLifetimeScope();
-            builder.RegisterType<FireAndForgetNotificationStrategy>().As<INotificationStrategy>().InstancePerLifetimeScope();
+            builder.RegisterType<DefaultNotificationStrategy>().As<INotificationStrategy>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<FireAndForgetNotificationStrategy>().As<INotificationStrategy>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<AutofacNotificationStrategyFactory>().As<INotificationStrategyFactory>().SingleInstance();
 
             return builder;
