@@ -4,8 +4,11 @@ using System.Threading;
 using Autofac;
 using MakeNotes.Common.Infrastructure.Extensions;
 using MakeNotes.DAL.Infrastructure;
+using MakeNotes.Framework.Services;
 using MakeNotes.Infrastructure;
+using MakeNotes.IntegrationTests.Infrastructure.Fakes;
 using Microsoft.Extensions.Configuration;
+using Prism.Events;
 
 namespace MakeNotes.IntegrationTests.Infrastructure
 {
@@ -52,6 +55,9 @@ namespace MakeNotes.IntegrationTests.Infrastructure
         private static void ConfigureDependencies(IConfiguration configuration)
         {
             var builder = AutofacConfig.Configure(new ContainerBuilder(), configuration);
+            builder.RegisterType<FakeInteractionService>().As<IInteractionService>().SingleInstance();
+            builder.RegisterType<FakeEventAggregator>().As<IEventAggregator>().SingleInstance();
+
             var container = builder.Build();
             DependencyResolver.SetContainer(container);
         }

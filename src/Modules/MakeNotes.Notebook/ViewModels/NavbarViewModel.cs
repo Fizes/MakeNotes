@@ -139,7 +139,7 @@ namespace MakeNotes.Notebook.ViewModels
                 var tabName = String.IsNullOrWhiteSpace(TabName) ? DefaultValues.DefaultTabName : TabName;
                 var newItem = new NavbarTabItem(tabName, tabOrder);
 
-                await PrependInitialTab(lastTabOrder);
+                await PrependInitialTab();
                 await CreateTab(newItem);
 
                 Tabs.Add(newItem);
@@ -149,13 +149,8 @@ namespace MakeNotes.Notebook.ViewModels
             TabName = null;
         }
 
-        private async Task PrependInitialTab(int initialTabOrder)
+        private async Task PrependInitialTab()
         {
-            if (initialTabOrder != 0)
-            {
-                return;
-            }
-
             var tab = Tabs.First();
             if (!tab.Id.HasValue)
             {

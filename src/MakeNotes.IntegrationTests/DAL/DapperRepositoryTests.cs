@@ -21,11 +21,11 @@ namespace MakeNotes.IntegrationTests.DAL
 
             using (var context = ambientContextFactory.Create())
             {
+                var tab1Name = $"Tab1 {new Guid().ToString()}";
+                var tab2Name = $"Tab2 {new Guid().ToString()}";
+
                 try
                 {
-                    var tab1Name = $"Tab1 {new Guid().ToString()}";
-                    var tab2Name = $"Tab2 {new Guid().ToString()}";
-
                     await repository.ExecuteAsync(new QueryObject(TabQueries.CreateTab, new { Name = tab1Name, Order = 0 }));
 
                     await repository.ExecuteAsync(new QueryObject(TabQueries.CreateTab, new { Name = tab2Name, Order = 1 }));
@@ -40,10 +40,9 @@ namespace MakeNotes.IntegrationTests.DAL
                 catch
                 {
                     context.Rollback();
-                }
-                finally
-                {
+
                     var tabs = await repository.QueryAsync<Tab>(new QueryObject(TabQueries.GetAllTabs));
+                    tabs = tabs.Where(t => t.Name == tab1Name || t.Name == tab2Name);
 
                     Assert.Empty(tabs);
                 }
