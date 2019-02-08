@@ -7,6 +7,7 @@ using MakeNotes.Common.Core;
 using MakeNotes.Common.Core.Factories;
 using MakeNotes.Common.Core.Notifications;
 using MakeNotes.Common.Core.Requests;
+using MakeNotes.Common.Infrastructure;
 using MakeNotes.Common.Interfaces;
 using MakeNotes.DAL.Core;
 using MakeNotes.DAL.Infrastructure;
@@ -48,6 +49,8 @@ namespace MakeNotes.Infrastructure
             builder.RegisterType<ApplicationState>().As<IApplicationState>().SingleInstance();
 
             builder.RegisterType<InteractionService>().As<IInteractionService>().SingleInstance();
+
+            builder.RegisterType<BackgroundTask>().As<IBackgroundTask>().SingleInstance();
 
             foreach (var assembly in assemblies)
             {

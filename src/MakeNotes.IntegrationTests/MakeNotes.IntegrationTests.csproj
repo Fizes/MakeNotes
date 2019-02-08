@@ -124,6 +124,7 @@
     <Compile Include="Infrastructure\CollectionFixture.cs" />
     <Compile Include="Infrastructure\DataGenerators\TabGenerator.cs" />
     <Compile Include="Infrastructure\ExecuteWithRollback.cs" />
+    <Compile Include="Infrastructure\Fakes\FakeBackgroundTask.cs" />
     <Compile Include="Infrastructure\Fakes\FakeEventAggregator.cs" />
     <Compile Include="Infrastructure\Fakes\FakeInteractionService.cs" />
     <Compile Include="Infrastructure\FixtureNames.cs" />

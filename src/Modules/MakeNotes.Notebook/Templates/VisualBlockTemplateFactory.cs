@@ -19,7 +19,7 @@ namespace MakeNotes.Notebook.Templates
             {
                 TabContentId = tabContentId,
                 TemplateName = $"{templateName}Template",
-                DataContext = _componentContext.ResolveKeyed<IVisualBlockViewModel>(templateName)
+                DataContext = _componentContext.ResolveNamed<IVisualBlockViewModel>(templateName)
             };
         }
     }

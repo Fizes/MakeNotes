@@ -18,16 +18,14 @@ namespace MakeNotes.Notebook.ViewModels
     public class TabContentViewModel : BindableBase
     {
         private readonly IMessageBus _messageBus;
-        private readonly IEventAggregator _eventAggregator;
         private readonly VisualBlockTemplateFactory _visualBlockTemplateFactory;
 
         public TabContentViewModel(IMessageBus messageBus, IEventAggregator eventAggregator, VisualBlockTemplateFactory visualBlockTemplateFactory)
         {
             _messageBus = messageBus;
-            _eventAggregator = eventAggregator;
             _visualBlockTemplateFactory = visualBlockTemplateFactory;
 
-            _eventAggregator.GetEvent<ApplicationEvent<TabSelected>>().Subscribe(OnTabSelected, ThreadOption.UIThread);
+            eventAggregator.GetEvent<ApplicationEvent<TabSelected>>().Subscribe(OnTabSelected, ThreadOption.UIThread);
 
             AddVisualBlockCommand = new DelegateCommand<string>(AddVisualBlock);
 

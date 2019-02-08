@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using Autofac;
 using MakeNotes.Common.Infrastructure.Extensions;
+using MakeNotes.Common.Interfaces;
 using MakeNotes.DAL.Infrastructure;
 using MakeNotes.Framework.Services;
 using MakeNotes.Infrastructure;
@@ -57,6 +58,7 @@ namespace MakeNotes.IntegrationTests.Infrastructure
             var builder = AutofacConfig.Configure(new ContainerBuilder(), configuration);
             builder.RegisterType<FakeInteractionService>().As<IInteractionService>().SingleInstance();
             builder.RegisterType<FakeEventAggregator>().As<IEventAggregator>().SingleInstance();
+            builder.RegisterType<FakeBackgroundTask>().As<IBackgroundTask>().SingleInstance();
 
             var container = builder.Build();
             DependencyResolver.SetContainer(container);

@@ -13,7 +13,8 @@ namespace MakeNotes.Notebook.Templates.VisualBlocks.ViewModels
 
         public VisualBlockViewModelBase()
         {
-            InitializeCommand = new DelegateCommand<int?>(Initialize);
+            // int? instead of just int since Prism throws an exception if type is not nullable
+            InitializeCommand = new DelegateCommand<int?>(id => Initialize(id.GetValueOrDefault()));
         }
 
         public ObservableCollection<TVisualBlock> Items
@@ -24,6 +25,6 @@ namespace MakeNotes.Notebook.Templates.VisualBlocks.ViewModels
 
         public ICommand InitializeCommand { get; }
 
-        protected abstract void Initialize(int? tabContentId);
+        protected abstract void Initialize(int tabContentId);
     }
 }
