@@ -1,7 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf
 
 UserControl "MakeNotes.Views.ToolbarView" {
-    Grid "Navbar" {
+    Grid {
         Style: resource "Navbar"
 
         TextBlock {

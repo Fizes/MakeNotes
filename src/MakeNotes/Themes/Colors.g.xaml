@@ -21,8 +21,13 @@
   <SolidColorBrush x:Key="BlueGrey900" Color="#263238"/>
   <SolidColorBrush x:Key="LightBlue100" Color="#80D8FF"/>
   <SolidColorBrush x:Key="LightBlue200" Color="#40C4FF"/>
+  <SolidColorBrush x:Key="LightBlue300" Color="#4FC3F7"/>
   <SolidColorBrush x:Key="LightBlue400" Color="#00B0FF"/>
+  <SolidColorBrush x:Key="LightBlue500" Color="#03A9F4"/>
+  <SolidColorBrush x:Key="LightBlue600" Color="#039BE5"/>
   <SolidColorBrush x:Key="LightBlue700" Color="#0091EA"/>
+  <SolidColorBrush x:Key="LightBlue800" Color="#0277BD"/>
+  <SolidColorBrush x:Key="LightBlue900" Color="#01579B"/>
   <SolidColorBrush x:Key="DeepPurple500" Color="#673ab7"/>
   <SolidColorBrush x:Key="WindowBorderBrush">
     <SolidColorBrush.Color>
@@ -49,6 +54,17 @@
   <SolidColorBrush x:Key="ActionPopupBoxBackgroundBrush">
     <SolidColorBrush.Color>
       <Binding Path="Color" Source="{StaticResource DeepPurple500}"/>
+    </SolidColorBrush.Color>
+  </SolidColorBrush>
+  <SolidColorBrush x:Key="SecondaryButtonForegroundBrush">
+    <SolidColorBrush.Color>
+      <Binding Path="Color" Source="{StaticResource LightBlue800}"/>
+    </SolidColorBrush.Color>
+  </SolidColorBrush>
+  <SolidColorBrush x:Key="SecondaryButtonBorderBrush" Color="#DADCE0"/>
+  <SolidColorBrush x:Key="CardTitleForegroundBrush">
+    <SolidColorBrush.Color>
+      <Binding Path="Color" Source="{StaticResource LightBlue800}"/>
     </SolidColorBrush.Color>
   </SolidColorBrush>
 </ResourceDictionary>

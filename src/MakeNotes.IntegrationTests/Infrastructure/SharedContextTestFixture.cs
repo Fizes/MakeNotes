@@ -61,7 +61,7 @@ namespace MakeNotes.IntegrationTests.Infrastructure
             builder.RegisterType<FakeBackgroundTask>().As<IBackgroundTask>().SingleInstance();
 
             var container = builder.Build();
-            DependencyResolver.SetContainer(container);
+            DependencyResolver.SetResolver(type => container.Resolve(type));
         }
 
         private static void SetCurrentThreadCulture(IConfiguration configuration)

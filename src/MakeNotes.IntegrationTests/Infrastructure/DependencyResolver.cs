@@ -1,5 +1,4 @@
 ﻿using System;
-using Autofac;
 
 namespace MakeNotes.IntegrationTests.Infrastructure
 {
@@ -9,21 +8,21 @@ namespace MakeNotes.IntegrationTests.Infrastructure
     /// </summary>
     public static class DependencyResolver
     {
-        static IContainer _container;
+        private static Func<Type, object> _resolver;
 
-        internal static void SetContainer(IContainer container)
+        internal static void SetResolver(Func<Type, object> resolver)
         {
-            if (_container != null)
+            if (_resolver != null)
             {
                 throw new InvalidOperationException("Dependency resolver can be set only once");
             }
 
-            _container = container;
+            _resolver = resolver;
         }
         
         public static T Resolve<T>()
         {
-            return _container.Resolve<T>();
+            return (T)_resolver(typeof(T));
         }
     }
 }

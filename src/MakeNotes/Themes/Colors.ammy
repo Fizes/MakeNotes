@@ -24,13 +24,17 @@
     // LightBlue
     SolidColorBrush Key="LightBlue100" { Color: "#80D8FF" }
     SolidColorBrush Key="LightBlue200" { Color: "#40C4FF" }
+    SolidColorBrush Key="LightBlue300" { Color: "#4FC3F7" }
     SolidColorBrush Key="LightBlue400" { Color: "#00B0FF" }
+    SolidColorBrush Key="LightBlue500" { Color: "#03A9F4" }
+    SolidColorBrush Key="LightBlue600" { Color: "#039BE5" }
     SolidColorBrush Key="LightBlue700" { Color: "#0091EA" }
+    SolidColorBrush Key="LightBlue800" { Color: "#0277BD" }
+    SolidColorBrush Key="LightBlue900" { Color: "#01579B" }
     // DeepPurple
     SolidColorBrush Key="DeepPurple500" { Color: "#673ab7" }
 
     SolidColorBrush Key="WindowBorderBrush" { Color: bind Color from $resource BlueGrey900 }
-
     SolidColorBrush Key="WindowBackgroundBrush" { Color: "#ECF0F1" }
 
     // Primary color
@@ -39,8 +43,12 @@
     SolidColorBrush Key="SecondaryAccentBrush" { Color: bind Color from $resource LightBlue200 }
     
     SolidColorBrush Key="NavbarBackgroundBrush" { Color: bind Color from $resource PrimaryHueMidBrush }
-    
     SolidColorBrush Key="NavbarForegroundBrush" { Color: "GhostWhite" }
 
     SolidColorBrush Key="ActionPopupBoxBackgroundBrush" { Color: bind Color from $resource DeepPurple500 }
+
+    SolidColorBrush Key="SecondaryButtonForegroundBrush" { Color: bind Color from $resource LightBlue800 }
+    SolidColorBrush Key="SecondaryButtonBorderBrush" { Color: "#DADCE0" }
+
+    SolidColorBrush Key="CardTitleForegroundBrush" { Color: bind Color from $resource LightBlue800 }
 }

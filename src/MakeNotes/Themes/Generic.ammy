@@ -114,4 +114,20 @@ ResourceDictionary {
         #Setter("VerticalAlignment", "Bottom")
         #Setter("Margin", "18")
     }
+
+    Style Key="DataGridAddRowButton" {
+        TargetType: Button
+        BasedOn: resource "MaterialDesignRaisedAccentButton"
+        #Setter("BorderBrush", resource "SecondaryButtonBorderBrush")
+        #Setter("BorderThickness", 1)
+        #Setter("Background", "Transparent")
+        #Setter("Foreground", resource "SecondaryButtonForegroundBrush")
+        Triggers: [
+           Trigger {
+               Property: "IsMouseOver"
+               Value: true
+               #Setter("Background", "#F6F9FE")
+           }
+        ]
+    }
 }
