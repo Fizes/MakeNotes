@@ -7,7 +7,8 @@ using MakeNotes.DAL.Models;
 namespace MakeNotes.Notebook.Core.Queries.Handlers
 {
     public class TabContentQueryHandler : IRequestHandler<GetTabContentByTabId, IEnumerable<TabContent>>,
-                                          IRequestHandler<GetLastTabContentOrder, int>
+                                          IRequestHandler<GetLastTabContentOrder, int>,
+                                          IRequestHandler<GetCountOfTabContentByTabId, int>
     {
         private readonly IRepository _repository;
 
@@ -31,6 +32,16 @@ namespace MakeNotes.Notebook.Core.Queries.Handlers
         {
             var queryObject = new QueryObject(
                 @"SELECT COALESCE(MAX([Order]), -1)
+                  FROM [TabContent]
+                  WHERE [TabId] = @TabId", query);
+
+            return _repository.QuerySingleAsync<int>(queryObject);
+        }
+
+        public Task<int> ExecuteAsync(GetCountOfTabContentByTabId query)
+        {
+            var queryObject = new QueryObject(
+                @"SELECT COUNT([Id])
                   FROM [TabContent]
                   WHERE [TabId] = @TabId", query);
 

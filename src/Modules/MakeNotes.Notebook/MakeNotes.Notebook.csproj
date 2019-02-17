@@ -39,8 +39,8 @@
     <Reference Include="AmmySidekick, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7c1296d24569a67d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Ammy.WPF.1.2.94\lib\net40\AmmySidekick.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=4.9.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Autofac.4.9.0\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommonServiceLocator.2.0.4\lib\net47\CommonServiceLocator.dll</HintPath>
@@ -61,6 +61,7 @@
       <HintPath>..\..\packages\Prism.Wpf.7.1.0.431\lib\net45\Prism.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -80,6 +81,10 @@
     <Compile Include="Collections\NavbarTabItemObservableCollection.cs" />
     <Compile Include="Consts\DefaultValues.cs" />
     <Compile Include="Consts\VisualBlockTypes.cs" />
+    <Compile Include="Core\Notifications\Handlers\TabSelectedNotificationHandler.cs" />
+    <Compile Include="Core\Notifications\VisualBlockDeleted.cs" />
+    <Compile Include="Core\Queries\GetCountOfTabContentByTabId.cs" />
+    <Compile Include="Templates\VisualBlocks\Models\PasswordSheetDto.cs" />
     <Compile Include="Templates\VisualBlocks\ViewModels\IVisualBlockViewModel.cs" />
     <Compile Include="Templates\VisualBlocks\ViewModels\PasswordSheetTemplateViewModel.cs" />
     <Compile Include="Templates\VisualBlockTemplateFactory.cs" />
@@ -90,7 +95,7 @@
     <Compile Include="Core\Commands\Handlers\TabContentCommandHandler.cs" />
     <Compile Include="Core\Commands\Handlers\TabCommandHandler.cs" />
     <Compile Include="Core\Notifications\TabDeleted.cs" />
-    <Compile Include="Core\Notifications\Handlers\TabNotificationHandler.cs" />
+    <Compile Include="Core\Notifications\Handlers\TabDeletedNotificationHandler.cs" />
     <Compile Include="Core\Notifications\TabSelected.cs" />
     <Compile Include="Core\Queries\FindTabById.cs" />
     <Compile Include="Core\Queries\GetAllTabs.cs" />

@@ -104,9 +104,9 @@ namespace MakeNotes.Notebook.ViewModels
                 return true;
             }
 
-            var tabContent = await _messageBus.SendAsync(new GetTabContentByTabId(tabItem.Id.Value));
+            var tabContentCount = await _messageBus.SendAsync(new GetCountOfTabContentByTabId(tabItem.Id.Value));
 
-            return !tabContent.Any();
+            return tabContentCount == 0;
         }
 
         private async Task OnCloseDeleteTabDialog(DialogResult result, NavbarTabItem tabItem)

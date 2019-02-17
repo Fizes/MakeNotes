@@ -14,7 +14,8 @@ namespace MakeNotes.Framework.Controls
         /// <param name="window"></param>
         public static void AttachSystemCommands(Window window)
         {
-            window.CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand, (s, e) => OnCloseWindow(window)));
+            window.CommandBindings.Add(
+                new CommandBinding(SystemCommands.CloseWindowCommand, (s, e) => OnCloseWindow(window)));
 
             window.CommandBindings.Add(
                 new CommandBinding(SystemCommands.MaximizeWindowCommand, (s, e) => OnMaximizeWindow(window), (s, e) => OnCanResizeWindow(window, e)));

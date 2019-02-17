@@ -34,6 +34,15 @@ namespace MakeNotes.Infrastructure
 
             builder.RegisterAssemblyTypes(currentAssembly).PublicOnly();
 
+            foreach (var assembly in assemblies)
+            {
+                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IRequestHandler<,>));
+                builder.RegisterAssemblyTypes(assembly)
+                    .Where(t => !t.Name.EndsWith("Decorator"))
+                    .AsClosedTypesOf(typeof(INotificationHandler<>))
+                    .InstancePerLifetimeScope();
+            }
+
             builder.RegisterAssemblyModules(assemblies);
 
             AmbientDbContextStorageProvider.SetStorage(new LogicalCallContextStorage());
@@ -51,12 +60,6 @@ namespace MakeNotes.Infrastructure
             builder.RegisterType<InteractionService>().As<IInteractionService>().SingleInstance();
 
             builder.RegisterType<BackgroundTask>().As<IBackgroundTask>().SingleInstance();
-
-            foreach (var assembly in assemblies)
-            {
-                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IRequestHandler<,>));
-                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(INotificationHandler<>)).InstancePerLifetimeScope();
-            }
 
             builder.RegisterType<AutofacHandlerFactory>().As<IHandlerFactory>().SingleInstance();
             builder.RegisterType<DefaultMessageBus>().As<IMessageBus>().SingleInstance();

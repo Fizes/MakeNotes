@@ -6,13 +6,12 @@ using Prism.Events;
 
 namespace MakeNotes.Notebook.Core.Notifications.Handlers
 {
-    public class TabNotificationHandler : INotificationHandler<TabDeleted>,
-                                          INotificationHandler<TabSelected>
+    public class TabDeletedNotificationHandler : INotificationHandler<TabDeleted>
     {
         private readonly IRepository _repository;
         private readonly IEventAggregator _eventAggregator;
 
-        public TabNotificationHandler(IRepository repository, IEventAggregator eventAggregator)
+        public TabDeletedNotificationHandler(IRepository repository, IEventAggregator eventAggregator)
         {
             _repository = repository;
             _eventAggregator = eventAggregator;
@@ -32,8 +31,9 @@ namespace MakeNotes.Notebook.Core.Notifications.Handlers
 
         public async void Handle(TabDeleted notification)
         {
-            var visualBlockSysName = await GetTabContentVisualBlockSysName(notification.Id);
+            _eventAggregator.GetEvent<ApplicationEvent<TabDeleted>>().Publish(notification);
 
+            var visualBlockSysName = await GetTabContentVisualBlockSysName(notification.Id);
             if (visualBlockSysName == null)
             {
                 return;
@@ -45,11 +45,6 @@ namespace MakeNotes.Notebook.Core.Notifications.Handlers
                    WHERE [TabId] = @TabId;", new { TabId = notification.Id });
 
             await _repository.ExecuteAsync(query);
-        }
-
-        public void Handle(TabSelected notification)
-        {
-            _eventAggregator.GetEvent<ApplicationEvent<TabSelected>>().Publish(notification);
         }
     }
 }
