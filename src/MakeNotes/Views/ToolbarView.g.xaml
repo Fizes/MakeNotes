@@ -5,7 +5,7 @@
       <StackPanel>
         <Button Content="Options"/>
         <Separator/>
-        <Button Content="Exit"/>
+        <Button Command="{x:Static SystemCommands.CloseWindowCommand}" Content="Exit"/>
       </StackPanel>
     </ns1:PopupBox>
   </Grid>

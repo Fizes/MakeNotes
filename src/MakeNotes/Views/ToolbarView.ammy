@@ -15,7 +15,10 @@ UserControl "MakeNotes.Views.ToolbarView" {
             StackPanel {
                 Button { Content: "Options" }
                 Separator {}
-                Button { Content: "Exit" }
+                Button {
+                    Command: SystemCommands.CloseWindowCommand
+                    Content: "Exit"
+                }
             }
         }
     }
