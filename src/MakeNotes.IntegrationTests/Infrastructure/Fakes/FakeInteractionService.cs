@@ -25,5 +25,12 @@ namespace MakeNotes.IntegrationTests.Infrastructure.Fakes
             DialogResult = DialogResult.Unspecified;
             return Task.CompletedTask;
         }
+
+        public Task ShowConfirmation(string title, string text, DialogClosedEventHandler closedEventHandler)
+        {
+            closedEventHandler?.Invoke(DialogResult);
+            DialogResult = DialogResult.Unspecified;
+            return Task.CompletedTask;
+        }
     }
 }

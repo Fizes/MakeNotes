@@ -33,18 +33,7 @@ namespace MakeNotes.Infrastructure
                 .ToArray();
 
             builder.RegisterAssemblyTypes(currentAssembly).PublicOnly();
-
-            foreach (var assembly in assemblies)
-            {
-                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IRequestHandler<,>));
-                builder.RegisterAssemblyTypes(assembly)
-                    .Where(t => !t.Name.EndsWith("Decorator"))
-                    .AsClosedTypesOf(typeof(INotificationHandler<>))
-                    .InstancePerLifetimeScope();
-            }
-
-            builder.RegisterAssemblyModules(assemblies);
-
+            
             AmbientDbContextStorageProvider.SetStorage(new LogicalCallContextStorage());
             var connectionString = SQLiteConnectionStringParser.Parse(configuration.GetConnectionString("DefaultConnection"));
             builder.RegisterInstance(new DefaultConnectionFactory(connectionString)).As<IDbConnectionFactory>().SingleInstance();
@@ -67,6 +56,17 @@ namespace MakeNotes.Infrastructure
             builder.RegisterType<DefaultNotificationStrategy>().As<INotificationStrategy>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<FireAndForgetNotificationStrategy>().As<INotificationStrategy>().AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<AutofacNotificationStrategyFactory>().As<INotificationStrategyFactory>().SingleInstance();
+
+            foreach (var assembly in assemblies)
+            {
+                builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(IRequestHandler<,>));
+                builder.RegisterAssemblyTypes(assembly)
+                    .Where(t => !t.Name.EndsWith("Decorator"))
+                    .AsClosedTypesOf(typeof(INotificationHandler<>))
+                    .InstancePerLifetimeScope();
+            }
+
+            builder.RegisterAssemblyModules(assemblies);
 
             return builder;
         }

@@ -4,9 +4,23 @@ UserControl "MakeNotes.Views.ToolbarView" {
     Grid {
         Style: resource "Navbar"
 
-        TextBlock {
-            Style: resource "NavbarTitle"
-            Text: MakeNotes.Properties.Resources.ApplicationName
+        Grid {
+            HorizontalAlignment: Center
+            VerticalAlignment: Center
+
+            TextBlock {
+                Style: resource "NavbarTitle"
+                Text: MakeNotes.Properties.Resources.ApplicationName
+            }
+
+            Canvas {
+                Viewbox {
+                    Canvas.Top: -4
+                    Canvas.Left: 90
+                    Width: 35
+                    ContentControl { Content: resource "BetaTag" }
+                }
+            }
         }
         
         PopupBox {

@@ -10,8 +10,8 @@
       </TextBox.Text>
     </TextBox>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,8,0,-6">
-      <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{x:Static ns0:DialogHost.CloseDialogCommand}" CommandParameter="True" Content="{StaticResource AcceptButtonText}"/>
-      <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{x:Static ns0:DialogHost.CloseDialogCommand}" CommandParameter="False" Content="{StaticResource CancelButtonText}"/>
+      <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource SecondaryButtonForegroundBrush}" Command="{x:Static ns0:DialogHost.CloseDialogCommand}" CommandParameter="True" Content="{StaticResource AcceptButtonText}"/>
+      <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource SecondaryButtonForegroundBrush}" Command="{x:Static ns0:DialogHost.CloseDialogCommand}" CommandParameter="False" Content="{StaticResource CancelButtonText}"/>
     </StackPanel>
   </StackPanel>
 </UserControl>

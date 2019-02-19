@@ -2,6 +2,7 @@
 using System.Runtime.Caching;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using MakeNotes.Framework.Controls;
 using MakeNotes.Framework.Models;
 using MaterialDesignThemes.Wpf;
 
@@ -66,6 +67,18 @@ namespace MakeNotes.Framework.Services
             var view = GetOrCreateView<TView>();
             view.DataContext = viewModel;
             await DialogHost.Show(view, RootDialogIdentifier, (s, e) => OnCloseDialog(e, closedEventHandler));
+        }
+
+        public Task ShowConfirmation(string title, string text, DialogClosedEventHandler closedEventHandler)
+        {
+            var parameters = new ConfirmationDialogParameters { Title = title, Text = text };
+            return Show<ConfirmationDialog>(parameters, closedEventHandler);
+        }
+
+        class ConfirmationDialogParameters
+        {
+            public string Title { get; set; }
+            public string Text { get; set; }
         }
     }
 }

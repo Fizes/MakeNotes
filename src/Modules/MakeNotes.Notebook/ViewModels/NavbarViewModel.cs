@@ -12,6 +12,7 @@ using MakeNotes.Notebook.Consts;
 using MakeNotes.Notebook.Core.Commands;
 using MakeNotes.Notebook.Core.Notifications;
 using MakeNotes.Notebook.Core.Queries;
+using MakeNotes.Notebook.Properties;
 using MakeNotes.Notebook.Templates.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -93,7 +94,10 @@ namespace MakeNotes.Notebook.ViewModels
             }
             else
             {
-                await _interactionService.Show<DeleteTabDialog>(viewModel: null, async result => await OnCloseDeleteTabDialog(result, tabItem));
+                await _interactionService.ShowConfirmation(
+                    Resources.DeleteTabTitle,
+                    Resources.DeleteTabText,
+                    async result => await OnCloseDeleteTabDialog(result, tabItem));
             }
         }
 

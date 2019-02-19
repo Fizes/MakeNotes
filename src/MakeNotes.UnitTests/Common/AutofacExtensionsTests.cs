@@ -48,6 +48,27 @@ namespace MakeNotes.UnitTests.Common
         }
 
         [Fact]
+        public void RegisterGenericDecorator_ShouldDecorateOnlySpecifiedTypes_WhenTypesAreResolved()
+        {
+            RegisterNotificationHandlers();
+
+            _builder.RegisterGenericDecorator<INotificationHandler<Test1Notification>>(typeof(TestGenericDecorator<>));
+            _builder.RegisterGenericDecorator<INotificationHandler<Test2Notification>>(typeof(TestGenericDecorator<>));
+
+            using (var container = _builder.Build())
+            {
+                var result1 = container.Resolve<IEnumerable<INotificationHandler<Test1Notification>>>();
+                var result2 = container.Resolve<IEnumerable<INotificationHandler<Test2Notification>>>();
+
+                Assert.Single(result1);
+                Assert.IsType<TestGenericDecorator<Test1Notification>>(result1.First());
+
+                Assert.Single(result2);
+                Assert.IsType<TestGenericDecorator<Test2Notification>>(result2.First());
+            }
+        }
+
+        [Fact]
         public void RegisterGenericDecorator_ShouldThrowException_WhenSingleClassImplementsMultipleGenericTypes()
         {
             RegisterNotificationHandlers();

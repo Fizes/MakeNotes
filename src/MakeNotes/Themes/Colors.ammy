@@ -40,15 +40,16 @@
     // Primary color
     SolidColorBrush Key="PrimaryHueMidBrush" { Color: bind Color from $resource BlueGrey800 }
     // Accent color
-    SolidColorBrush Key="SecondaryAccentBrush" { Color: bind Color from $resource LightBlue200 }
+    SolidColorBrush Key="SecondaryAccentBrush" { Color: bind Color from $resource LightBlue800 }
     
     SolidColorBrush Key="NavbarBackgroundBrush" { Color: bind Color from $resource PrimaryHueMidBrush }
     SolidColorBrush Key="NavbarForegroundBrush" { Color: "GhostWhite" }
+    SolidColorBrush Key="NavbarSecondaryBackgroundBrush" { Color: bind Color from $resource LightBlue200 }
 
     SolidColorBrush Key="ActionPopupBoxBackgroundBrush" { Color: bind Color from $resource DeepPurple500 }
 
-    SolidColorBrush Key="SecondaryButtonForegroundBrush" { Color: bind Color from $resource LightBlue800 }
+    SolidColorBrush Key="SecondaryButtonForegroundBrush" { Color: bind Color from $resource SecondaryAccentBrush }
     SolidColorBrush Key="SecondaryButtonBorderBrush" { Color: "#DADCE0" }
 
-    SolidColorBrush Key="CardTitleForegroundBrush" { Color: bind Color from $resource LightBlue800 }
+    SolidColorBrush Key="CardTitleForegroundBrush" { Color: bind Color from $resource SecondaryAccentBrush }
 }

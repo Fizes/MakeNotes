@@ -34,6 +34,13 @@ namespace MakeNotes.Framework.Services
         /// value of the parameter given to <see cref="DialogHost.CloseDialogCommand"/>.</param>
         /// <returns></returns>
         Task Show<TView>(object viewModel, DialogClosedEventHandler closedEventHandler) where TView : UserControl, new();
+
+        /// <summary>
+        /// Shows a modal confirmation dialog with the specified title and text.
+        /// </summary>
+        /// <param name="closedEventHandler">A handler that is called when a dialog is closed.</param>
+        /// <returns></returns>
+        Task ShowConfirmation(string title, string text, DialogClosedEventHandler closedEventHandler);
     }
 
     /// <summary>

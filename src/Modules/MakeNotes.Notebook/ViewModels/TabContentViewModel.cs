@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.Linq;
+using System.Threading.Tasks;
 using MakeNotes.Common.Core;
 using MakeNotes.Framework.Events;
 using MakeNotes.Notebook.Consts;
@@ -20,14 +21,22 @@ namespace MakeNotes.Notebook.ViewModels
         private readonly IMessageBus _messageBus;
         private readonly VisualBlockTemplateFactory _visualBlockTemplateFactory;
 
+        private readonly Dictionary<int, string> _cachedVisualBlockTypes = new Dictionary<int, string>();
+        private readonly Dictionary<int, ObservableCollection<VisualBlockTemplate>> _cachedTabContent =
+            new Dictionary<int, ObservableCollection<VisualBlockTemplate>>();
+
+        private ObservableCollection<VisualBlockTemplate> _content;
+
         public TabContentViewModel(IMessageBus messageBus, IEventAggregator eventAggregator, VisualBlockTemplateFactory visualBlockTemplateFactory)
         {
             _messageBus = messageBus;
             _visualBlockTemplateFactory = visualBlockTemplateFactory;
 
             eventAggregator.GetEvent<ApplicationEvent<TabSelected>>().Subscribe(OnTabSelected, ThreadOption.UIThread);
+            eventAggregator.GetEvent<ApplicationEvent<TabDeleted>>().Subscribe(OnTabDeleted, ThreadOption.BackgroundThread);
+            eventAggregator.GetEvent<ApplicationEvent<TabContentDeleted>>().Subscribe(OnTabContentDeleted, ThreadOption.UIThread);
 
-            AddVisualBlockCommand = new DelegateCommand<string>(AddVisualBlock);
+            var addVisualBlockCommand = new DelegateCommand<string>(AddVisualBlock);
 
             ActionMenuItems = new[]
             {
@@ -35,7 +44,7 @@ namespace MakeNotes.Notebook.ViewModels
                 {
                     Tooltip = "Add a new password sheet",
                     Icon = "TablePlus",
-                    Action = AddVisualBlockCommand,
+                    Action = addVisualBlockCommand,
                     ActionParameter = VisualBlockTypes.PasswordSheet
                 }
             };
@@ -43,23 +52,63 @@ namespace MakeNotes.Notebook.ViewModels
 
         public IEnumerable<ActionMenuItem> ActionMenuItems { get; }
 
-        public ObservableCollection<VisualBlockTemplate> Content { get; } = new ObservableCollection<VisualBlockTemplate>();
+        public ObservableCollection<VisualBlockTemplate> Content
+        {
+            get => _content;
+            private set => SetProperty(ref _content, value);
+        }
 
         public int CurrentTabId { get; private set; }
 
-        public ICommand AddVisualBlockCommand { get; }
+        private async Task<string> GetVisualBlockTypeSysNameAsync(int visualBlockTypeId)
+        {
+            if (!_cachedVisualBlockTypes.ContainsKey(visualBlockTypeId))
+            {
+                var type = await _messageBus.SendAsync(new FindVisualBlockTypeById(visualBlockTypeId));
+                _cachedVisualBlockTypes.Add(visualBlockTypeId, type.SysName);
+
+                return type.SysName;
+            }
+
+            return _cachedVisualBlockTypes[visualBlockTypeId];
+        }
+
+        private async Task<ObservableCollection<VisualBlockTemplate>> GetVisualBlocksAsync(int tabId)
+        {
+            var templates = new ObservableCollection<VisualBlockTemplate>();
+            var tabContent = await _messageBus.SendAsync(new GetTabContentByTabId(tabId));
+
+            foreach (var content in tabContent)
+            {
+                var typeName = await GetVisualBlockTypeSysNameAsync(content.VisualBlockTypeId);
+                templates.Add(_visualBlockTemplateFactory.Create(content.Id, typeName));
+            }
+
+            return templates;
+        }
 
         private async void OnTabSelected(TabSelected notification)
         {
             CurrentTabId = notification.Id;
-            Content.Clear();
 
-            var tabContent = await _messageBus.SendAsync(new GetTabContentByTabId(notification.Id));
-            foreach (var content in tabContent)
+            if (!_cachedTabContent.ContainsKey(CurrentTabId))
             {
-                var type = await _messageBus.SendAsync(new FindVisualBlockTypeById(content.VisualBlockTypeId));
-                Content.Add(_visualBlockTemplateFactory.Create(content.Id, type.SysName));
+                var tabContent = await GetVisualBlocksAsync(CurrentTabId);
+                _cachedTabContent.Add(CurrentTabId, tabContent);
             }
+
+            Content = _cachedTabContent[CurrentTabId];
+        }
+
+        private void OnTabDeleted(TabDeleted notification)
+        {
+            _cachedTabContent.Remove(notification.Id);
+        }
+
+        private void OnTabContentDeleted(TabContentDeleted notification)
+        {
+            var deletedItem = Content.Single(t => t.TabContentId == notification.Id);
+            Content.Remove(deletedItem);
         }
 
         private async void AddVisualBlock(string templateName)

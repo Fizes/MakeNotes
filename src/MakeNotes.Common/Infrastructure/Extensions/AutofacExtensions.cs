@@ -6,23 +6,31 @@ namespace Autofac
 {
     public static class AutofacExtensions
     {
-        private static bool IsTypeAssignableFrom<TService>(IDecoratorContext context)
+        #region Utils
+        private static void ThrowIfTypeImplementsMoreThanOneSameInterface(IDecoratorContext context)
         {
             var serviceType = context.ServiceType;
-            if (context.ServiceType.IsInterface)
+            if (!serviceType.IsInterface)
             {
-                var implementedInterfacesCount = context.ImplementationType
-                    .GetInterfaces()
-                    .Count(t => t.IsGenericType && t.GetGenericTypeDefinition() == serviceType.GetGenericTypeDefinition());
-
-                if (implementedInterfacesCount > 1)
-                {
-                    throw new InvalidOperationException("Decorator cannot be created for type implementing multiple generic interfaces of the same type");
-                }
+                return;
             }
 
-            return serviceType == typeof(TService);
+            var implementedInterfacesCount = context.ImplementationType
+                .GetInterfaces()
+                .Count(t => t.IsGenericType && t.GetGenericTypeDefinition() == serviceType.GetGenericTypeDefinition());
+
+            if (implementedInterfacesCount > 1)
+            {
+                throw new InvalidOperationException("Decorator cannot be created for type implementing multiple generic interfaces of the same type");
+            }
         }
+
+        private static bool IsTypeAssignableFrom<TService>(IDecoratorContext context)
+        {
+            ThrowIfTypeImplementsMoreThanOneSameInterface(context);
+            return context.ServiceType == typeof(TService);
+        }
+        #endregion
 
         /// <summary>
         /// Decorates all components implementing open generic service type.

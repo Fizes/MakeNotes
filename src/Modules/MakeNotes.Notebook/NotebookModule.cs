@@ -18,6 +18,7 @@ namespace MakeNotes.Notebook
             builder.RegisterType<PasswordSheetTemplateViewModel>().Named<IVisualBlockViewModel>(VisualBlockTypes.PasswordSheet);
 
             builder.RegisterGenericDecorator<INotificationHandler<TabDeleted>>(typeof(TransactionNotificationHandlerDecorator<>));
+            builder.RegisterGenericDecorator<INotificationHandler<TabContentDeleted>>(typeof(TransactionNotificationHandlerDecorator<>));
         }
     }
 }

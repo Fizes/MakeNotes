@@ -81,9 +81,15 @@
     <Compile Include="Collections\NavbarTabItemObservableCollection.cs" />
     <Compile Include="Consts\DefaultValues.cs" />
     <Compile Include="Consts\VisualBlockTypes.cs" />
+    <Compile Include="Core\Notifications\Handlers\TabContentDeletedNotificationHandler.cs" />
     <Compile Include="Core\Notifications\Handlers\TabSelectedNotificationHandler.cs" />
     <Compile Include="Core\Notifications\VisualBlockDeleted.cs" />
     <Compile Include="Core\Queries\GetCountOfTabContentByTabId.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Templates\VisualBlocks\Models\PasswordSheetDto.cs" />
     <Compile Include="Templates\VisualBlocks\ViewModels\IVisualBlockViewModel.cs" />
     <Compile Include="Templates\VisualBlocks\ViewModels\PasswordSheetTemplateViewModel.cs" />
@@ -116,6 +122,7 @@
     <Compile Include="Providers\NavigationContext.cs" />
     <Compile Include="Providers\PasswordSheetVisualBlockProvider.cs" />
     <Compile Include="Providers\TabContentVisualBlockProviderBase.cs" />
+    <Compile Include="Core\Notifications\TabContentDeleted.cs" />
     <Compile Include="ViewModels\TabContentViewModel.cs" />
     <Compile Include="ViewModels\NavbarViewModel.cs" />
     <Compile Include="Templates\Views\AddTabDialog.ammy.cs">
@@ -126,9 +133,6 @@
     </Compile>
     <Compile Include="Views\TabContentView.ammy.cs">
       <DependentUpon>TabContentView.ammy</DependentUpon>
-    </Compile>
-    <Compile Include="Templates\Views\DeleteTabDialog.ammy.cs">
-      <DependentUpon>DeleteTabDialog.ammy</DependentUpon>
     </Compile>
     <Compile Include="Templates\VisualBlocks\Views\PasswordSheetTemplate.ammy.cs">
       <DependentUpon>PasswordSheetTemplate.ammy</DependentUpon>
@@ -142,7 +146,6 @@
     <None Include="Templates\VisualBlocks\Resources\VisualBlockTemplates.ammy" />
     <None Include="Views\NavbarView.ammy" />
     <None Include="Views\TabContentView.ammy" />
-    <None Include="Templates\Views\DeleteTabDialog.ammy" />
     <None Include="Templates\VisualBlocks\Views\PasswordSheetTemplate.ammy" />
   </ItemGroup>
   <ItemGroup>
@@ -159,7 +162,12 @@
       <Name>MakeNotes.Framework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Templates\Views\AddTabDialog.g.xaml">
       <SubType>Designer</SubType>
@@ -180,11 +188,6 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
       <DependentUpon>TabContentView.ammy</DependentUpon>
-    </Page>
-    <Page Include="Templates\Views\DeleteTabDialog.g.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-      <DependentUpon>DeleteTabDialog.ammy</DependentUpon>
     </Page>
     <Page Include="Templates\VisualBlocks\Views\PasswordSheetTemplate.g.xaml">
       <SubType>Designer</SubType>

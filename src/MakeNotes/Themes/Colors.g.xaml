@@ -42,7 +42,7 @@
   </SolidColorBrush>
   <SolidColorBrush x:Key="SecondaryAccentBrush">
     <SolidColorBrush.Color>
-      <Binding Path="Color" Source="{StaticResource LightBlue200}"/>
+      <Binding Path="Color" Source="{StaticResource LightBlue800}"/>
     </SolidColorBrush.Color>
   </SolidColorBrush>
   <SolidColorBrush x:Key="NavbarBackgroundBrush">
@@ -51,6 +51,11 @@
     </SolidColorBrush.Color>
   </SolidColorBrush>
   <SolidColorBrush x:Key="NavbarForegroundBrush" Color="GhostWhite"/>
+  <SolidColorBrush x:Key="NavbarSecondaryBackgroundBrush">
+    <SolidColorBrush.Color>
+      <Binding Path="Color" Source="{StaticResource LightBlue200}"/>
+    </SolidColorBrush.Color>
+  </SolidColorBrush>
   <SolidColorBrush x:Key="ActionPopupBoxBackgroundBrush">
     <SolidColorBrush.Color>
       <Binding Path="Color" Source="{StaticResource DeepPurple500}"/>
@@ -58,13 +63,13 @@
   </SolidColorBrush>
   <SolidColorBrush x:Key="SecondaryButtonForegroundBrush">
     <SolidColorBrush.Color>
-      <Binding Path="Color" Source="{StaticResource LightBlue800}"/>
+      <Binding Path="Color" Source="{StaticResource SecondaryAccentBrush}"/>
     </SolidColorBrush.Color>
   </SolidColorBrush>
   <SolidColorBrush x:Key="SecondaryButtonBorderBrush" Color="#DADCE0"/>
   <SolidColorBrush x:Key="CardTitleForegroundBrush">
     <SolidColorBrush.Color>
-      <Binding Path="Color" Source="{StaticResource LightBlue800}"/>
+      <Binding Path="Color" Source="{StaticResource SecondaryAccentBrush}"/>
     </SolidColorBrush.Color>
   </SolidColorBrush>
 </ResourceDictionary>
