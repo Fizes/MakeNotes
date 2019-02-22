@@ -1,5 +1,5 @@
 <UserControl x:Class="MakeNotes.Views.ToolbarView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MakeNotes.Properties" xmlns:ns1="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns2="clr-namespace:AmmySidekick;assembly=AmmySidekick" ns2:Ammy.Register="/MakeNotes;component/Views/ToolbarView.g.xaml">
-  <Grid Style="{StaticResource Navbar}">
+  <Grid TextElement.Foreground="{StaticResource NavbarForegroundBrush}" Style="{StaticResource Navbar}">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
       <TextBlock Style="{StaticResource NavbarTitle}" Text="{x:Static ns0:Resources.ApplicationName}"/>
       <Canvas>

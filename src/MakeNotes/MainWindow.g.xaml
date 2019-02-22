@@ -1,6 +1,6 @@
 <Window x:Class="MakeNotes.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="clr-namespace:MakeNotes.Properties" xmlns:ns1="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf" xmlns:ns2="clr-namespace:Prism.Regions;assembly=Prism.Wpf" xmlns:ns3="clr-namespace:AmmySidekick;assembly=AmmySidekick" Style="{DynamicResource MainWindow}" Title="{x:Static ns0:Resources.ApplicationName}" ns3:Ammy.Register="/MakeNotes;component/MainWindow.g.xaml">
   <ns1:DialogHost Identifier="RootDialogArea" ns1:ShadowAssist.ShadowDepth="Depth3">
-    <Grid TextElement.Foreground="{StaticResource NavbarForegroundBrush}">
+    <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>

@@ -12,7 +12,6 @@ Window "MakeNotes.MainWindow" {
 
         Grid {
             #ThreeRows("Auto", "Auto", "*")
-            TextElement.Foreground: resource "NavbarForegroundBrush"
 
             ContentControl { Grid.Row: 0, RegionManager.RegionName: "ToolbarRegion" }
             ContentControl { Grid.Row: 1, RegionManager.RegionName: "NavigationRegion" }

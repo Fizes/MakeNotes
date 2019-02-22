@@ -1,11 +1,9 @@
-﻿using MakeNotes.Common.Models;
-
-namespace MakeNotes.DAL.Models
+﻿namespace MakeNotes.DAL.Models
 {
     /// <summary>
     /// Represents an item of a password sheet.
     /// </summary>
-    public class PasswordSheet : IVisualBlock
+    public class PasswordSheet
     {
         /// <summary>
         /// Unique id associated with a password sheet.

@@ -138,7 +138,9 @@
       <DependentUpon>PasswordSheetTemplate.ammy</DependentUpon>
     </Compile>
     <Compile Include="Templates\VisualBlocks\ViewModels\VisualBlockViewModelBase.cs" />
-    <None Include="lib.ammy" />
+    <None Include="..\..\MakeNotes\Themes\Mixins\lib.ammy">
+      <Link>lib.ammy</Link>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

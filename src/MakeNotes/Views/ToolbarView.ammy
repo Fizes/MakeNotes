@@ -2,6 +2,7 @@
 
 UserControl "MakeNotes.Views.ToolbarView" {
     Grid {
+        TextElement.Foreground: resource "NavbarForegroundBrush"
         Style: resource "Navbar"
 
         Grid {

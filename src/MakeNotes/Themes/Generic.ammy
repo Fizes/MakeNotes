@@ -135,4 +135,111 @@ ResourceDictionary {
            }
         ]
     }
+
+    Style Key="DataGridTextColumnEditingStyle" {
+        TargetType: TextBox
+        BasedOn: resource "MaterialDesignTextBox"
+        #Setter("Validation.ErrorTemplate", null)
+        #Setter("VerticalAlignment", "Center")
+        #Setter("Padding", "0,-1")
+        Setter {
+            Property: "DataGridCell.ToolTip"
+            Value: "{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}"
+        }
+    }
+    
+    Style Key="DataGridTextColumnElementStyle" {
+        TargetType: TextBlock
+        Setter {
+            Property: "Validation.ErrorTemplate"
+            Value: ControlTemplate {
+                Grid {
+                    ToolTipService.InitialShowDelay: 0
+                    ToolTip: "{Binding .CurrentItem.ErrorContent}"
+                    Background: Transparent
+    
+                    PackIcon {
+                        Foreground: resource "ValidationErrorBrush"
+                        Kind: "AlertCircleOutline"
+                    }
+                }
+            }
+        }
+        Triggers: [
+            @Trigger("IsMouseOver", true) {
+                #Setter("Cursor", "IBeam")
+            }
+        ]
+    }
+
+    Style Key="DataGridToolButtonCellStyle" {
+        TargetType: DataGridCell
+        BasedOn: resource "{x:Type DataGridCell}"
+        #Setter("Focusable", false)
+        #DataGridSelectionHighlightDisabled()
+        #DataGridFocusHighlightDisabled()
+    }
+    
+    Style Key="DataGridCellStyle" {
+        TargetType: DataGridCell
+        BasedOn: resource "{x:Type DataGridCell}"
+        #Setter("VerticalContentAlignment", "Center")
+        #Setter("HorizontalContentAlignment", "Stretch")
+        #Setter("FocusVisualStyle", null)
+        Setter {
+            Property: "Template"
+            Value: ControlTemplate {
+                TargetType: DataGridCell
+                Border "Border" {
+                    BorderBrush: "{TemplateBinding BorderBrush}"
+                    BorderThickness: "{TemplateBinding BorderThickness}"
+                    Background: "{TemplateBinding Background}"
+                    SnapsToDevicePixels: true
+
+                    ContentPresenter {
+                        SnapsToDevicePixels: "{TemplateBinding SnapsToDevicePixels}"
+                        Margin: "{TemplateBinding Padding}"
+                        VerticalAlignment: "{TemplateBinding VerticalContentAlignment}" 
+                        HorizontalAlignment: "{TemplateBinding HorizontalContentAlignment}"
+                    }
+                }
+            }
+        }
+        #DataGridSelectionHighlightDisabled()
+        #DataGridFocusHighlightDisabled()
+        combine Triggers: [
+            MultiTrigger {
+                Conditions: [
+                    @Condition("IsEditing", true)
+                    @Condition("IsKeyboardFocusWithin", true)
+                ]
+                Setter {
+                    Property: "BorderBrush"
+                    Value: SolidColorBrush {
+                        Color: bind Color from $resource PrimaryHueMidBrush
+                        Opacity: 0.55
+                    }
+                }
+            }
+        ]
+    }
+
+    Style Key="StretchedReadonlyDataGrid" {
+        TargetType: DataGrid
+        BasedOn: resource "{x:Type DataGrid}"
+        #Setter("ColumnWidth", "*")
+        #Setter("CanUserReorderColumns", false)
+        #Setter("CanUserResizeRows", false)
+        #Setter("CanUserResizeColumns", false)
+        #Setter("CanUserDeleteRows", false)
+        #Setter("CanUserAddRows", false)
+        Setter {
+            Property: "RowStyle"
+            Value: Style {
+                TargetType: DataGridRow
+                BasedOn: resource "{x:Type DataGridRow}"
+                #DataGridSelectionHighlightDisabled()
+            }
+        }
+    }
 }

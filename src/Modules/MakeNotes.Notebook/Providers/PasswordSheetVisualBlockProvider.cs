@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using MakeNotes.DAL.Core;
-using MakeNotes.DAL.Models;
 using MakeNotes.Notebook.Consts;
+using MakeNotes.Notebook.Templates.VisualBlocks.Models;
 
 namespace MakeNotes.Notebook.Providers
 {
-    public class PasswordSheetVisualBlockProvider : TabContentVisualBlockProviderBase<PasswordSheet>
+    public class PasswordSheetVisualBlockProvider : TabContentVisualBlockProviderBase<PasswordSheetDto>
     {
         public PasswordSheetVisualBlockProvider(IRepository repository) : base(repository)
         {
@@ -13,7 +13,7 @@ namespace MakeNotes.Notebook.Providers
 
         public override string SysName => VisualBlockTypes.PasswordSheet;
 
-        protected override Task<int> CreateVisualBlockAsync(PasswordSheet visualBlock)
+        protected override Task<int> CreateVisualBlockAsync(PasswordSheetDto visualBlock)
         {
             var query = new QueryObject(
                 @"INSERT INTO [PasswordSheet] ([Id], [Site], [Username], [Password], [Description])

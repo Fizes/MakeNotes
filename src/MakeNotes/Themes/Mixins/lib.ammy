@@ -242,3 +242,26 @@ alias SolidColorBrush(key, color) {
     Color: $color
   }
 }
+
+alias Condition(property, value) {
+  Condition { Property: $property, Value: $value }
+}
+
+mixin DataGridSelectionHighlightDisabled () for Style {
+    combine Triggers: [
+        @Trigger("IsSelected", true) {
+            #Setter("Background", "Transparent")
+        }
+        @Trigger("IsMouseOver", true) {
+            #Setter("Background", "Transparent")
+        }
+    ]
+}
+
+mixin DataGridFocusHighlightDisabled () for Style {
+    combine Triggers: [
+        @Trigger("IsKeyboardFocusWithin", true) {
+            #Setter("BorderBrush", "Transparent")
+        }
+    ]
+}

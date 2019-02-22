@@ -17,14 +17,9 @@ namespace MakeNotes.Framework.Extensions
             DependencyObject parent = dependencyObject;
             T result = null;
 
-            while (result == null)
+            while (result == null && parent != null)
             {
                 parent = VisualTreeHelper.GetParent(parent);
-                if (parent == null)
-                {
-                    break;
-                }
-
                 result = parent as T;
             }
 

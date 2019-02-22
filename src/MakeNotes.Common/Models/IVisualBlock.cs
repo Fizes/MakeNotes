@@ -5,6 +5,5 @@
     /// </summary>
     public interface IVisualBlock
     {
-        int Id { get; set; }
     }
 }
