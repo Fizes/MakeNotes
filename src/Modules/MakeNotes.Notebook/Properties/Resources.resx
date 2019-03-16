@@ -129,4 +129,10 @@
   <data name="DeleteTabTitle" xml:space="preserve">
     <value>Delete tab?</value>
   </data>
+  <data name="NewPasswordSheetIcon" xml:space="preserve">
+    <value>TablePlus</value>
+  </data>
+  <data name="NewPasswordSheetTooltip" xml:space="preserve">
+    <value>Add a new password sheet</value>
+  </data>
 </root>

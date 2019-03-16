@@ -1,5 +1,4 @@
-﻿using ControlzEx
-using Dragablz
+﻿using Dragablz
 using MakeNotes
 using MaterialDesignThemes.Wpf
 
@@ -53,6 +52,7 @@ ResourceDictionary {
     
     Style Key="NavbarPopupBox" {
         TargetType: PopupBox
+        BasedOn: resource "MaterialDesignPopupBox"
         #Setter("HorizontalAlignment", "Right")
         #Setter("VerticalAlignment", "Center")
         #Setter("PlacementMode", "BottomAndAlignRightEdges")
@@ -95,18 +95,6 @@ ResourceDictionary {
                 Size: 20
             }
         }
-    }
-
-    Style Key="VerticalAdjustedDialogHostPopup" {
-        TargetType: PopupEx
-        BasedOn: resource "MaterialDesignDialogHostPopup"
-        #Setter("VerticalOffset", -100)
-    }
-
-    Style {
-        TargetType: DialogHost
-        BasedOn: resource "{x:Type ns1:DialogHost}"
-        #Setter("PopupStyle", resource "VerticalAdjustedDialogHostPopup")
     }
 
     Style Key="RegularFloatingActionPopupBox" {

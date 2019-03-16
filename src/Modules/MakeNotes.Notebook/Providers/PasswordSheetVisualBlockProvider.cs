@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MakeNotes.DAL.Core;
+using MakeNotes.DAL.Queries;
 using MakeNotes.Notebook.Consts;
 using MakeNotes.Notebook.Templates.VisualBlocks.Models;
 
@@ -16,11 +17,24 @@ namespace MakeNotes.Notebook.Providers
         protected override Task<int> CreateVisualBlockAsync(PasswordSheetDto visualBlock)
         {
             var query = new QueryObject(
-                @"INSERT INTO [PasswordSheet] ([Id], [Site], [Username], [Password], [Description])
-                  VALUES (@Id, @Site, @Username, @Password, @Description);
-                  SELECT last_insert_rowid()", visualBlock);
+                @"INSERT INTO [PasswordSheet] ([Site], [Username], [Password], [Description])
+                  VALUES (@Site, @Username, @Password, @Description);" +
+                  CommonQueries.GetInsertedId, visualBlock);
 
             return Repository.QuerySingleAsync<int>(query);
+        }
+
+        public override Task UpdateVisualBlockAsync(PasswordSheetDto visualBlock)
+        {
+            var query = new QueryObject(
+                @"UPDATE [PasswordSheet]
+                  SET [Site] = @Site,
+                      [Username] = @Username,
+                      [Password] = @Password,
+                      [Description] = @Description
+                  WHERE [Id] = @Id", visualBlock);
+
+            return Repository.ExecuteAsync(query);
         }
     }
 }

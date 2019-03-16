@@ -8,6 +8,7 @@
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/MaterialDesign.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/MakeNotes.Framework;component/Resources/ResourceStrings.xaml"/>
+        <ResourceDictionary Source="/Themes/MaterialDesignThemes.Overrides.xaml"/>
         <ResourceDictionary Source="/Themes/Colors.g.xaml"/>
         <ResourceDictionary Source="/Themes/Icons.xaml"/>
         <ResourceDictionary Source="/Themes/WindowStyle.g.xaml"/>

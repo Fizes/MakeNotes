@@ -13,6 +13,7 @@ namespace MakeNotes.Notebook.Templates.VisualBlocks.Models
         [Display(Name = nameof(Site))]
         public string Site { get; set; }
 
+        [Required]
         [Display(Name = nameof(Username))]
         public string Username { get; set; }
 

@@ -22,11 +22,8 @@ namespace MakeNotes.IntegrationTests.Infrastructure
         public SharedContextTestFixture()
         {
             var configuration = CreateConfiguration();
-            
             SetCurrentThreadCulture(configuration);
-
             ConfigureDependencies(configuration);
-            
             DropAndCreateDatabase(configuration);
         }
 
@@ -49,7 +46,6 @@ namespace MakeNotes.IntegrationTests.Infrastructure
             var dbFilePath = connectionValues.Get(SQLiteConnectionStringKeys.DataSource);
 
             File.Delete(dbFilePath);
-
             DatabaseMigrator.Migrate(connectionFactory);
         }
 

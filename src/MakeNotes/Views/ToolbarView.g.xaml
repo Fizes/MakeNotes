@@ -11,7 +11,7 @@
     <ns1:PopupBox Style="{StaticResource NavbarPopupBox}" ns1:RippleAssist.RippleSizeMultiplier="0.55">
       <StackPanel>
         <Button Content="Options"/>
-        <Separator/>
+        <Separator Style="{StaticResource MaterialDesignSeparator}"/>
         <Button Command="{x:Static SystemCommands.CloseWindowCommand}" Content="Exit"/>
       </StackPanel>
     </ns1:PopupBox>

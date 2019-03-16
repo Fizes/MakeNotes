@@ -95,5 +95,23 @@ namespace MakeNotes.Notebook.Properties {
                 return ResourceManager.GetString("DeleteTabTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TablePlus.
+        /// </summary>
+        public static string NewPasswordSheetIcon {
+            get {
+                return ResourceManager.GetString("NewPasswordSheetIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a new password sheet.
+        /// </summary>
+        public static string NewPasswordSheetTooltip {
+            get {
+                return ResourceManager.GetString("NewPasswordSheetTooltip", resourceCulture);
+            }
+        }
     }
 }

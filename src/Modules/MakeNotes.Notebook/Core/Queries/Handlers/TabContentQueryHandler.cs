@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MakeNotes.Common.Core.Requests;
 using MakeNotes.DAL.Core;
 using MakeNotes.DAL.Models;
+using MakeNotes.DAL.Queries;
 
 namespace MakeNotes.Notebook.Core.Queries.Handlers
 {
@@ -19,12 +20,7 @@ namespace MakeNotes.Notebook.Core.Queries.Handlers
 
         public Task<IEnumerable<TabContent>> ExecuteAsync(GetTabContentByTabId query)
         {
-            var queryObject = new QueryObject(
-                @"SELECT [Id], [TabId], [Order], [VisualBlockTypeId]
-                  FROM [TabContent]
-                  WHERE [TabId] = @TabId
-                  ORDER BY [Order]", query);
-
+            var queryObject = new QueryObject(TabContentQueries.GetTabContentByTabId, query);
             return _repository.QueryAsync<TabContent>(queryObject);
         }
 

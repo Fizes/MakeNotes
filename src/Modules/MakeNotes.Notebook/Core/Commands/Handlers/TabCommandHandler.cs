@@ -35,7 +35,7 @@ namespace MakeNotes.Notebook.Core.Commands.Handlers
 
             ApplicationEvents.Raise(new TabDeleted(command.Id));
 
-            return await Unit.Task;
+            return Unit.Value;
         }
     }
 }

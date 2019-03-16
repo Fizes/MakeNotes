@@ -18,12 +18,14 @@ namespace MakeNotes.Notebook.Providers
 
         protected abstract Task<int> CreateVisualBlockAsync(TVisualBlock visualBlock);
 
+        public abstract Task UpdateVisualBlockAsync(TVisualBlock visualBlock);
+
         public Task<IEnumerable<TVisualBlock>> GetVisualBlocksAsync(int tabContentId)
         {
             var query = new QueryObject(
                 $@"SELECT vb.*
                    FROM [{SysName}] vb
-                   INNER JOIN [TabContentVisualBlock] tvb ON tbv.[VisualBlockId] = vb.[Id]
+                   INNER JOIN [TabContentVisualBlock] tvb ON tvb.[VisualBlockId] = vb.[Id]
                    WHERE tvb.[TabContentId] = @TabContentId", new { TabContentId = tabContentId });
 
             return Repository.QueryAsync<TVisualBlock>(query);

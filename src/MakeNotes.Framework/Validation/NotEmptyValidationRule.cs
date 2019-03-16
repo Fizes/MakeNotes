@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Controls;
 
-namespace MakeNotes.Framework.ValidationRules
+namespace MakeNotes.Framework.Validation
 {
     public class NotEmptyValidationRule : ValidationRule
     {

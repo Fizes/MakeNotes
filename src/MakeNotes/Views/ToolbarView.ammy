@@ -29,7 +29,7 @@ UserControl "MakeNotes.Views.ToolbarView" {
             RippleAssist.RippleSizeMultiplier: 0.55
             StackPanel {
                 Button { Content: "Options" }
-                Separator {}
+                Separator { Style: resource "MaterialDesignSeparator" }
                 Button {
                     Command: SystemCommands.CloseWindowCommand
                     Content: "Exit"

@@ -11,7 +11,7 @@ namespace MakeNotes.Common.Core.Requests
         where TRequest : IRequest<TResponse>
     {
         /// <summary>
-        /// Execute a request.
+        /// Executes a request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>Response from the request.</returns>

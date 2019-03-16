@@ -8,7 +8,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using MakeNotes.Framework.Attributes;
 using MakeNotes.Framework.Extensions;
-using MakeNotes.Framework.ValidationRules;
+using MakeNotes.Framework.Validation;
 using MouseWheelWeakEventManager = System.Windows.WeakEventManager<System.Windows.Controls.DataGrid, System.Windows.Input.MouseWheelEventArgs>;
 
 namespace MakeNotes.Framework.Controls
@@ -37,7 +37,7 @@ namespace MakeNotes.Framework.Controls
                 binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
                 binding.ValidationRules.Add(new NotEmptyValidationRule { ValidatesOnTargetUpdated = true });
             }
-            
+
             var column = new DataGridTextColumn
             {
                 EditingElementStyle = (Style)dataGrid.FindResource("DataGridTextColumnEditingStyle"),
@@ -72,7 +72,7 @@ namespace MakeNotes.Framework.Controls
             {
                 return;
             }
-            
+
             if ((bool)eventArgs.NewValue)
             {
                 SetScrollBarVisibility(dataGrid, ScrollBarVisibility.Disabled);

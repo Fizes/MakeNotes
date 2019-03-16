@@ -81,10 +81,16 @@
     <Compile Include="Collections\NavbarTabItemObservableCollection.cs" />
     <Compile Include="Consts\DefaultValues.cs" />
     <Compile Include="Consts\VisualBlockTypes.cs" />
+    <Compile Include="Core\Commands\AddPasswordSheet.cs" />
+    <Compile Include="Core\Commands\DeletePasswordSheet.cs" />
+    <Compile Include="Core\Commands\Handlers\PasswordSheetCommandHandler.cs" />
+    <Compile Include="Core\Commands\UpdatePasswordSheet.cs" />
     <Compile Include="Core\Notifications\Handlers\TabContentDeletedNotificationHandler.cs" />
     <Compile Include="Core\Notifications\Handlers\TabSelectedNotificationHandler.cs" />
     <Compile Include="Core\Notifications\VisualBlockDeleted.cs" />
     <Compile Include="Core\Queries\GetCountOfTabContentByTabId.cs" />
+    <Compile Include="Core\Queries\GetPasswordSheetsByTabContentId.cs" />
+    <Compile Include="Core\Queries\Handlers\PasswordSheetQueryHandler.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

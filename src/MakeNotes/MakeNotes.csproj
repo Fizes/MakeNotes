@@ -182,6 +182,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Themes\Colors.ammy" />
+    <Page Include="Themes\MaterialDesignThemes.Overrides.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <None Include="Themes\Mixins\lib.ammy" />
     <None Include="MainWindow.ammy" />
     <None Include="packages.config">

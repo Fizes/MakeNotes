@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MakeNotes.Common.Core.Notifications;
 using MakeNotes.DAL.Core;
 using MakeNotes.Framework.Events;
@@ -17,7 +18,7 @@ namespace MakeNotes.Notebook.Core.Notifications.Handlers
             _eventAggregator = eventAggregator;
         }
 
-        private Task<string> GetTabContentVisualBlockSysName(int tabId)
+        private Task<IEnumerable<string>> GetTabContentVisualBlockSysNamesAsync(int tabId)
         {
             var query = new QueryObject(
                 @"SELECT [SysName]
@@ -26,25 +27,55 @@ namespace MakeNotes.Notebook.Core.Notifications.Handlers
                                 FROM [TabContent]
                                 WHERE [TabId] = @TabId)", new { TabId = tabId });
 
-            return _repository.QueryFirstOrDefaultAsync<string>(query);
+            return _repository.QueryAsync<string>(query);
+        }
+
+        private Task DeleteVisualBlocksAsync(string tableName, int tabId)
+        {
+            var query = new QueryObject(
+                    $@"DELETE FROM [{tableName}]
+                       WHERE [Id] IN (SELECT [VisualBlockId]
+                                      FROM [TabContentVisualBlock]
+                                      WHERE [TabContentId] = (SELECT [Id] FROM [TabContent] WHERE [TabId] = @TabId))",
+                new { TabId = tabId });
+
+            return _repository.ExecuteAsync(query);
+        }
+
+        private Task DeleteTabContentVisualBlocksAsync(int tabId)
+        {
+            var query = new QueryObject(
+                @"DELETE FROM [TabContentVisualBlock]
+                  WHERE [TabContentId] IN (SELECT [Id]
+                                           FROM [TabContent]
+                                           WHERE [TabId] = @TabId)",
+                new { TabId = tabId });
+
+            return _repository.ExecuteAsync(query);
+        }
+
+        private Task DeleteTabContentsAsync(int tabId)
+        {
+            var query = new QueryObject(
+                @"DELETE FROM [TabContent]
+                  WHERE [TabId] = @TabId", new { TabId = tabId });
+
+            return _repository.ExecuteAsync(query);
         }
 
         public async void Handle(TabDeleted notification)
         {
             _eventAggregator.GetEvent<ApplicationEvent<TabDeleted>>().Publish(notification);
 
-            var visualBlockSysName = await GetTabContentVisualBlockSysName(notification.Id);
-            if (visualBlockSysName == null)
+            var visualBlockSysNames = await GetTabContentVisualBlockSysNamesAsync(notification.Id);
+            foreach (var sysName in visualBlockSysNames)
             {
-                return;
+                await DeleteVisualBlocksAsync(sysName, notification.Id);
             }
 
-            var query = new QueryObject(
-                $@"DELETE
-                   FROM [TabContent]
-                   WHERE [TabId] = @TabId;", new { TabId = notification.Id });
+            await DeleteTabContentVisualBlocksAsync(notification.Id);
 
-            await _repository.ExecuteAsync(query);
+            await DeleteTabContentsAsync(notification.Id);
         }
     }
 }
