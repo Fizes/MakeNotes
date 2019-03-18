@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -7,7 +8,6 @@ using MakeNotes.Common.Infrastructure.Extensions;
 using MakeNotes.Common.Models;
 using MakeNotes.Framework.Models;
 using MakeNotes.Framework.Services;
-using MakeNotes.Notebook.Collections;
 using MakeNotes.Notebook.Consts;
 using MakeNotes.Notebook.Core.Commands;
 using MakeNotes.Notebook.Core.Notifications;
@@ -26,7 +26,7 @@ namespace MakeNotes.Notebook.ViewModels
 
         private string _tabName;
         private NavbarTabItem _selectedTab;
-        private NavbarTabItemObservableCollection _tabs = new NavbarTabItemObservableCollection();
+        private ObservableCollection<NavbarTabItem> _tabs = new ObservableCollection<NavbarTabItem>();
 
         public NavbarViewModel(IMessageBus messageBus, IInteractionService interactionService)
         {
@@ -55,12 +55,12 @@ namespace MakeNotes.Notebook.ViewModels
 
                 if (_selectedTab != null && _selectedTab != oldValue)
                 {
-                    _messageBus.Publish(new TabSelected(_selectedTab.Id.GetValueOrDefault()));
+                    _messageBus.Publish(new TabSelected(_selectedTab.Id));
                 }
             }
         }
 
-        public NavbarTabItemObservableCollection Tabs
+        public ObservableCollection<NavbarTabItem> Tabs
         {
             get => _tabs;
             private set => SetProperty(ref _tabs, value);
@@ -77,7 +77,15 @@ namespace MakeNotes.Notebook.ViewModels
         {
             var tabs = await _messageBus.SendAsync(new GetAllTabs());
             var items = tabs.Select(t => new NavbarTabItem(t.Name, t.Order) { Id = t.Id });
-            Tabs = new NavbarTabItemObservableCollection(items);
+
+            if (!items.Any())
+            {
+                await AddInitialTab();
+            }
+            else
+            {
+                Tabs = new ObservableCollection<NavbarTabItem>(items);
+            }
         }
 
         private async void AddTab()
@@ -103,13 +111,7 @@ namespace MakeNotes.Notebook.ViewModels
 
         private async Task<bool> CanTabBeDeletedWithoutConfirmation(NavbarTabItem tabItem)
         {
-            if (!tabItem.Id.HasValue)
-            {
-                return true;
-            }
-
-            var tabContentCount = await _messageBus.SendAsync(new GetCountOfTabContentByTabId(tabItem.Id.Value));
-
+            var tabContentCount = await _messageBus.SendAsync(new GetCountOfTabContentByTabId(tabItem.Id));
             return tabContentCount == 0;
         }
 
@@ -120,10 +122,7 @@ namespace MakeNotes.Notebook.ViewModels
                 return;
             }
 
-            if (tabItem.Id.HasValue)
-            {
-                await _messageBus.SendAsync(new DeleteTab(tabItem.Id.Value));
-            }
+            await _messageBus.SendAsync(new DeleteTab(tabItem.Id));
 
             if (SelectedTab == tabItem)
             {
@@ -131,6 +130,11 @@ namespace MakeNotes.Notebook.ViewModels
             }
 
             Tabs.Remove(tabItem);
+
+            if (!Tabs.Any())
+            {
+                await AddInitialTab();
+            }
         }
 
         private async void OnCloseAddTabDialog(DialogResult result)
@@ -143,9 +147,7 @@ namespace MakeNotes.Notebook.ViewModels
                 var tabName = String.IsNullOrWhiteSpace(TabName) ? DefaultValues.DefaultTabName : TabName;
                 var newItem = new NavbarTabItem(tabName, tabOrder);
 
-                await PrependInitialTab();
                 await CreateTab(newItem);
-
                 Tabs.Add(newItem);
                 SelectedTab = newItem;
             }
@@ -153,13 +155,12 @@ namespace MakeNotes.Notebook.ViewModels
             TabName = null;
         }
 
-        private async Task PrependInitialTab()
+        private async Task AddInitialTab()
         {
-            var tab = Tabs.First();
-            if (!tab.Id.HasValue)
-            {
-                await CreateTab(tab);
-            }
+            var initialTab = new NavbarTabItem(DefaultValues.DefaultTabName, 0);
+            await CreateTab(initialTab);
+            Tabs.Add(initialTab);
+            SelectedTab = initialTab;
         }
 
         private async Task CreateTab(NavbarTabItem tabItem)

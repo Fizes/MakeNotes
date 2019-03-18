@@ -78,7 +78,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\NavbarTabItemObservableCollection.cs" />
     <Compile Include="Consts\DefaultValues.cs" />
     <Compile Include="Consts\VisualBlockTypes.cs" />
     <Compile Include="Core\Commands\AddPasswordSheet.cs" />
@@ -124,8 +123,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Providers\INavigationContext.cs" />
-    <Compile Include="Providers\NavigationContext.cs" />
     <Compile Include="Providers\PasswordSheetVisualBlockProvider.cs" />
     <Compile Include="Providers\TabContentVisualBlockProviderBase.cs" />
     <Compile Include="Core\Notifications\TabContentDeleted.cs" />

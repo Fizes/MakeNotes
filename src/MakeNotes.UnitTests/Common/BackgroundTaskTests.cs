@@ -15,10 +15,10 @@ namespace MakeNotes.UnitTests.Common
         public void Start_ShouldNotThrowException_WhenMultipleTasksStarted()
         {
             var task = new BackgroundTask();
-
-            task.Start(ImitateWork);
-            task.Start(ImitateWork);
-            task.Start(ImitateWork);
+            for (int i = 0; i < 3; i++)
+            {
+                task.Start(ImitateWork);
+            }
         }
     }
 }

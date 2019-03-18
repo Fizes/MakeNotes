@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Modules\MakeNotes.Notebook\MakeNotes.Notebook.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Modules\Notebook\" />
+  </ItemGroup>
+
 </Project>
