@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using MakeNotes.Notebook.Core.Notifications;
 using MakeNotes.Notebook.Core.Queries;
 using MakeNotes.Notebook.Properties;
 using MakeNotes.Notebook.Templates.Views;
+using Mapster;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -76,7 +78,7 @@ namespace MakeNotes.Notebook.ViewModels
         private async void LoadTabs()
         {
             var tabs = await _messageBus.SendAsync(new GetAllTabs());
-            var items = tabs.Select(t => new NavbarTabItem(t.Name, t.Order) { Id = t.Id });
+            var items = tabs.Adapt<IEnumerable<NavbarTabItem>>();
 
             if (!items.Any())
             {
@@ -90,7 +92,7 @@ namespace MakeNotes.Notebook.ViewModels
 
         private async void AddTab()
         {
-            await _interactionService.Show<AddTabDialog>(viewModel: this, OnCloseAddTabDialog);
+            await _interactionService.ShowAsync<AddTabDialog>(viewModel: this, OnCloseAddTabDialog);
         }
 
         private async void DeleteTab(NavbarTabItem tabItem)
@@ -102,7 +104,7 @@ namespace MakeNotes.Notebook.ViewModels
             }
             else
             {
-                await _interactionService.ShowConfirmation(
+                await _interactionService.ShowConfirmationAsync(
                     Resources.DeleteTabTitle,
                     Resources.DeleteTabText,
                     async result => await OnCloseDeleteTabDialog(result, tabItem));

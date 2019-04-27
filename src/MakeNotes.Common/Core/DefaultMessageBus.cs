@@ -62,6 +62,11 @@ namespace MakeNotes.Common.Core
 
         public void Publish<TNotification>(TNotification notification) where TNotification : INotification
         {
+            if (notification == null)
+            {
+                throw new ArgumentNullException(nameof(notification));
+            }
+
             PublishCore(notification);
         }
 
@@ -73,11 +78,6 @@ namespace MakeNotes.Common.Core
 
         private void PublishCore<TNotification>(TNotification notification) where TNotification : INotification
         {
-            if (notification == null)
-            {
-                throw new ArgumentNullException(nameof(notification));
-            }
-
             var strategy = _notificationStrategyFactory.Create<FireAndForgetNotificationStrategy>();
             strategy.Publish(notification);
         }

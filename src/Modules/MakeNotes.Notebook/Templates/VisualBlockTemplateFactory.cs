@@ -1,4 +1,4 @@
-﻿using Autofac;
+﻿using System;
 using MakeNotes.Notebook.Models;
 using MakeNotes.Notebook.Templates.VisualBlocks.ViewModels;
 
@@ -6,11 +6,11 @@ namespace MakeNotes.Notebook.Templates
 {
     public class VisualBlockTemplateFactory
     {
-        private readonly IComponentContext _componentContext;
+        private readonly Func<string, IVisualBlockViewModel> _viewModelFactory;
 
-        public VisualBlockTemplateFactory(IComponentContext componentContext)
+        public VisualBlockTemplateFactory(Func<string, IVisualBlockViewModel> viewModelFactory)
         {
-            _componentContext = componentContext;
+            _viewModelFactory = viewModelFactory;
         }
 
         public VisualBlockTemplate Create(int tabContentId, string templateName)
@@ -19,7 +19,7 @@ namespace MakeNotes.Notebook.Templates
             {
                 TabContentId = tabContentId,
                 TemplateName = $"{templateName}Template",
-                DataContext = _componentContext.ResolveNamed<IVisualBlockViewModel>(templateName)
+                DataContext = _viewModelFactory(templateName)
             };
         }
     }

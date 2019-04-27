@@ -4,6 +4,7 @@ using MakeNotes.Common.Core.Requests;
 using MakeNotes.DAL.Core;
 using MakeNotes.Notebook.Providers;
 using MakeNotes.Notebook.Templates.VisualBlocks.Models;
+using Mapster;
 
 namespace MakeNotes.Notebook.Core.Commands.Handlers
 {
@@ -22,26 +23,13 @@ namespace MakeNotes.Notebook.Core.Commands.Handlers
 
         public Task<int> ExecuteAsync(AddPasswordSheet command)
         {
-            var passwordSheet = new PasswordSheetDto
-            {
-                Site = command.Site,
-                Username = command.Username,
-                Password = command.Password,
-                Description = command.Description
-            };
+            var passwordSheet = command.Adapt<PasswordSheetDto>();
             return _passwordSheetProvider.CreateVisualBlockAsync(command.TabContentId, passwordSheet);
         }
 
         public async Task<Unit> ExecuteAsync(UpdatePasswordSheet command)
         {
-            var passwordSheet = new PasswordSheetDto
-            {
-                Id = command.Id,
-                Site = command.Site,
-                Username = command.Username,
-                Password = command.Password,
-                Description = command.Description
-            };
+            var passwordSheet = command.Adapt<PasswordSheetDto>();
             await _passwordSheetProvider.UpdateVisualBlockAsync(passwordSheet);
 
             return Unit.Value;

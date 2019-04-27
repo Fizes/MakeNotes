@@ -3,7 +3,7 @@
 namespace MakeNotes.Common.Interfaces
 {
     /// <summary>
-    /// Executes an operation on a separate thread.
+    /// Executes an operation on a background thread.
     /// </summary>
     public interface IBackgroundTask
     {

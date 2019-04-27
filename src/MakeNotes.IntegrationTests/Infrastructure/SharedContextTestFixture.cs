@@ -25,6 +25,7 @@ namespace MakeNotes.IntegrationTests.Infrastructure
             SetCurrentThreadCulture(configuration);
             ConfigureDependencies(configuration);
             DropAndCreateDatabase(configuration);
+            ConfigureMappings();
         }
 
         private static IConfiguration CreateConfiguration()
@@ -35,6 +36,11 @@ namespace MakeNotes.IntegrationTests.Infrastructure
                 .Build();
 
             return config;
+        }
+
+        private static void ConfigureMappings()
+        {
+            MappingConfig.Configure();
         }
 
         private static void DropAndCreateDatabase(IConfiguration configuration)
@@ -48,7 +54,7 @@ namespace MakeNotes.IntegrationTests.Infrastructure
             File.Delete(dbFilePath);
             DatabaseMigrator.Migrate(connectionFactory);
         }
-
+        
         private static void ConfigureDependencies(IConfiguration configuration)
         {
             var builder = AutofacConfig.Configure(new ContainerBuilder(), configuration);

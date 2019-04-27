@@ -52,27 +52,27 @@ namespace MakeNotes.Framework.Services
             return view;
         }
         
-        public async Task Show<TView>() where TView : UserControl, new()
+        public Task ShowAsync<TView>() where TView : UserControl, new()
         {
-            await Show<TView>(null, null);
+            return ShowAsync<TView>(null, null);
         }
         
-        public async Task Show<TView>(object viewModel) where TView : UserControl, new()
+        public Task ShowAsync<TView>(object viewModel) where TView : UserControl, new()
         {
-            await Show<TView>(viewModel, null);
+            return ShowAsync<TView>(viewModel, null);
         }
         
-        public async Task Show<TView>(object viewModel, DialogClosedEventHandler closedEventHandler) where TView : UserControl, new()
+        public Task ShowAsync<TView>(object viewModel, DialogClosedEventHandler closedEventHandler) where TView : UserControl, new()
         {
             var view = GetOrCreateView<TView>();
             view.DataContext = viewModel;
-            await DialogHost.Show(view, RootDialogIdentifier, (s, e) => OnCloseDialog(e, closedEventHandler));
+            return DialogHost.Show(view, RootDialogIdentifier, (s, e) => OnCloseDialog(e, closedEventHandler));
         }
 
-        public Task ShowConfirmation(string title, string text, DialogClosedEventHandler closedEventHandler)
+        public Task ShowConfirmationAsync(string title, string text, DialogClosedEventHandler closedEventHandler)
         {
             var parameters = new ConfirmationDialogParameters { Title = title, Text = text };
-            return Show<ConfirmationDialog>(parameters, closedEventHandler);
+            return ShowAsync<ConfirmationDialog>(parameters, closedEventHandler);
         }
 
         class ConfirmationDialogParameters

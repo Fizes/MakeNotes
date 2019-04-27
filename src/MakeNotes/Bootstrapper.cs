@@ -28,6 +28,8 @@ namespace MakeNotes
 
             var locale = _configuration.GetValue<string>("AppLocale");
             EnvironmentUtility.SetCurrentLocale(locale);
+
+            MappingConfig.Configure();
         }
 
         protected override Window CreateShell()
@@ -44,7 +46,7 @@ namespace MakeNotes
         protected override void InitializeModules()
         {
             // NOTE: Method from the base class is not called to avoid NotSupportedException
-
+            
             var dbConnectionFactory = Container.Resolve<IDbConnectionFactory>();
             DatabaseMigrator.Migrate(dbConnectionFactory);
 

@@ -88,7 +88,7 @@ namespace MakeNotes.Notebook.Templates.VisualBlocks.ViewModels
 
         private async void Delete()
         {
-            await _interactionService.ShowConfirmation(
+            await _interactionService.ShowConfirmationAsync(
                 String.Format(Resources.DeletePasswordsTitle, Title),
                 Resources.DeletePasswordsText,
                 OnCloseDeleteDialog);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper.AmbientContext;
@@ -13,25 +14,30 @@ namespace MakeNotes.IntegrationTests.DAL
     [Collection(FixtureNames.SharedContextFixture)]
     public class DapperRepositoryTests
     {
+        private static IEnumerable<Tab> FilterTabsByNames(IEnumerable<Tab> tabs, params string[] tabNames)
+        {
+            return tabs.Where(t => tabNames.Any(tn => t.Name == tn)).ToArray();
+        }
+
         [Fact]
         public async Task ChildContext_ShouldJoinParentContext_WhenNested()
         {
-            var ambientContextFactory = DependencyResolver.Resolve<IAmbientDbContextFactory>();
             var repository = DependencyResolver.Resolve<IRepository>();
+            var ambientContextFactory = DependencyResolver.Resolve<IAmbientDbContextFactory>();
 
             using (var context = ambientContextFactory.Create())
             {
                 var tab1Name = $"Tab1 {new Guid().ToString()}";
                 var tab2Name = $"Tab2 {new Guid().ToString()}";
+                var tabNames = new[] { tab1Name, tab2Name };
 
                 try
                 {
                     await repository.ExecuteAsync(new QueryObject(TabQueries.CreateTab, new { Name = tab1Name, Order = 0 }));
-
                     await repository.ExecuteAsync(new QueryObject(TabQueries.CreateTab, new { Name = tab2Name, Order = 1 }));
 
                     var tabs = await repository.QueryAsync<Tab>(new QueryObject(TabQueries.GetAllTabs));
-                    tabs = tabs.Where(t => t.Name == tab1Name || t.Name == tab2Name);
+                    tabs = FilterTabsByNames(tabs, tabNames);
 
                     Assert.Equal(2, tabs.Count());
 
@@ -42,7 +48,7 @@ namespace MakeNotes.IntegrationTests.DAL
                     context.Rollback();
 
                     var tabs = await repository.QueryAsync<Tab>(new QueryObject(TabQueries.GetAllTabs));
-                    tabs = tabs.Where(t => t.Name == tab1Name || t.Name == tab2Name);
+                    tabs = FilterTabsByNames(tabs, tabNames);
 
                     Assert.Empty(tabs);
                 }

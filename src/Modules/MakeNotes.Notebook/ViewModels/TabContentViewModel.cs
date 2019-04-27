@@ -9,6 +9,7 @@ using MakeNotes.Notebook.Core.Commands;
 using MakeNotes.Notebook.Core.Notifications;
 using MakeNotes.Notebook.Core.Queries;
 using MakeNotes.Notebook.Models;
+using MakeNotes.Notebook.Properties;
 using MakeNotes.Notebook.Templates;
 using Prism.Commands;
 using Prism.Events;
@@ -25,7 +26,7 @@ namespace MakeNotes.Notebook.ViewModels
         private readonly Dictionary<int, ObservableCollection<VisualBlockTemplate>> _cachedTabContent =
             new Dictionary<int, ObservableCollection<VisualBlockTemplate>>();
 
-        private ObservableCollection<VisualBlockTemplate> _content;
+        private ObservableCollection<VisualBlockTemplate> _content = new ObservableCollection<VisualBlockTemplate>();
 
         public TabContentViewModel(IMessageBus messageBus, IEventAggregator eventAggregator, VisualBlockTemplateFactory visualBlockTemplateFactory)
         {
@@ -42,8 +43,8 @@ namespace MakeNotes.Notebook.ViewModels
             {
                 new ActionMenuItem
                 {
-                    Tooltip = "Add a new password sheet",
-                    Icon = "TablePlus",
+                    Tooltip = Resources.NewPasswordSheetTooltip,
+                    Icon = Resources.NewPasswordSheetIcon,
                     Action = addVisualBlockCommand,
                     ActionParameter = VisualBlockTypes.PasswordSheet
                 }

@@ -9,7 +9,7 @@ namespace MakeNotes.Framework.Controls
 {
     public class DataGridExtended : DataGrid
     {
-        private bool _changesCommited;
+        private bool _changesCommitted;
         private DataGridRow _lastEditedRow;
 
         public event EventHandler CellEditEnded;
@@ -46,7 +46,7 @@ namespace MakeNotes.Framework.Controls
         protected override void OnBeginningEdit(DataGridBeginningEditEventArgs e)
         {
             base.OnBeginningEdit(e);
-            _changesCommited = e.Row != _lastEditedRow;
+            _changesCommitted = e.Row != _lastEditedRow;
         }
 
         protected override void OnCellEditEnding(DataGridCellEditEndingEventArgs e)
@@ -58,9 +58,8 @@ namespace MakeNotes.Framework.Controls
         protected override void OnExecutedCommitEdit(ExecutedRoutedEventArgs e)
         {
             base.OnExecutedCommitEdit(e);
-
             EditedItem = _lastEditedRow?.Item;
-            _changesCommited = true;
+            _changesCommitted = true;
         }
 
         /// <summary>
@@ -92,10 +91,10 @@ namespace MakeNotes.Framework.Controls
 
         private void OnRowLostFocus(object sender, RoutedEventArgs e)
         {
-            if (_changesCommited && EditedItem != null)
+            if (_changesCommitted && EditedItem != null)
             {
                 CellEditEnded?.Invoke(this, e);
-                _changesCommited = false;
+                _changesCommitted = false;
             }
         }
     }

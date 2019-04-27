@@ -9,24 +9,24 @@ namespace MakeNotes.IntegrationTests.Infrastructure.Fakes
     {
         internal static DialogResult DialogResult { get; set; }
 
-        public Task Show<TView>() where TView : UserControl, new()
+        public Task ShowAsync<TView>() where TView : UserControl, new()
         {
             return Task.CompletedTask;
         }
 
-        public Task Show<TView>(object viewModel) where TView : UserControl, new()
+        public Task ShowAsync<TView>(object viewModel) where TView : UserControl, new()
         {
             return Task.CompletedTask;
         }
 
-        public Task Show<TView>(object viewModel, DialogClosedEventHandler closedEventHandler) where TView : UserControl, new()
+        public Task ShowAsync<TView>(object viewModel, DialogClosedEventHandler closedEventHandler) where TView : UserControl, new()
         {
             closedEventHandler?.Invoke(DialogResult);
             DialogResult = DialogResult.Unspecified;
             return Task.CompletedTask;
         }
 
-        public Task ShowConfirmation(string title, string text, DialogClosedEventHandler closedEventHandler)
+        public Task ShowConfirmationAsync(string title, string text, DialogClosedEventHandler closedEventHandler)
         {
             closedEventHandler?.Invoke(DialogResult);
             DialogResult = DialogResult.Unspecified;

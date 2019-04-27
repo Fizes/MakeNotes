@@ -49,6 +49,9 @@
     <Reference Include="Dapper.AmbientContext, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.AmbientContext.1.6.0\lib\net451\Dapper.AmbientContext.dll</HintPath>
     </Reference>
+    <Reference Include="Mapster, Version=3.3.2.0, Culture=neutral, PublicKeyToken=2f39883af23c29a8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mapster.3.3.2\lib\net45\Mapster.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Extensions.Configuration, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
@@ -128,10 +131,13 @@
     <Compile Include="Infrastructure\Fakes\FakeBackgroundTask.cs" />
     <Compile Include="Infrastructure\Fakes\FakeEventAggregator.cs" />
     <Compile Include="Infrastructure\Fakes\FakeInteractionService.cs" />
+    <Compile Include="Infrastructure\Fakes\FakeSynchronizationContext.cs" />
     <Compile Include="Infrastructure\FixtureNames.cs" />
     <Compile Include="Infrastructure\DependencyResolver.cs" />
     <Compile Include="Infrastructure\SharedContextTestFixture.cs" />
+    <Compile Include="Infrastructure\TransactionalTestFixture.cs" />
     <Compile Include="Modules\Notebook\NavbarViewModelTests.cs" />
+    <Compile Include="Modules\Notebook\TabContentViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
